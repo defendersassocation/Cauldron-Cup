@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Registration - Cauldron Cup 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>🏆 Cauldron Cup 2025</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="sponsors.html">Sponsors</a></li>
+                <li><a href="scoreboard.html">Scoreboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Team Registration</h1>
+            
+            <div class="registration-options">
+                <button class="btn btn-primary" onclick="showExistingTeam()">Join Existing Team</button>
+                <button class="btn btn-secondary" onclick="showNewTeam()">Create New Team</button>
+            </div>
+
+            <!-- Search Existing Team -->
+            <div id="existing-team-search" class="form-section" style="display: none;">
+                <h2>Search for Your Team</h2>
+                <div class="form-group">
+                    <input type="text" id="teamSearch" placeholder="Enter team name">
+                    <button onclick="searchTeam()" class="btn btn-primary">Search</button>
+                </div>
+                <div id="teamSearchResults"></div>
+            </div>
+
+            <!-- Create New Team -->
+            <div id="new-team-form" class="form-section" style="display: none;">
+                <h2>Create New Team</h2>
+                <form id="teamRegistrationForm">
+                    <div class="form-group">
+                        <label for="teamName">Team Name *</label>
+                        <input type="text" id="teamName" required>
+                        <div id="teamNameError" class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="captainName">Team Captain Name *</label>
+                        <input type="text" id="captainName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="captainEmail">Captain Email *</label>
+                        <input type="email" id="captainEmail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="captainPhone">Captain Phone *</label>
+                        <input type="tel" id="captainPhone" required>
+                    </div>
+
+                    <h3>Team Members</h3>
+                    <div id="playersContainer">
+                        <div class="player-row">
+                            <input type="text" placeholder="Player 1 Name" class="player-name" required>
+                            <input type="email" placeholder="Player 1 Email" class="player-email">
+                        </div>
+                        <div class="player-row">
+                            <input type="text" placeholder="Player 2 Name" class="player-name" required>
+                            <input type="email" placeholder="Player 2 Email" class="player-email">
+                        </div>
+                        <div class="player-row">
+                            <input type="text" placeholder="Player 3 Name" class="player-name" required>
+                            <input type="email" placeholder="Player 3 Email" class="player-email">
+                        </div>
+                        <div class="player-row">
+                            <input type="text" placeholder="Player 4 Name" class="player-name" required>
+                            <input type="email" placeholder="Player 4 Email" class="player-email">
+                        </div>
+                    </div>
+
+                    <h3>Add-Ons</h3>
+                    <div class="addon-section">
+                        <div class="addon-item">
+                            <label>
+                                <input type="checkbox" id="mulliganBags" onchange="updateTotal()">
+                                Mulligan Bags ($10 per player) - $40 total
+                            </label>
+                        </div>
+                        <div class="addon-item">
+                            <label>
+                                <input type="checkbox" id="puttingString" onchange="updateTotal()">
+                                12" Putting String - $5
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="total-section">
+                        <h3>Total: $<span id="totalAmount">100</span></h3>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+                </form>
+            </div>
+
+            <!-- Payment Section -->
+            <div id="payment-section" style="display: none;">
+                <h2>Payment</h2>
+                <div id="payment-element">
+                    <!-- Stripe Elements will create form elements here -->
+                </div>
+                <button id="submit-payment" class="btn btn-primary">Complete Registration</button>
+                <div id="payment-messages" role="alert"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 45th Security Forces Squadron Defender's Association</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
