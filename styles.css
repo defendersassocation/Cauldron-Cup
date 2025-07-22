@@ -515,3 +515,89 @@ nav {
 
 .btn-logout {
     background: var(--error-red);
+/* Add these styles to your existing styles.css */
+
+/* Tee Times Styles */
+.teetimes-header {
+    text-align: center;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, var(--primary-orange), var(--accent-purple));
+    color: var(--text-white);
+    border-radius: var(--border-radius);
+    margin-bottom: 3rem;
+}
+
+.teetimes-header h1 {
+    color: var(--text-white);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.tournament-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    text-align: center;
+}
+
+.stat-box .stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-white);
+}
+
+.stat-box .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Course Layout */
+.course-layout {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-light);
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.course-info {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* Tee Times Grid */
+.tee-times-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.hole-section {
+    background: var(--bg-light);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    border: 2px solid var(--border-light);
+}
+
+.hole-section.front-
