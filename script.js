@@ -1,0 +1,241 @@
+// Global variables
+let registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
+let teamScores = JSON.parse(localStorage.getItem('teamScores')) || {};
+let currentTotal = 100;
+
+// Stripe configuration (you'll need to replace with your actual publishable key)
+const stripe = Stripe('pk_test_your_stripe_publishable_key_here');
+let elements, paymentElement;
+
+// Initialize page based on current page
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    switch(currentPage) {
+        case 'register.html':
+            initializeRegistration();
+            break;
+        case 'scoreboard.html':
+            initializeScoreboard();
+            break;
+        default:
+            // Home page or other pages
+            break;
+    }
+});
+
+// Registration Functions
+function initializeRegistration() {
+    // Check team name availability as user types
+    const teamNameInput = document.getElementById('teamName');
+    if (teamNameInput) {
+        teamNameInput.addEventListener('input', checkTeamNameAvailability);
+    }
+
+    // Set up form submission
+    const registrationForm = document.getElementById('teamRegistrationForm');
+    if (registrationForm) {
+        registrationForm.addEventListener('submit', handleRegistrationSubmit);
+    }
+}
+
+function showExistingTeam() {
+    document.getElementById('existing-team-search').style.display = 'block';
+    document.getElementById('new-team-form').style.display = 'none';
+    document.getElementById('payment-section').style.display = 'none';
+}
+
+function showNewTeam() {
+    document.getElementById('existing-team-search').style.display = 'none';
+    document.getElementById('new-team-form').style.display = 'block';
+    document.getElementById('payment-section').style.display = 'none';
+}
+
+function searchTeam() {
+    const searchTerm = document.getElementById('teamSearch').value.toLowerCase();
+    const results = document.getElementById('teamSearchResults');
+    
+    const foundTeams = registeredTeams.filter(team => 
+        team.name.toLowerCase().includes(searchTerm)
+    );
+    
+    if (foundTeams.length > 0) {
+        results.innerHTML = '<h3>Found Teams:</h3>' + 
+            foundTeams.map(team => `
+                <div class="team-result">
+                    <strong>${team.name}</strong> - Captain: ${team.captain}
+                    <button onclick="joinTeam('${team.id}')" class="btn btn-primary">Join This Team</button>
+                </div>
+            `).join('');
+    } else {
+        results.innerHTML = '<p>No teams found. Try creating a new team instead.</p>';
+    }
+}
+
+function joinTeam(teamId) {
+    const team = registeredTeams.find(t => t.id === teamId);
+    if (team && team.players.length < 4) {
+        // Show form to add player to existing team
+        alert(`Joining team: ${team.name}. Contact the team captain: ${team.captainEmail}`);
+    } else {
+        alert('This team is already full.');
+    }
+}
+
+function checkTeamNameAvailability() {
+    const teamName = document.getElementById('teamName').value;
+    const errorDiv = document.getElementById('teamNameError');
+    
+    if (teamName.length > 0) {
+        const exists = registeredTeams.some(team => 
+            team.name.toLowerCase() === teamName.toLowerCase()
+        );
+        
+        if (exists) {
+            errorDiv.textContent = 'This team name is already taken. Please choose another.';
+            errorDiv.style.display = 'block';
+            return false;
+        } else {
+            errorDiv.textContent = '';
+            errorDiv.style.display = 'none';
+            return true;
+        }
+    }
+    return true;
+}
+
+function updateTotal() {
+    let total = 100; // Base registration fee
+    
+    if (document.getElementById('mulliganBags').checked) {
+        total += 40; // $10 per player x 4 players
+    }
+    
+    if (document.getElementById('puttingString').checked) {
+        total += 5;
+    }
+    
+    currentTotal = total;
+    document.getElementById('totalAmount').textContent = total;
+}
+
+function handleRegistrationSubmit(e) {
+    e.preventDefault();
+    
+    if (!checkTeamNameAvailability()) {
+        return;
+    }
+    
+    // Collect form data
+    const teamData = {
+        id: Date.now().toString(),
+        name: document.getElementById('teamName').value,
+        captain: document.getElementById('captainName').value,
+        captainEmail: document.getElementById('captainEmail').value,
+        captainPhone: document.getElementById('captainPhone').value,
+        players: [],
+        addOns: {
+            mulliganBags: document.getElementById('mulliganBags').checked,
+            puttingString: document.getElementById('puttingString').checked
+        },
+        total: currentTotal,
+        registrationDate: new Date().toISOString()
+    };
+    
+    // Collect player names
+    const playerNames = document.querySelectorAll('.player-name');
+    const playerEmails = document.querySelectorAll('.player-email');
+    
+    for (let i = 0; i < playerNames.length; i++) {
+        if (playerNames[i].value.trim()) {
+            teamData.players.push({
+                name: playerNames[i].value.trim(),
+                email: playerEmails[i].value.trim()
+            });
+        }
+    }
+    
+    if (teamData.players.length < 4) {
+        alert('Please enter all 4 player names.');
+        return;
+    }
+    
+    // Store team data temporarily
+    sessionStorage.setItem('pendingTeamRegistration', JSON.stringify(teamData));
+    
+    // Show payment section
+    showPaymentSection();
+}
+
+function showPaymentSection() {
+    document.getElementById('new-team-form').style.display = 'none';
+    document.getElementById('payment-section').style.display = 'block';
+    
+    // Initialize Stripe Elements
+    initializeStripePayment();
+}
+
+function initializeStripePayment() {
+    // Note: You'll need to implement server-side payment processing
+    // This is a simplified client-side example
+    
+    const appearance = {
+        theme: 'stripe',
+        variables: {
+            colorPrimary: '#1e3c72',
+        }
+    };
+    
+    // You'll need to create a PaymentIntent on your server and pass the client_secret
+    // For now, we'll simulate the payment process
+    
+    document.getElementById('submit-payment').addEventListener('click', function() {
+        // Simulate payment processing
+        setTimeout(() => {
+            completeRegistration();
+        }, 2000);
+        
+        this.textContent = 'Processing...';
+        this.disabled = true;
+    });
+}
+
+function completeRegistration() {
+    const teamData = JSON.parse(sessionStorage.getItem('pendingTeamRegistration'));
+    
+    // Add team to registered teams
+    registeredTeams.push(teamData);
+    localStorage.setItem('registeredTeams', JSON.stringify(registeredTeams));
+    
+    // Initialize empty scorecard for the team
+    teamScores[teamData.id] = {
+        teamName: teamData.name,
+        captain: teamData.captain,
+        scores: new Array(18).fill(null),
+        totalScore: 0,
+        holesCompleted: 0
+    };
+    localStorage.setItem('teamScores', JSON.stringify(teamScores));
+    
+    // Clear pending registration
+    sessionStorage.removeItem('pendingTeamRegistration');
+    
+    // Show success message
+    alert(`Registration complete! Team "${teamData.name}" has been registered successfully.`);
+    
+    // Redirect to home page
+    window.location.href = 'index.html';
+}
+
+// Sponsor Functions
+function emailSponsors(packageType) {
+    const subject = encodeURIComponent(`Cauldron Cup 2025 - ${packageType} Inquiry`);
+    const body = encodeURIComponent(`Hello,
+
+I am interested in learning more about the ${packageType} for the Cauldron Cup 2025 golf tournament.
+
+Please provide me with more details about this sponsorship opportunity.
+
+Thank you!`);
+    
+    const mailtoLink = `mailto:Monique.Nelson@edwardjones.com,christopher.sanford.2@spaceforce.mil,ch
