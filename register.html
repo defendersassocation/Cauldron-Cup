@@ -24,154 +24,105 @@
     
     <main>
         <div class="container">
-            <div class="registration-header">
-                <h1>Individual Player Registration</h1>
-                <p class="registration-subtitle">Register as an individual player - $85 per person</p>
-            </div>
+            <h1>Individual Player Registration</h1>
+            <p>Register as an individual player - $85 per person</p>
 
-            <div class="registration-options">
-                <button class="btn btn-primary" onclick="showExistingTeam()">
-                    <span class="btn-icon">👥</span>
-                    Join Existing Team
+            <!-- Test Buttons -->
+            <div style="margin: 2rem 0; text-align: center;">
+                <button onclick="testShowExisting()" style="padding: 1rem; margin: 0.5rem; background: #ff6b35; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                    👥 Join Existing Team
                 </button>
-                <button class="btn btn-secondary" onclick="showNewTeam()">
-                    <span class="btn-icon">⭐</span>
-                    Create New Team
+                <button onclick="testShowNew()" style="padding: 1rem; margin: 0.5rem; background: #6c5ce7; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                    ⭐ Create New Team
                 </button>
             </div>
 
             <!-- Search Existing Team -->
-            <div id="existing-team-search" class="form-section" style="display: none;">
+            <div id="existing-team-search" style="display: none; background: #f8f9fa; padding: 2rem; border-radius: 12px; margin: 2rem 0;">
                 <h2>🔍 Find Your Team</h2>
-                <div class="search-container">
-                    <div class="form-group">
-                        <input type="text" id="teamSearch" placeholder="Enter team name to search...">
-                        <button onclick="searchTeam()" class="btn btn-primary">Search Teams</button>
-                    </div>
-                </div>
-                <div id="teamSearchResults" class="search-results"></div>
+                <input type="text" id="teamSearch" placeholder="Enter team name to search..." style="width: 100%; padding: 12px; margin: 1rem 0;">
+                <button onclick="searchTeam()" style="padding: 12px 24px; background: #ff6b35; color: white; border: none; border-radius: 8px;">Search Teams</button>
+                <div id="teamSearchResults" style="margin-top: 1rem;"></div>
             </div>
 
             <!-- Individual Player Registration -->
-            <div id="new-team-form" class="form-section" style="display: none;">
-                <h2 id="form-title">⚡ Player Registration</h2>
-                <p class="form-description" id="form-description">Register as an individual player. If your team doesn't exist, you'll create it!</p>
+            <div id="new-team-form" style="display: none; background: #f8f9fa; padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+                <h2>⚡ Player Registration</h2>
+                <p>Register as an individual player. If your team doesn't exist, you'll create it!</p>
                 
-                <form id="playerRegistrationForm">
-                    <!-- Player Information -->
-                    <div class="section-header">
-                        <h3>👤 Your Information</h3>
+                <form id="playerForm" style="margin-top: 2rem;">
+                    <h3>👤 Your Information</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+                        <div>
+                            <label>Full Name *</label>
+                            <input type="text" id="playerName" required style="width: 100%; padding: 12px; margin-top: 0.5rem;">
+                        </div>
+                        <div>
+                            <label>Email Address *</label>
+                            <input type="email" id="playerEmail" required style="width: 100%; padding: 12px; margin-top: 0.5rem;">
+                        </div>
+                    </div>
+
+                    <div style="margin: 1rem 0;">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="playerPhone" required style="width: 100%; padding: 12px; margin-top: 0.5rem;">
+                    </div>
+
+                    <h3>🏌️ Team Information</h3>
+                    
+                    <div style="margin: 1rem 0;">
+                        <label>Team Name *</label>
+                        <input type="text" id="teamName" required style="width: 100%; padding: 12px; margin-top: 0.5rem;">
                     </div>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="playerName">Full Name *</label>
-                            <input type="text" id="playerName" required placeholder="Enter your full name">
-                        </div>
-                        <div class="form-group">
-                            <label for="playerEmail">Email Address *</label>
-                            <input type="email" id="playerEmail" required placeholder="your.email@example.com">
-                        </div>
+                    <div style="margin: 1rem 0;">
+                        <label>
+                            <input type="checkbox" id="isTeamCaptain" style="margin-right: 0.5rem;">
+                            I am the team captain
+                        </label>
                     </div>
 
-                    <div class="form-group">
-                        <label for="playerPhone">Phone Number *</label>
-                        <input type="tel" id="playerPhone" required placeholder="(555) 123-4567">
-                    </div>
-
-                    <!-- Team Information -->
-                    <div class="section-header">
-                        <h3>🏌️ Team Information</h3>
+                    <h3>🛍️ Personal Add-Ons</h3>
+                    
+                    <div style="margin: 1rem 0;">
+                        <label>
+                            <input type="checkbox" id="personalMulligan" onchange="updateTotal()" style="margin-right: 0.5rem;">
+                            Mulligan Bag - $10
+                        </label>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="teamName">Team Name *</label>
-                        <input type="text" id="teamName" required placeholder="Enter your team name">
-                        <div id="teamNameStatus" class="team-status-message"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="checkbox-container">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="isTeamCaptain">
-                                I am the team captain
-                            </label>
-                            <small class="help-text">Check this if you're organizing this team</small>
-                        </div>
+                    <div style="margin: 1rem 0;">
+                        <label>
+                            <input type="checkbox" id="personalPuttingString" onchange="updateTotal()" style="margin-right: 0.5rem;">
+                            12" Putting String - $5
+                        </label>
                     </div>
 
-                    <!-- Individual Add-Ons -->
-                    <div class="section-header">
-                        <h3>🛍️ Personal Add-Ons</h3>
-                    </div>
-                    
-                    <div class="addon-grid">
-                        <div class="addon-card">
-                            <label class="addon-label">
-                                <input type="checkbox" id="personalMulligan" onchange="updateIndividualTotal()">
-                                <div class="addon-content">
-                                    <div class="addon-title">Mulligan Bag</div>
-                                    <div class="addon-price">$10</div>
-                                    <div class="addon-description">Extra chances for those tricky shots</div>
-                                </div>
-                            </label>
-                        </div>
-                        
-                        <div class="addon-card">
-                            <label class="addon-label">
-                                <input type="checkbox" id="personalPuttingString" onchange="updateIndividualTotal()">
-                                <div class="addon-content">
-                                    <div class="addon-title">12" Putting String</div>
-                                    <div class="addon-price">$5</div>
-                                    <div class="addon-description">Gimme putts within 12 inches</div>
-                                </div>
-                            </label>
-                        </div>
+                    <div style="background: linear-gradient(135deg, #ff6b35, #6c5ce7); color: white; padding: 1.5rem; border-radius: 12px; margin: 2rem 0;">
+                        <h3 style="margin: 0; color: white;">Your Total: $<span id="individualTotal">85</span></h3>
                     </div>
 
-                    <!-- Total Section -->
-                    <div class="total-card">
-                        <div class="total-breakdown">
-                            <div class="total-line">
-                                <span>Registration Fee:</span>
-                                <span>$85</span>
-                            </div>
-                            <div class="total-line addon-line" id="mulligan-line" style="display: none;">
-                                <span>Mulligan Bag:</span>
-                                <span>$10</span>
-                            </div>
-                            <div class="total-line addon-line" id="string-line" style="display: none;">
-                                <span>Putting String:</span>
-                                <span>$5</span>
-                            </div>
-                            <div class="total-final">
-                                <span>Your Total:</span>
-                                <span class="total-amount">$<span id="individualTotal">85</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-large">
+                    <button type="submit" style="width: 100%; padding: 1.2rem; background: #ff6b35; color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer;">
                         🎯 Register & Pay $<span id="button-total">85</span>
                     </button>
                 </form>
             </div>
 
             <!-- Payment Section -->
-            <div id="payment-section" class="form-section" style="display: none;">
+            <div id="payment-section" style="display: none; background: #f8f9fa; padding: 2rem; border-radius: 12px; margin: 2rem 0;">
                 <h2>💳 Complete Your Registration</h2>
-                <div id="payment-summary" class="payment-summary"></div>
+                <div id="payment-summary" style="margin: 1rem 0;"></div>
                 
-                <div class="payment-demo">
-                    <h3>Demo Payment Mode</h3>
+                <div style="background: rgba(40, 167, 69, 0.1); border: 2px solid #00b894; border-radius: 12px; padding: 2rem; text-align: center; margin: 2rem 0;">
+                    <h3 style="color: #00b894;">Demo Payment Mode</h3>
                     <p>This is a demonstration. No actual payment will be processed.</p>
-                    <button id="submit-payment" class="btn btn-primary btn-large">
+                    <button id="submit-payment" style="padding: 1.2rem 2rem; background: #00b894; color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer;">
                         ✅ Complete Registration (Demo)
                     </button>
                 </div>
                 
-                <button onclick="goBackToForm()" class="btn btn-outline">← Back to Registration Form</button>
-                <div id="payment-messages" class="message-container"></div>
+                <button onclick="goBackToForm()" style="padding: 12px 24px; background: transparent; color: #ff6b35; border: 2px solid #ff6b35; border-radius: 8px; cursor: pointer;">← Back to Registration Form</button>
             </div>
         </div>
     </main>
@@ -183,114 +134,43 @@
     </footer>
 
     <script>
-        // Simple functions that work
-        function showExistingTeam() {
+        // Simple test functions
+        function testShowExisting() {
+            console.log('Show existing clicked');
             document.getElementById('existing-team-search').style.display = 'block';
             document.getElementById('new-team-form').style.display = 'none';
             document.getElementById('payment-section').style.display = 'none';
-            
-            // Update button states
-            document.querySelectorAll('.registration-options button').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.registration-options button')[0].classList.add('active');
         }
 
-        function showNewTeam() {
+        function testShowNew() {
+            console.log('Show new clicked');
             document.getElementById('existing-team-search').style.display = 'none';
             document.getElementById('new-team-form').style.display = 'block';
             document.getElementById('payment-section').style.display = 'none';
-            
-            // Update button states
-            document.querySelectorAll('.registration-options button').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.registration-options button')[1].classList.add('active');
         }
 
         function searchTeam() {
-            const searchTerm = document.getElementById('teamSearch').value.toLowerCase().trim();
+            console.log('Search team called');
+            const searchTerm = document.getElementById('teamSearch').value;
             const results = document.getElementById('teamSearchResults');
             
             if (!searchTerm) {
-                results.innerHTML = '<div class="search-message">Please enter a team name to search.</div>';
+                results.innerHTML = '<p>Please enter a team name to search.</p>';
                 return;
             }
-
-            const registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
-            const foundTeams = registeredTeams.filter(team =>
-                team.name.toLowerCase().includes(searchTerm)
-            );
-
-            if (foundTeams.length > 0) {
-                results.innerHTML = '<h3>Found Teams:</h3>' +
-                    foundTeams.map(team => {
-                        const playerCount = team.players ? team.players.length : 0;
-                        const spotsLeft = 4 - playerCount;
-                        
-                        return `
-                            <div class="team-result-card">
-                                <div class="team-info">
-                                    <h4>${team.name}</h4>
-                                    <p><strong>Captain:</strong> ${team.captain || 'TBD'}</p>
-                                    <p><strong>Players:</strong> ${playerCount}/4</p>
-                                    <p><strong>Spots Available:</strong> ${spotsLeft}</p>
-                                </div>
-                                <div class="team-actions">
-                                    ${spotsLeft > 0 ? 
-                                        `<button onclick="joinExistingTeam('${team.id}', '${team.name}')" class="btn btn-primary">
-                                            Join Team - $85
-                                        </button>` :
-                                        `<span class="team-full-badge">Team Full</span>`
-                                    }
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
-            } else {
-                results.innerHTML = `
-                    <div class="no-results-card">
-                        <h3>No teams found</h3>
-                        <p>No teams found matching "${searchTerm}".</p>
-                        <p>Would you like to create a new team with this name?</p>
-                        <button onclick="createTeamWithName('${searchTerm}')" class="btn btn-secondary">
-                            Create "${searchTerm}" Team
-                        </button>
-                    </div>
-                `;
-            }
-        }
-
-        function joinExistingTeam(teamId, teamName) {
-            showNewTeam();
-            document.getElementById('teamName').value = teamName;
-            document.getElementById('teamName').readOnly = true;
-            document.getElementById('isTeamCaptain').checked = false;
-            document.getElementById('isTeamCaptain').disabled = true;
             
-            document.getElementById('form-title').textContent = `👥 Join Team: ${teamName}`;
-            document.getElementById('form-description').textContent = `You're joining the existing team "${teamName}". Fill out your information below.`;
+            results.innerHTML = '<p>Search functionality will be added here.</p>';
         }
 
-        function createTeamWithName(teamName) {
-            showNewTeam();
-            document.getElementById('teamName').value = teamName;
-            document.getElementById('isTeamCaptain').checked = true;
-            document.getElementById('form-title').textContent = '⭐ Create New Team';
-            document.getElementById('form-description').textContent = `Creating team "${teamName}". You'll be the team captain!`;
-        }
-
-        function updateIndividualTotal() {
+        function updateTotal() {
             let total = 85;
             
             if (document.getElementById('personalMulligan').checked) {
                 total += 10;
-                document.getElementById('mulligan-line').style.display = 'flex';
-            } else {
-                document.getElementById('mulligan-line').style.display = 'none';
             }
             
             if (document.getElementById('personalPuttingString').checked) {
                 total += 5;
-                document.getElementById('string-line').style.display = 'flex';
-            } else {
-                document.getElementById('string-line').style.display = 'none';
             }
             
             document.getElementById('individualTotal').textContent = total;
@@ -302,58 +182,42 @@
             document.getElementById('new-team-form').style.display = 'block';
         }
 
-        // Form submission handling
+        // Form handling
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('playerRegistrationForm');
+            const form = document.getElementById('playerForm');
             if (form) {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
-                    // Collect player data
                     const playerData = {
-                        id: 'player_' + Date.now(),
-                        name: document.getElementById('playerName').value.trim(),
-                        email: document.getElementById('playerEmail').value.trim(),
-                        phone: document.getElementById('playerPhone').value.trim(),
-                        teamName: document.getElementById('teamName').value.trim(),
+                        name: document.getElementById('playerName').value,
+                        email: document.getElementById('playerEmail').value,
+                        phone: document.getElementById('playerPhone').value,
+                        teamName: document.getElementById('teamName').value,
                         isCaptain: document.getElementById('isTeamCaptain').checked,
-                        addOns: {
-                            mulligan: document.getElementById('personalMulligan').checked,
-                            puttingString: document.getElementById('personalPuttingString').checked
-                        },
-                        total: parseInt(document.getElementById('individualTotal').textContent),
-                        registrationDate: new Date().toISOString()
+                        total: parseInt(document.getElementById('individualTotal').textContent)
                     };
 
-                    // Store for payment
-                    sessionStorage.setItem('pendingPlayerRegistration', JSON.stringify(playerData));
-                    
-                    // Show payment summary
                     document.getElementById('payment-summary').innerHTML = `
                         <h3>Registration Summary</h3>
                         <p><strong>Player:</strong> ${playerData.name}</p>
-                        <p><strong>Email:</strong> ${playerData.email}</p>
                         <p><strong>Team:</strong> ${playerData.teamName}</p>
-                        <p><strong>Role:</strong> ${playerData.isCaptain ? 'Team Captain' : 'Team Member'}</p>
                         <p><strong>Total:</strong> $${playerData.total}</p>
                     `;
                     
-                    // Show payment section
                     document.getElementById('new-team-form').style.display = 'none';
                     document.getElementById('payment-section').style.display = 'block';
                 });
             }
 
-            // Payment completion
             const paymentBtn = document.getElementById('submit-payment');
             if (paymentBtn) {
                 paymentBtn.addEventListener('click', function() {
-                    const playerData = JSON.parse(sessionStorage.getItem('pendingPlayerRegistration'));
-                    
-                    if (!playerData) {
-                        alert('Registration data not found. Please try again.');
-                        return;
-                    }
-
-                    // Get existing teams
-                    let registeredTeams = JSON.
+                    alert('Registration completed! (Demo mode)');
+                    location.reload();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
