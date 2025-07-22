@@ -238,4 +238,194 @@ Please provide me with more details about this sponsorship opportunity.
 
 Thank you!`);
     
-    const mailtoLink = `mailto:Monique.Nelson@edwardjones.com,christopher.sanford.2@spaceforce.mil,ch
+    const mailtoLink = `mailto:Monique.Nelson@edwardjones.com,christopher.sanford.2@spaceforce.mil,charnetta.mcdonald.1@spaceforce.mil?subject=${subject}&body=${body}`;
+    
+    window.location.href = mailtoLink;
+}
+
+// Scoreboard Functions
+function initializeScoreboard() {
+    loadLeaderboard();
+    populateTeamSelector();
+    
+    // Set up score submission form
+    const scoreForm = document.getElementById('scoreSubmissionForm');
+    if (scoreForm) {
+        scoreForm.addEventListener('submit', handleScoreSubmission);
+    }
+}
+
+function handleScoreSubmission(e) {
+    e.preventDefault();
+    
+    const teamName = document.getElementById('submitTeamName').value;
+    const captainName = document.getElementById('submitCaptainName').value;
+    const holeNumber = parseInt(document.getElementById('holeNumber').value);
+    const score = parseInt(document.getElementById('score').value);
+    
+    // Verify team exists and captain name matches
+    const team = registeredTeams.find(t => 
+        t.name.toLowerCase() === teamName.toLowerCase() && 
+        t.captain.toLowerCase() === captainName.toLowerCase()
+    );
+    
+    if (!team) {
+        showMessage('Team name and captain name do not match our records.', 'error');
+        return;
+    }
+    
+    // Update score
+    if (!teamScores[team.id]) {
+        teamScores[team.id] = {
+            teamName: team.name,
+            captain: team.captain,
+            scores: new Array(18).fill(null),
+            totalScore: 0,
+            holesCompleted: 0
+        };
+    }
+    
+    const teamScore = teamScores[team.id];
+    
+    // Check if score already exists for this hole
+    if (teamScore.scores[holeNumber - 1] !== null) {
+        if (!confirm('A score already exists for this hole. Do you want to update it?')) {
+            return;
+        }
+    }
+    
+    // Update the score
+    const oldScore = teamScore.scores[holeNumber - 1] || 0;
+    teamScore.scores[holeNumber - 1] = score;
+    teamScore.totalScore = teamScore.totalScore - oldScore + score;
+    teamScore.holesCompleted = teamScore.scores.filter(s => s !== null).length;
+    
+    // Save to localStorage
+    localStorage.setItem('teamScores', JSON.stringify(teamScores));
+    
+    // Update displays
+    loadLeaderboard();
+    populateTeamSelector();
+    
+    // Clear form and show success message
+    e.target.reset();
+    showMessage('Score submitted successfully!', 'success');
+}
+
+function showMessage(message, type) {
+    const messageDiv = document.getElementById('scoreSubmissionMessage');
+    messageDiv.textContent = message;
+    messageDiv.className = type === 'error' ? 'error-message' : 'success-message';
+    
+    setTimeout(() => {
+        messageDiv.textContent = '';
+        messageDiv.className = '';
+    }, 3000);
+}
+
+function loadLeaderboard() {
+    const leaderboardBody = document.getElementById('leaderboardBody');
+    if (!leaderboardBody) return;
+    
+    // Convert teamScores to array and sort by total score
+    const teams = Object.values(teamScores)
+        .filter(team => team.holesCompleted > 0)
+        .sort((a, b) => a.totalScore - b.totalScore);
+    
+    const par = 72;
+    
+    leaderboardBody.innerHTML = teams.map((team, index) => {
+        const toPar = team.totalScore - (par * team.holesCompleted / 18);
+        const toParDisplay = toPar === 0 ? 'E' : (toPar > 0 ? `+${toPar}` : toPar);
+        
+        return `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${team.teamName}</td>
+                <td>${team.captain}</td>
+                <td>${team.totalScore}</td>
+                <td>${team.holesCompleted}</td>
+                <td>${toParDisplay}</td>
+            </tr>
+        `;
+    }).join('');
+    
+    if (teams.length === 0) {
+        leaderboardBody.innerHTML = '<tr><td colspan="6">No scores submitted yet</td></tr>';
+    }
+}
+
+function populateTeamSelector() {
+    const teamSelect = document.getElementById('teamSelect');
+    if (!teamSelect) return;
+    
+    const teams = Object.values(teamScores).filter(team => team.holesCompleted > 0);
+    
+    teamSelect.innerHTML = '<option value="">Select a team to view scorecard</option>' +
+        teams.map(team => `<option value="${team.teamName}">${team.teamName}</option>`).join('');
+}
+
+function showTeamScorecard() {
+    const selectedTeam = document.getElementById('teamSelect').value;
+    const scorecardDiv = document.getElementById('teamScorecard');
+    const scorecardBody = document.getElementById('scorecardBody');
+    
+    if (!selectedTeam) {
+        scorecardDiv.style.display = 'none';
+        return;
+    }
+    
+    const team = Object.values(teamScores).find(t => t.teamName === selectedTeam);
+    if (!team) return;
+    
+    const par = [4,3,5,4,4,3,4,5,4,4,3,5,4,4,3,4,5,4];
+    const front9Score = team.scores.slice(0, 9).reduce((sum, score) => sum + (score || 0), 0);
+    const back9Score = team.scores.slice(9, 18).reduce((sum, score) => sum + (score || 0), 0);
+    
+    scorecardBody.innerHTML = `
+        <tr>
+            <td><strong>${team.teamName}</strong></td>
+            ${team.scores.slice(0, 9).map(score => `<td>${score || '-'}</td>`).join('')}
+            <td><strong>${front9Score || '-'}</strong></td>
+            ${team.scores.slice(9, 18).map(score => `<td>${score || '-'}</td>`).join('')}
+            <td><strong>${back9Score || '-'}</strong></td>
+            <td><strong>${team.totalScore || '-'}</strong></td>
+        </tr>
+    `;
+    
+    scorecardDiv.style.display = 'block';
+}
+
+function showOverall() {
+    loadLeaderboard();
+    updateFilterButtons('overall');
+}
+
+function showFront9() {
+    // Filter leaderboard for front 9 only
+    updateFilterButtons('front9');
+}
+
+function showBack9() {
+    // Filter leaderboard for back 9 only
+    updateFilterButtons('back9');
+}
+
+function updateFilterButtons(active) {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`.filter-btn:nth-child(${active === 'overall' ? 1 : active === 'front9' ? 2 : 3})`).classList.add('active');
+}
+
+// Utility Functions
+function generateTeamId() {
+    return Date.now().toString() + Math.random().toString(36).substr(2, 9);
+}
+
+// Auto-refresh scoreboard every 30 seconds if on scoreboard page
+if (window.location.pathname.includes('scoreboard.html')) {
+    setInterval(() => {
+        loadLeaderboard();
+    }, 30000);
+}
