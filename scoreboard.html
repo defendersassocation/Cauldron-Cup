@@ -1,171 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Scoreboard - Cauldron Cup 2025</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cauldron Cup Live Scoreboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #121212;
+      color: #f5f5f5;
+      margin: 0;
+      padding: 1rem;
+    }
+    h1 {
+      text-align: center;
+      color: #ffa500;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 165, 0, 0.5);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #ff6600;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1.5rem;
+    }
+    button:hover {
+      background-color: #e65c00;
+    }
+    #scoreboard {
+      margin-top: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .score-entry {
+      background: #262626;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+    }
+    .success {
+      color: #00ff99;
+      margin-top: 1rem;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <h1>🏆 Cauldron Cup 2025</h1>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="register.html">Register</a></li>
-                <li><a href="sponsors.html">Sponsors</a></li>
-                <li><a href="scoreboard.html">Scoreboard</a></li>
-            </ul>
-        </nav>
-    </header>
+  <h1>🧙‍♂️ Cauldron Cup Live Scoreboard</h1>
+  <form id="score-form">
+    <label for="team">Team Name</label>
+    <input type="text" id="team" required />
 
-    <main>
-        <div class="container">
-            <h1>Live Tournament Scoreboard</h1>
-            <p class="tournament-date">October 10th, 2025 - Cocoa Beach Country Club</p>
+    <label for="hole">Hole Number</label>
+    <select id="hole">
+      <option value="">Select Hole</option>
+      <!-- Add holes 1-18 -->
+      ${[...Array(18).keys()].map(i => `<option value="${i+1}">${i+1}</option>`).join('')}
+    </select>
 
-            <!-- Score Submission Form -->
-            <div class="score-submission">
-                <h2>Submit Your Score</h2>
-                <form id="scoreSubmissionForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="submitTeamName">Team Name *</label>
-                            <input type="text" id="submitTeamName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="submitCaptainName">Team Captain Name *</label>
-                            <input type="text" id="submitCaptainName" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="holeNumber">Hole Number *</label>
-                            <select id="holeNumber" required>
-                                <option value="">Select Hole</option>
-                                <option value="1">Hole 1</option>
-                                <option value="2">Hole 2</option>
-                                <option value="3">Hole 3</option>
-                                <option value="4">Hole 4</option>
-                                <option value="5">Hole 5</option>
-                                <option value="6">Hole 6</option>
-                                <option value="7">Hole 7</option>
-                                <option value="8">Hole 8</option>
-                                <option value="9">Hole 9</option>
-                                <option value="10">Hole 10</option>
-                                <option value="11">Hole 11</option>
-                                <option value="12">Hole 12</option>
-                                <option value="13">Hole 13</option>
-                                <option value="14">Hole 14</option>
-                                <option value="15">Hole 15</option>
-                                <option value="16">Hole 16</option>
-                                <option value="17">Hole 17</option>
-                                <option value="18">Hole 18</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="score">Score *</label>
-                            <input type="number" id="score" min="1" max="15" required>
-                        </div>
-                    </div>
+    <label for="score">Score</label>
+    <input type="number" id="score" min="1" max="12" required />
 
-                    <button type="submit" class="btn btn-primary">Submit Score</button>
-                </form>
-                <div id="scoreSubmissionMessage"></div>
-            </div>
+    <button type="submit" id="submitBtn">Submit Score</button>
+    <div class="success" id="message"></div>
+  </form>
 
-            <!-- Leaderboard -->
-            <div class="leaderboard">
-                <h2>Current Leaderboard</h2>
-                <div class="leaderboard-filters">
-                    <button class="filter-btn active" onclick="showOverall()">Overall</button>
-                    <button class="filter-btn" onclick="showFront9()">Front 9</button>
-                    <button class="filter-btn" onclick="showBack9()">Back 9</button>
-                </div>
-                
-                <div class="scoreboard-table">
-                    <table id="leaderboardTable">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Team Name</th>
-                                <th>Captain</th>
-                                <th>Score</th>
-                                <th>Thru</th>
-                                <th>To Par</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboardBody">
-                            <!-- Scores will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <div id="scoreboard">
+    <h2>📋 Scores Submitted</h2>
+    <div id="entries"></div>
+  </div>
 
-            <!-- Detailed Scorecard -->
-            <div class="detailed-scores">
-                <h2>Team Scorecards</h2>
-                <div class="team-selector">
-                    <select id="teamSelect" onchange="showTeamScorecard()">
-                        <option value="">Select a team to view scorecard</option>
-                    </select>
-                </div>
-                
-                <div id="teamScorecard" style="display: none;">
-                    <table class="scorecard-table">
-                        <thead>
-                            <tr>
-                                <th>Hole</th>
-                                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>OUT</th>
-                                <th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>IN</th><th>TOTAL</th>
-                            </tr>
-                            <tr>
-                                <th>Par</th>
-                                <td>4</td><td>3</td><td>5</td><td>4</td><td>4</td><td>3</td><td>4</td><td>5</td><td>4</td><td>36</td>
-                                <td>4</td><td>3</td><td>5</td><td>4</td><td>4</td><td>3</td><td>4</td><td>5</td><td>4</td><td>36</td><td>72</td>
-                            </tr>
-                        </thead>
-                        <tbody id="scorecardBody">
-                            <!-- Team scorecard will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <script>
+    const form = document.getElementById('score-form');
+    const entriesDiv = document.getElementById('entries');
+    const message = document.getElementById('message');
+    const submitBtn = document.getElementById('submitBtn');
 
-            <!-- Contest Leaders -->
-            <div class="contest-leaders">
-                <h2>Contest Leaders</h2>
-                <div class="contests-grid">
-                    <div class="contest-card">
-                        <h3>Longest Drive - Men</h3>
-                        <div id="longestDriveMen">No entries yet</div>
-                    </div>
-                    <div class="contest-card">
-                        <h3>Longest Drive - Women</h3>
-                        <div id="longestDriveWomen">No entries yet</div>
-                    </div>
-                    <div class="contest-card">
-                        <h3>Closest to Pin</h3>
-                        <div id="closestToPin">No entries yet</div>
-                    </div>
-                    <div class="contest-card">
-                        <h3>Hole-in-One</h3>
-                        <div id="holeInOne">No entries yet</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+    const scores = JSON.parse(localStorage.getItem('cauldronScores')) || [];
+    scores.forEach(displayScore);
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 45th Security Forces Squadron Defender's Association</p>
-        </div>
-    </footer>
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const team = document.getElementById('team').value.trim();
+      const hole = document.getElementById('hole').value;
+      const score = document.getElementById('score').value;
 
-    <script src="script.js"></script>
+      if (!team || !hole || !score) {
+        message.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      submitBtn.disabled = true;
+
+      const entry = { team, hole, score, timestamp: new Date().toLocaleString() };
+      scores.push(entry);
+      localStorage.setItem('cauldronScores', JSON.stringify(scores));
+      displayScore(entry);
+      form.reset();
+      message.textContent = '✅ Score submitted!';
+      setTimeout(() => {
+        message.textContent = '';
+        submitBtn.disabled = false;
+      }, 2000);
+    });
+
+    function displayScore(entry) {
+      const div = document.createElement('div');
+      div.className = 'score-entry';
+      div.innerHTML = `<strong>${entry.team}</strong> - Hole ${entry.hole} → ${entry.score} strokes <br><small>${entry.timestamp}</small>`;
+      entriesDiv.prepend(div);
+    }
+  </script>
 </body>
 </html>
