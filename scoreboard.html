@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Scoreboard - Cauldron Cup 2025</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>🏆 Cauldron Cup 2025</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="sponsors.html">Sponsors</a></li>
+                <li><a href="scoreboard.html">Scoreboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Live Tournament Scoreboard</h1>
+            <p class="tournament-date">October 10th, 2025 - Cocoa Beach Country Club</p>
+
+            <!-- Score Submission Form -->
+            <div class="score-submission">
+                <h2>Submit Your Score</h2>
+                <form id="scoreSubmissionForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="submitTeamName">Team Name *</label>
+                            <input type="text" id="submitTeamName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="submitCaptainName">Team Captain Name *</label>
+                            <input type="text" id="submitCaptainName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="holeNumber">Hole Number *</label>
+                            <select id="holeNumber" required>
+                                <option value="">Select Hole</option>
+                                <option value="1">Hole 1</option>
+                                <option value="2">Hole 2</option>
+                                <option value="3">Hole 3</option>
+                                <option value="4">Hole 4</option>
+                                <option value="5">Hole 5</option>
+                                <option value="6">Hole 6</option>
+                                <option value="7">Hole 7</option>
+                                <option value="8">Hole 8</option>
+                                <option value="9">Hole 9</option>
+                                <option value="10">Hole 10</option>
+                                <option value="11">Hole 11</option>
+                                <option value="12">Hole 12</option>
+                                <option value="13">Hole 13</option>
+                                <option value="14">Hole 14</option>
+                                <option value="15">Hole 15</option>
+                                <option value="16">Hole 16</option>
+                                <option value="17">Hole 17</option>
+                                <option value="18">Hole 18</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="score">Score *</label>
+                            <input type="number" id="score" min="1" max="15" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit Score</button>
+                </form>
+                <div id="scoreSubmissionMessage"></div>
+            </div>
+
+            <!-- Leaderboard -->
+            <div class="leaderboard">
+                <h2>Current Leaderboard</h2>
+                <div class="leaderboard-filters">
+                    <button class="filter-btn active" onclick="showOverall()">Overall</button>
+                    <button class="filter-btn" onclick="showFront9()">Front 9</button>
+                    <button class="filter-btn" onclick="showBack9()">Back 9</button>
+                </div>
+                
+                <div class="scoreboard-table">
+                    <table id="leaderboardTable">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Team Name</th>
+                                <th>Captain</th>
+                                <th>Score</th>
+                                <th>Thru</th>
+                                <th>To Par</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody">
+                            <!-- Scores will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Detailed Scorecard -->
+            <div class="detailed-scores">
+                <h2>Team Scorecards</h2>
+                <div class="team-selector">
+                    <select id="teamSelect" onchange="showTeamScorecard()">
+                        <option value="">Select a team to view scorecard</option>
+                    </select>
+                </div>
+                
+                <div id="teamScorecard" style="display: none;">
+                    <table class="scorecard-table">
+                        <thead>
+                            <tr>
+                                <th>Hole</th>
+                                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>OUT</th>
+                                <th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>IN</th><th>TOTAL</th>
+                            </tr>
+                            <tr>
+                                <th>Par</th>
+                                <td>4</td><td>3</td><td>5</td><td>4</td><td>4</td><td>3</td><td>4</td><td>5</td><td>4</td><td>36</td>
+                                <td>4</td><td>3</td><td>5</td><td>4</td><td>4</td><td>3</td><td>4</td><td>5</td><td>4</td><td>36</td><td>72</td>
+                            </tr>
+                        </thead>
+                        <tbody id="scorecardBody">
+                            <!-- Team scorecard will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Contest Leaders -->
+            <div class="contest-leaders">
+                <h2>Contest Leaders</h2>
+                <div class="contests-grid">
+                    <div class="contest-card">
+                        <h3>Longest Drive - Men</h3>
+                        <div id="longestDriveMen">No entries yet</div>
+                    </div>
+                    <div class="contest-card">
+                        <h3>Longest Drive - Women</h3>
+                        <div id="longestDriveWomen">No entries yet</div>
+                    </div>
+                    <div class="contest-card">
+                        <h3>Closest to Pin</h3>
+                        <div id="closestToPin">No entries yet</div>
+                    </div>
+                    <div class="contest-card">
+                        <h3>Hole-in-One</h3>
+                        <div id="holeInOne">No entries yet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 45th Security Forces Squadron Defender's Association</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
