@@ -678,3 +678,145 @@ const notificationCSS = `
 }
 
 .
+// Add this to your existing script.js or replace the registration section
+
+// Registration Functions - FIXED VERSION
+function initializeRegistration() {
+    // Check team name availability as user types
+    const teamNameInput = document.getElementById('teamName');
+    if (teamNameInput) {
+        teamNameInput.addEventListener('input', checkTeamNameAvailability);
+    }
+
+    // Set up form submission
+    const registrationForm = document.getElementById('teamRegistrationForm');
+    if (registrationForm) {
+        registrationForm.addEventListener('submit', handleRegistrationSubmit);
+    }
+
+    // Initialize total calculation
+    updateTotal();
+}
+
+function showExistingTeam() {
+    document.getElementById('existing-team-search').style.display = 'block';
+    document.getElementById('new-team-form').style.display = 'none';
+    document.getElementById('payment-section').style.display = 'none';
+    
+    // Update button states
+    updateButtonStates('existing');
+}
+
+function showNewTeam() {
+    document.getElementById('existing-team-search').style.display = 'none';
+    document.getElementById('new-team-form').style.display = 'block';
+    document.getElementById('payment-section').style.display = 'none';
+    
+    // Update button states
+    updateButtonStates('new');
+}
+
+function updateButtonStates(activeType) {
+    const buttons = document.querySelectorAll('.registration-options button');
+    buttons.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    if (activeType === 'existing') {
+        buttons[0].classList.add('active');
+    } else {
+        buttons[1].classList.add('active');
+    }
+}
+
+function searchTeam() {
+    const searchTerm = document.getElementById('teamSearch').value.toLowerCase().trim();
+    const results = document.getElementById('teamSearchResults');
+    
+    if (!searchTerm) {
+        results.innerHTML = '<p class="search-message">Please enter a team name to search.</p>';
+        return;
+    }
+
+    const registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
+    const foundTeams = registeredTeams.filter(team =>
+        team.name.toLowerCase().includes(searchTerm)
+    );
+
+    if (foundTeams.length > 0) {
+        results.innerHTML = '<h3>Found Teams:</h3>' +
+            foundTeams.map(team => `
+                <div class="team-result">
+                    <div class="team-info">
+                        <strong>${team.name}</strong>
+                        <p>Captain: ${team.captain}</p>
+                        <p>Players: ${team.players ? team.players.length : 0}/4</p>
+                        <p>Email: ${team.captainEmail}</p>
+                    </div>
+                    ${team.players && team.players.length < 4 ? 
+                        `<button onclick="showJoinTeamForm('${team.id}')" class="btn btn-primary">Join This Team</button>` :
+                        `<span class="team-full">Team Full</span>`
+                    }
+                </div>
+            `).join('');
+    } else {
+        results.innerHTML = `
+            <div class="no-results">
+                <p>No teams found matching "${searchTerm}".</p>
+                <p>Try creating a new team instead.</p>
+                <button onclick="showNewTeam()" class="btn btn-secondary">Create New Team</button>
+            </div>
+        `;
+    }
+}
+
+function showJoinTeamForm(teamId) {
+    const registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
+    const team = registeredTeams.find(t => t.id === teamId);
+    
+    if (!team) {
+        alert('Team not found.');
+        return;
+    }
+
+    // Create join form
+    const joinFormHTML = `
+        <div class="join-team-form">
+            <h3>Join Team: ${team.name}</h3>
+            <p>Captain: ${team.captain}</p>
+            <form id="joinTeamForm">
+                <input type="hidden" id="joinTeamId" value="${teamId}">
+                <div class="form-group">
+                    <label for="joinPlayerName">Your Name *</label>
+                    <input type="text" id="joinPlayerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="joinPlayerEmail">Your Email *</label>
+                    <input type="email" id="joinPlayerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="joinPlayerPhone">Your Phone</label>
+                    <input type="tel" id="joinPlayerPhone">
+                </div>
+                <button type="submit" class="btn btn-primary">Join Team</button>
+                <button type="button" onclick="cancelJoinTeam()" class="btn btn-secondary">Cancel</button>
+            </form>
+        </div>
+    `;
+
+    document.getElementById('teamSearchResults').innerHTML = joinFormHTML;
+    
+    // Add event listener for join form
+    document.getElementById('joinTeamForm').addEventListener('submit', handleJoinTeam);
+}
+
+function handleJoinTeam(e) {
+    e.preventDefault();
+    
+    const teamId = document.getElementById('joinTeamId').value;
+    const playerName = document.getElementById('joinPlayerName').value.trim();
+    const playerEmail = document.getElementById('joinPlayerEmail').value.trim();
+    const playerPhone = document.getElementById('joinPlayerPhone').value.trim();
+
+    if (!playerName || !playerEmail) {
+        alert('
