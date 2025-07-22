@@ -820,3 +820,416 @@ function handleJoinTeam(e) {
 
     if (!playerName || !playerEmail) {
         alert('
+// Add this to your existing script.js or replace the registration section
+
+// Registration Functions - FIXED VERSION
+function initializeRegistration() {
+    // Check team name availability as user types
+    const teamNameInput = document.getElementById('teamName');
+    if (teamNameInput) {
+        teamNameInput.addEventListener('input', checkTeamNameAvailability);
+    }
+
+    // Set up form submission
+    const registrationForm = document.getElementById('teamRegistrationForm');
+    if (registrationForm) {
+        registrationForm.addEventListener('submit', handleRegistrationSubmit);
+    }
+
+    // Initialize total calculation
+    updateTotal();
+}
+
+function showExistingTeam() {
+    document.getElementById('existing-team-search').style.display = 'block';
+    document.getElementById('new-team-form').style.display = 'none';
+    document.getElementById('payment-section').style.display = 'none';
+    
+    // Update button states
+    updateButtonStates('existing');
+}
+
+function showNewTeam() {
+    document.getElementById('existing-team-search').style.display = 'none';
+    document.getElementById('new-team-form').style.display = 'block';
+    document.getElementById('payment-section').style.display = 'none';
+    
+    // Update button states
+    updateButtonStates('new');
+}
+
+function updateButtonStates(activeType) {
+    const buttons = document.querySelectorAll('.registration-options button');
+    buttons.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    if (activeType === 'existing') {
+        buttons[0].classList.add('active');
+    } else {
+        buttons[1].classList.add('active');
+    }
+}
+
+function searchTeam() {
+    const searchTerm = document.getElementById('teamSearch').value.toLowerCase().trim();
+    const results = document.getElementById('teamSearchResults');
+    
+    if (!searchTerm) {
+        results.innerHTML = '<p class="search-message">Please enter a team name to search.</p>';
+        return;
+    }
+
+    const registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
+    const foundTeams = registeredTeams.filter(team =>
+        team.name.toLowerCase().includes(searchTerm)
+    );
+
+    if (foundTeams.length > 0) {
+        results.innerHTML = '<h3>Found Teams:</h3>' +
+            foundTeams.map(team => `
+                <div class="team-result">
+                    <div class="team-info">
+                        <strong>${team.name}</strong>
+                        <p>Captain: ${team.captain}</p>
+                        <p>Players: ${team.players ? team.players.length : 0}/4</p>
+                        <p>Email: ${team.captainEmail}</p>
+                    </div>
+                    ${team.players && team.players.length < 4 ? 
+                        `<button onclick="showJoinTeamForm('${team.id}')" class="btn btn-primary">Join This Team</button>` :
+                        `<span class="team-full">Team Full</span>`
+                    }
+                </div>
+            `).join('');
+    } else {
+        results.innerHTML = `
+            <div class="no-results">
+                <p>No teams found matching "${searchTerm}".</p>
+                <p>Try creating a new team instead.</p>
+                <button onclick="showNewTeam()" class="btn btn-secondary">Create New Team</button>
+            </div>
+        `;
+    }
+}
+
+function showJoinTeamForm(teamId) {
+    const registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
+    const team = registeredTeams.find(t => t.id === teamId);
+    
+    if (!team) {
+        alert('Team not found.');
+        return;
+    }
+
+    // Create join form
+    const joinFormHTML = `
+        <div class="join-team-form">
+            <h3>Join Team: ${team.name}</h3>
+            <p>Captain: ${team.captain}</p>
+            <form id="joinTeamForm">
+                <input type="hidden" id="joinTeamId" value="${teamId}">
+                <div class="form-group">
+                    <label for="joinPlayerName">Your Name *</label>
+                    <input type="text" id="joinPlayerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="joinPlayerEmail">Your Email *</label>
+                    <input type="email" id="joinPlayerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="joinPlayerPhone">Your Phone</label>
+                    <input type="tel" id="joinPlayerPhone">
+                </div>
+                <button type="submit" class="btn btn-primary">Join Team</button>
+                <button type="button" onclick="cancelJoinTeam()" class="btn btn-secondary">Cancel</button>
+            </form>
+        </div>
+    `;
+
+    document.getElementById('teamSearchResults').innerHTML = joinFormHTML;
+    
+    // Add event listener for join form
+    document.getElementById('joinTeamForm').addEventListener('submit', handleJoinTeam);
+}
+
+function handleJoinTeam(e) {
+    e.preventDefault();
+    
+    const teamId = document.getElementById('joinTeamId').value;
+    const playerName = document.getElementById('joinPlayerName').value.trim();
+    const playerEmail = document.getElementById('joinPlayerEmail').value.trim();
+    const playerPhone = document.getElementById('joinPlayerPhone').value.trim();
+
+    if (!playerName || !playerEmail) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    let registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
+    const teamIndex = registeredTeams.findIndex(t => t.id === teamId);
+    
+    if (teamIndex === -1) {
+        alert('Team not found.');
+        return;
+    }
+
+    const team = registeredTeams[teamIndex];
+    
+    // Check if team is full
+    if (team.players && team.players.length >= 4) {
+        alert('This team is already full.');
+        return;
+    }
+
+    // Check if email already exists
+    const emailExists = team.players && team.players.some(p => p.email.toLowerCase() === playerEmail.toLowerCase());
+    if (emailExists) {
+        alert('This email is already registered on this team.');
+        return;
+    }
+
+    // Add player to team
+    if (!team.players) team.players = [];
+    team.players.push({
+        name: playerName,
+        email: playerEmail,
+        phone: playerPhone,
+        joinedAt: new Date().toISOString()
+    });
+
+    // Save updated teams
+    registeredTeams[teamIndex] = team;
+    localStorage.setItem('registeredTeams', JSON.stringify(registeredTeams));
+
+    // Show success message
+    alert(`Successfully joined team "${team.name}"! You will receive confirmation details at ${playerEmail}.`);
+    
+    // Clear form and show updated search results
+    document.getElementById('teamSearch').value = team.name;
+    searchTeam();
+}
+
+function cancelJoinTeam() {
+    // Go back to search results
+    searchTeam();
+}
+
+function checkTeamNameAvailability() {
+    const teamName = document.getElementById('teamName').value.trim();
+    const errorDiv = document.getElementById('teamNameError');
+    
+    if (teamName.length === 0) {
+        errorDiv.textContent = '';
+        errorDiv.style.display = 'none';
+        return true;
+    }
+
+    const registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
+    const exists = registeredTeams.some(team =>
+        team.name.toLowerCase() === teamName.toLowerCase()
+    );
+
+    if (exists) {
+        errorDiv.textContent = 'This team name is already taken. Please choose another.';
+        errorDiv.style.display = 'block';
+        return false;
+    } else {
+        errorDiv.textContent = '✓ Team name is available!';
+        errorDiv.style.display = 'block';
+        errorDiv.style.color = 'var(--success-green)';
+        return true;
+    }
+}
+
+function updateTotal() {
+    let total = 340; // Base registration fee: $85 x 4 players
+    
+    const mulliganBags = document.getElementById('mulliganBags');
+    const puttingString = document.getElementById('puttingString');
+    
+    if (mulliganBags && mulliganBags.checked) {
+        total += 40; // $10 per player x 4 players
+    }
+    if (puttingString && puttingString.checked) {
+        total += 5;
+    }
+    
+    const totalElement = document.getElementById('totalAmount');
+    if (totalElement) {
+        totalElement.textContent = total;
+    }
+    
+    return total;
+}
+
+function handleRegistrationSubmit(e) {
+    e.preventDefault();
+    
+    // Validate team name
+    if (!checkTeamNameAvailability()) {
+        document.getElementById('teamName').focus();
+        return;
+    }
+
+    // Collect form data
+    const teamData = {
+        id: 'team_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        name: document.getElementById('teamName').value.trim(),
+        captain: document.getElementById('captainName').value.trim(),
+        captainEmail: document.getElementById('captainEmail').value.trim(),
+        captainPhone: document.getElementById('captainPhone').value.trim(),
+        players: [],
+        addOns: {
+            mulliganBags: document.getElementById('mulliganBags').checked,
+            puttingString: document.getElementById('puttingString').checked
+        },
+        total: updateTotal(),
+        registrationDate: new Date().toISOString(),
+        paymentStatus: 'pending'
+    };
+
+    // Validate required fields
+    if (!teamData.name || !teamData.captain || !teamData.captainEmail || !teamData.captainPhone) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    // Collect player names and emails
+    const playerNames = document.querySelectorAll('.player-name');
+    const playerEmails = document.querySelectorAll('.player-email');
+    
+    for (let i = 0; i < playerNames.length; i++) {
+        const name = playerNames[i].value.trim();
+        const email = playerEmails[i].value.trim();
+        
+        if (name) {
+            teamData.players.push({
+                name: name,
+                email: email || '',
+                phone: '',
+                registeredAt: new Date().toISOString()
+            });
+        }
+    }
+
+    if (teamData.players.length === 0) {
+        alert('Please enter at least the team captain as a player.');
+        return;
+    }
+
+    // Store team data temporarily for payment
+    sessionStorage.setItem('pendingTeamRegistration', JSON.stringify(teamData));
+    
+    // Show payment section
+    showPaymentSection(teamData);
+}
+
+function showPaymentSection(teamData) {
+    document.getElementById('new-team-form').style.display = 'none';
+    document.getElementById('payment-section').style.display = 'block';
+    
+    // Update payment section with team details
+    const paymentSection = document.getElementById('payment-section');
+    paymentSection.innerHTML = `
+        <h2>Complete Registration</h2>
+        <div class="payment-summary">
+            <h3>Registration Summary</h3>
+            <div class="summary-details">
+                <p><strong>Team:</strong> ${teamData.name}</p>
+                <p><strong>Captain:</strong> ${teamData.captain}</p>
+                <p><strong>Players:</strong> ${teamData.players.length}/4</p>
+                <p><strong>Add-ons:</strong></p>
+                <ul>
+                    ${teamData.addOns.mulliganBags ? '<li>Mulligan Bags: $40</li>' : ''}
+                    ${teamData.addOns.puttingString ? '<li>12" Putting String: $5</li>' : ''}
+                </ul>
+                <p class="total-cost"><strong>Total: $${teamData.total}</strong></p>
+            </div>
+        </div>
+        
+        <div class="payment-options">
+            <h3>Payment Options</h3>
+            <button onclick="completeRegistration()" class="btn btn-primary full-width">
+                Complete Registration (Demo Mode)
+            </button>
+            <p class="payment-note">
+                <small>In demo mode, registration will be completed without payment processing.</small>
+            </p>
+        </div>
+        
+        <button onclick="goBackToForm()" class="btn btn-secondary">← Back to Form</button>
+    `;
+}
+
+function goBackToForm() {
+    document.getElementById('payment-section').style.display = 'none';
+    document.getElementById('new-team-form').style.display = 'block';
+}
+
+function completeRegistration() {
+    const teamData = JSON.parse(sessionStorage.getItem('pendingTeamRegistration'));
+    
+    if (!teamData) {
+        alert('Registration data not found. Please try again.');
+        return;
+    }
+
+    // Get existing teams
+    let registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
+    
+    // Mark as paid and add to registered teams
+    teamData.paymentStatus = 'completed';
+    teamData.paymentDate = new Date().toISOString();
+    
+    registeredTeams.push(teamData);
+    localStorage.setItem('registeredTeams', JSON.stringify(registeredTeams));
+    
+    // Clear pending registration
+    sessionStorage.removeItem('pendingTeamRegistration');
+    
+    // Show success message
+    showRegistrationSuccess(teamData);
+}
+
+function showRegistrationSuccess(teamData) {
+    document.getElementById('payment-section').innerHTML = `
+        <div class="registration-success">
+            <h2>🎉 Registration Complete!</h2>
+            <div class="success-details">
+                <p><strong>Team "${teamData.name}" has been successfully registered!</strong></p>
+                <p>Registration ID: ${teamData.id}</p>
+                <p>Total Paid: $${teamData.total}</p>
+                <p>Confirmation sent to: ${teamData.captainEmail}</p>
+                
+                ${teamData.players.length === 4 ? 
+                    '<p class="tee-time-notice">🏌️ Your tee time will be automatically assigned and you\'ll be notified via email.</p>' :
+                    '<p class="team-incomplete">⚠️ Your team has ' + teamData.players.length + '/4 players. Add remaining players to get your tee time assignment.</p>'
+                }
+            </div>
+            
+            <div class="next-steps">
+                <h3>Next Steps:</h3>
+                <ul>
+                    <li>Check your email for confirmation details</li>
+                    <li>Visit the <a href="teetimes.html">Tee Times page</a> to see your assignment</li>
+                    <li>Download the tournament app for live scoring</li>
+                </ul>
+            </div>
+            
+            <div class="success-actions">
+                <a href="teetimes.html" class="btn btn-primary">View Tee Times</a>
+                <a href="index.html" class="btn btn-secondary">Back to Home</a>
+                <button onclick="registerAnotherTeam()" class="btn btn-outline">Register Another Team</button>
+            </div>
+        </div>
+    `;
+}
+
+function registerAnotherTeam() {
+    // Reset the form
+    location.reload();
+}
+
+// Make sure these functions are available globally
+window.showExistingTeam = showExistingTeam;
+window.showNewTeam = showNewTeam;
