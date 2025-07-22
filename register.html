@@ -22,16 +22,15 @@
             </ul>
         </nav>
     </header>
-
     <main>
         <div class="container">
             <h1>Team Registration</h1>
-
             <div class="registration-options">
                 <button class="btn btn-primary" onclick="showExistingTeam()">Join Existing Team</button>
                 <button class="btn btn-secondary" onclick="showNewTeam()">Create New Team</button>
             </div>
-                        <!-- Search Existing Team -->
+            
+            <!-- Search Existing Team -->
             <div id="existing-team-search" class="form-section" style="display: none;">
                 <h2>Search for Your Team</h2>
                 <div class="form-group">
@@ -40,7 +39,7 @@
                 </div>
                 <div id="teamSearchResults"></div>
             </div>
-
+            
             <!-- Create New Team -->
             <div id="new-team-form" class="form-section" style="display: none;">
                 <h2>Create New Team</h2>
@@ -50,22 +49,18 @@
                         <input type="text" id="teamName" required>
                         <div id="teamNameError" class="error-message"></div>
                     </div>
-
                     <div class="form-group">
                         <label for="captainName">Team Captain Name *</label>
                         <input type="text" id="captainName" required>
                     </div>
-
                     <div class="form-group">
                         <label for="captainEmail">Captain Email *</label>
                         <input type="email" id="captainEmail" required>
                     </div>
-
                     <div class="form-group">
                         <label for="captainPhone">Captain Phone *</label>
                         <input type="tel" id="captainPhone" required>
                     </div>
-
                     <h3>Team Members</h3>
                     <div id="playersContainer">
                         <div class="player-row">
@@ -85,7 +80,6 @@
                             <input type="email" placeholder="Player 4 Email" class="player-email">
                         </div>
                     </div>
-
                     <h3>Add-Ons</h3>
                     <div class="addon-section">
                         <div class="addon-item">
@@ -101,15 +95,13 @@
                             </label>
                         </div>
                     </div>
-
                     <div class="total-section">
                         <h3>Total: $<span id="totalAmount">340</span></h3>
                     </div>
-
                     <button type="submit" class="btn btn-primary">Proceed to Payment</button>
                 </form>
             </div>
-
+            
             <!-- Payment Section -->
             <div id="payment-section" style="display: none;">
                 <h2>Payment</h2>
@@ -121,15 +113,54 @@
             </div>
         </div>
     </main>
-
+    
     <footer>
         <div class="container">
             <p>&copy; 2025 Defender's Association</p>
         </div>
     </footer>
 
+    <!-- Add the JavaScript functions directly here to ensure they work -->
+    <script>
+        // Define functions immediately to ensure they're available for onclick
+        function showExistingTeam() {
+            document.getElementById('existing-team-search').style.display = 'block';
+            document.getElementById('new-team-form').style.display = 'none';
+            document.getElementById('payment-section').style.display = 'none';
+        }
+
+        function showNewTeam() {
+            document.getElementById('existing-team-search').style.display = 'none';
+            document.getElementById('new-team-form').style.display = 'block';
+            document.getElementById('payment-section').style.display = 'none';
+        }
+
+        function searchTeam() {
+            const searchTerm = document.getElementById('teamSearch').value.toLowerCase().trim();
+            const results = document.getElementById('teamSearchResults');
+            
+            if (!searchTerm) {
+                results.innerHTML = '<p>Please enter a team name to search.</p>';
+                return;
+            }
+
+            // This is a placeholder - you can connect it to your full search function later
+            results.innerHTML = '<p>Searching for teams... (Connect to full search function in script.js)</p>';
+        }
+
+        function updateTotal() {
+            let total = 340; // Base registration fee
+            if (document.getElementById('mulliganBags').checked) {
+                total += 40;
+            }
+            if (document.getElementById('puttingString').checked) {
+                total += 5;
+            }
+            document.getElementById('totalAmount').textContent = total;
+        }
+    </script>
+    
+    <!-- Load your main script file -->
     <script src="script.js"></script>
 </body>
 </html>
-<!-- At the bottom of register.html, make sure you have: -->
-<script src="script.js"></script>
