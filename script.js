@@ -429,3 +429,252 @@ if (window.location.pathname.includes('scoreboard.html')) {
         loadLeaderboard();
     }, 30000);
 }
+// teams.js - Add to your existing script.js or create new file
+
+class TeamManager {
+    constructor() {
+        this.teams = JSON.parse(localStorage.getItem('tournament-teams') || '[]');
+        this.availableHoles = this.generateAvailableHoles();
+        this.assignedHoles = JSON.parse(localStorage.getItem('assigned-holes') || '[]');
+        this.init();
+    }
+
+    init() {
+        this.renderTeams();
+        this.updateStats();
+        
+        // Listen for new registrations
+        window.addEventListener('playerRegistered', (event) => {
+            this.handlePlayerRegistration(event.detail);
+        });
+    }
+
+    generateAvailableHoles() {
+        // Generate hole starting times (assuming 8-minute intervals)
+        const holes = [];
+        const startTime = new Date();
+        startTime.setHours(8, 0, 0, 0); // Start at 8:00 AM
+
+        for (let hole = 1; hole <= 18; hole++) {
+            for (let timeSlot = 0; timeSlot < 4; timeSlot++) { // 4 time slots per hole
+                const time = new Date(startTime.getTime() + (hole - 1) * 32 * 60000 + timeSlot * 8 * 60000);
+                holes.push({
+                    hole: hole,
+                    time: time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+                    id: `hole-${hole}-slot-${timeSlot}`,
+                    assigned: false
+                });
+            }
+        }
+        return holes;
+    }
+
+    handlePlayerRegistration(playerData) {
+        let team = this.teams.find(t => t.name === playerData.teamName);
+        
+        if (!team) {
+            team = {
+                id: Date.now().toString(),
+                name: playerData.teamName,
+                players: [],
+                isComplete: false,
+                holeAssignment: null,
+                registrationTime: new Date().toISOString()
+            };
+            this.teams.push(team);
+        }
+
+        // Add player if not already in team and team isn't full
+        if (team.players.length < 4 && !team.players.find(p => p.email === playerData.email)) {
+            team.players.push({
+                name: playerData.name,
+                email: playerData.email,
+                phone: playerData.phone || '',
+                registrationTime: new Date().toISOString()
+            });
+        }
+
+        // Check if team is now complete
+        if (team.players.length === 4 && !team.isComplete) {
+            team.isComplete = true;
+            this.assignHoleToTeam(team);
+        }
+
+        this.saveTeams();
+        this.renderTeams();
+        this.updateStats();
+    }
+
+    assignHoleToTeam(team) {
+        // Find first available hole
+        const availableHole = this.availableHoles.find(hole => !hole.assigned);
+        
+        if (availableHole) {
+            availableHole.assigned = true;
+            team.holeAssignment = {
+                hole: availableHole.hole,
+                time: availableHole.time,
+                id: availableHole.id
+            };
+            
+            this.assignedHoles.push({
+                teamId: team.id,
+                holeInfo: availableHole
+            });
+            
+            localStorage.setItem('assigned-holes', JSON.stringify(this.assignedHoles));
+            
+            // Show notification
+            this.showHoleAssignmentNotification(team);
+        }
+    }
+
+    showHoleAssignmentNotification(team) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'hole-notification';
+        notification.innerHTML = `
+            <div class="notification-content">
+                <h3>🎉 Team Complete!</h3>
+                <p><strong>${team.name}</strong> has been assigned:</p>
+                <p><strong>Hole ${team.holeAssignment.hole}</strong> at <strong>${team.holeAssignment.time}</strong></p>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Remove notification after 5 seconds
+        setTimeout(() => {
+            notification.remove();
+        }, 5000);
+    }
+
+    renderTeams() {
+        const container = document.getElementById('teams-container');
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        if (this.teams.length === 0) {
+            container.innerHTML = `
+                <div class="no-teams">
+                    <h3>👻 No teams registered yet!</h3>
+                    <p>Be the first to register your team for the Cauldron Cup!</p>
+                    <a href="register.html" class="btn btn-primary">Register Now</a>
+                </div>
+            `;
+            return;
+        }
+
+        // Sort teams: complete teams first, then by registration time
+        const sortedTeams = [...this.teams].sort((a, b) => {
+            if (a.isComplete && !b.isComplete) return -1;
+            if (!a.isComplete && b.isComplete) return 1;
+            return new Date(a.registrationTime) - new Date(b.registrationTime);
+        });
+
+        sortedTeams.forEach(team => {
+            const teamCard = this.createTeamCard(team);
+            container.appendChild(teamCard);
+        });
+    }
+
+    createTeamCard(team) {
+        const card = document.createElement('div');
+        card.className = `team-card ${team.isComplete ? 'complete' : ''}`;
+        
+        const playersHtml = this.createPlayersHtml(team);
+        const progressPercentage = (team.players.length / 4) * 100;
+        
+        card.innerHTML = `
+            <div class="team-header">
+                <div class="team-name">${team.name}</div>
+                ${team.holeAssignment ? 
+                    `<div class="hole-assignment">Hole ${team.holeAssignment.hole} - ${team.holeAssignment.time}</div>` : 
+                    '<div class="hole-assignment">Awaiting Assignment</div>'
+                }
+            </div>
+            <ul class="players-list">
+                ${playersHtml}
+            </ul>
+            <div class="team-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${progressPercentage}%"></div>
+                </div>
+                <div class="progress-text">${team.players.length}/4 Players Registered</div>
+            </div>
+        `;
+        
+        return card;
+    }
+
+    createPlayersHtml(team) {
+        let html = '';
+        
+        // Add registered players
+        team.players.forEach(player => {
+            html += `<li class="player-item">${player.name}</li>`;
+        });
+        
+        // Add empty slots
+        const emptySlots = 4 - team.players.length;
+        for (let i = 0; i < emptySlots; i++) {
+            html += `<li class="player-item empty-slot">Open Slot</li>`;
+        }
+        
+        return html;
+    }
+
+    updateStats() {
+        const completeTeams = this.teams.filter(team => team.isComplete).length;
+        const partialTeams = this.teams.filter(team => !team.isComplete).length;
+        const totalPlayers = this.teams.reduce((sum, team) => sum + team.players.length, 0);
+
+        document.getElementById('complete-teams-count').textContent = completeTeams;
+        document.getElementById('partial-teams-count').textContent = partialTeams;
+        document.getElementById('total-players-count').textContent = totalPlayers;
+    }
+
+    saveTeams() {
+        localStorage.setItem('tournament-teams', JSON.stringify(this.teams));
+    }
+
+    // Public method to manually add a team (for testing)
+    addTestTeam(teamName, players = []) {
+        const team = {
+            id: Date.now().toString(),
+            name: teamName,
+            players: players,
+            isComplete: players.length === 4,
+            holeAssignment: null,
+            registrationTime: new Date().toISOString()
+        };
+
+        if (team.isComplete) {
+            this.assignHoleToTeam(team);
+        }
+
+        this.teams.push(team);
+        this.saveTeams();
+        this.renderTeams();
+        this.updateStats();
+    }
+}
+
+// Add CSS for notifications
+const notificationCSS = `
+.hole-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    z-index: 1000;
+    animation: slideIn 0.5s ease;
+    max-width: 300px;
+}
+
+.
