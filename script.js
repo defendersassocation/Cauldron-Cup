@@ -1,3 +1,71 @@
+// Make functions globally available immediately
+window.showExistingTeam = showExistingTeam;
+window.showNewTeam = showNewTeam;
+window.searchTeam = searchTeam;
+window.updateTotal = updateTotal;
+
+// Global variables
+let registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
+let teamScores = JSON.parse(localStorage.getItem('teamScores')) || {};
+let currentTotal = 340; // $85 x 4 players
+
+// Initialize page based on current page
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    console.log('Current page:', currentPage); // Debug line
+    
+    switch(currentPage) {
+        case 'register.html':
+            initializeRegistration();
+            break;
+        case 'scoreboard.html':
+            initializeScoreboard();
+            break;
+        default:
+            break;
+    }
+});
+
+// Registration Functions
+function showExistingTeam() {
+    console.log('showExistingTeam called'); // Debug line
+    document.getElementById('existing-team-search').style.display = 'block';
+    document.getElementById('new-team-form').style.display = 'none';
+    document.getElementById('payment-section').style.display = 'none';
+}
+
+function showNewTeam() {
+    console.log('showNewTeam called'); // Debug line
+    document.getElementById('existing-team-search').style.display = 'none';
+    document.getElementById('new-team-form').style.display = 'block';
+    document.getElementById('payment-section').style.display = 'none';
+}
+
+function searchTeam() {
+    console.log('searchTeam called'); // Debug line
+    const searchTerm = document.getElementById('teamSearch').value.toLowerCase();
+    const results = document.getElementById('teamSearchResults');
+    
+    // Your existing searchTeam code here...
+}
+
+function updateTotal() {
+    let total = 340; // Base registration fee
+    if (document.getElementById('mulliganBags') && document.getElementById('mulliganBags').checked) {
+        total += 40;
+    }
+    if (document.getElementById('puttingString') && document.getElementById('puttingString').checked) {
+        total += 5;
+    }
+    currentTotal = total;
+    const totalElement = document.getElementById('totalAmount');
+    if (totalElement) {
+        totalElement.textContent = total;
+    }
+}
+
+// Continue with the rest of your script.js functions...
 // Global variables
 let registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
 let teamScores = JSON.parse(localStorage.getItem('teamScores')) || {};
