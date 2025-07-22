@@ -543,3 +543,262 @@ nav {
 .progress-text {
     font-size: 0.9rem;
     color: var(--text-muted);
+/* Add this to the end of your styles.css file */
+
+/* Mobile Scoreboard Styles */
+.mobile-toggle {
+    display: flex;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    margin: 1rem 0;
+    gap: 0.5rem;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 1rem;
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.toggle-btn.active {
+    background: var(--primary-orange);
+    color: white;
+}
+
+.scoreboard-section {
+    display: none;
+}
+
+.scoreboard-section.active {
+    display: block;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    border: 2px solid var(--primary-orange);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-orange);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.leaderboard-container {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.leaderboard-header {
+    display: grid;
+    grid-template-columns: 60px 1fr 80px 60px;
+    background: var(--primary-orange);
+    color: white;
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.leaderboard-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 80px 60px;
+    padding: 1rem;
+    border-bottom: 1px solid #333;
+    transition: var(--transition);
+}
+
+.leaderboard-row:hover {
+    background: rgba(255, 102, 0, 0.1);
+}
+
+.leaderboard-row.leader {
+    background: rgba(255, 102, 0, 0.2);
+    border-left: 4px solid var(--primary-orange);
+}
+
+.team-name {
+    font-weight: 600;
+    color: var(--primary-orange);
+}
+
+.team-captain {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.total-score {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.to-par {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.team-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(255, 102, 0, 0.1);
+    border-radius: var(--border-radius);
+}
+
+.btn-logout {
+    background: var(--error-red);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.hole-score-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.scorecard-preview {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+}
+
+.scorecard-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.hole-score {
+    text-align: center;
+    padding: 0.5rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background: #222;
+}
+
+.hole-score.completed {
+    background: var(--primary-orange);
+    color: white;
+}
+
+.hole-score.current {
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.3);
+}
+
+.hole-num {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.hole-score-val {
+    font-weight: bold;
+    margin-top: 0.2rem;
+}
+
+.total-score {
+    text-align: center;
+    font-weight: bold;
+    color: var(--primary-orange);
+}
+
+.full-width {
+    width: 100%;
+}
+
+.message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.message.success {
+    background: rgba(40, 167, 69, 0.2);
+    color: var(--success-green);
+    border: 1px solid var(--success-green);
+}
+
+.message.error {
+    background: rgba(220, 53, 69, 0.2);
+    color: var(--error-red);
+    border: 1px solid var(--error-red);
+}
+
+.refresh-section {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.last-updated {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.no-scores {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .scorecard-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    
+    .hole-score-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .leaderboard-header,
+    .leaderboard-row {
+        grid-template-columns: 50px 1fr 70px 50px;
+        font-size: 0.9rem;
+    }
+}
