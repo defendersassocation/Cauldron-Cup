@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tee Times - Cauldron Cup 2025</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>🎃 Cauldron Cup 2025 🦇</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="sponsors.html">Sponsors</a></li>
+                <li><a href="scoreboard.html">Scoreboard</a></li>
+                <li><a href="teetimes.html">Tee Times</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="teetimes-header">
+                <h1 class="halloween-title">🏌️‍♂️ Cauldron Cup Tee Times 🏌️‍♀️</h1>
+                <p class="subtitle">Tournament Day: October 10th, 2025 • Cocoa Beach Country Club</p>
+                
+                <div class="tournament-stats">
+                    <div class="stat-box">
+                        <span class="stat-number" id="total-teams-assigned">0</span>
+                        <span class="stat-label">Teams Assigned</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number" id="total-players">0</span>
+                        <span class="stat-label">Total Players</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number" id="available-slots">72</span>
+                        <span class="stat-label">Available Slots</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Layout -->
+            <div class="course-layout">
+                <div class="course-header">
+                    <h2>🏌️ Course Tee Sheet</h2>
+                    <div class="course-info">
+                        <span class="start-time">First Tee: 8:00 AM</span>
+                        <span class="interval">8-minute intervals</span>
+                    </div>
+                </div>
+
+                <!-- Tee Time Grid -->
+                <div class="tee-times-grid" id="tee-times-grid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Waiting List -->
+            <div class="waiting-section">
+                <h2>⏳ Teams Forming</h2>
+                <div class="waiting-teams" id="waiting-teams">
+                    <!-- Incomplete teams will be shown here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Defender's Association</p>
+        </div>
+    </footer>
+
+    <script src="teetimes.js"></script>
+</body>
+</html>
