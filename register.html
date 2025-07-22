@@ -183,75 +183,27 @@
     </footer>
 
     <script>
-        // Individual Player Registration System
-        let currentRegistrationType = 'new';
-
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeRegistration();
-        });
-
-        function initializeRegistration() {
-            const teamNameInput = document.getElementById('teamName');
-            if (teamNameInput) {
-                teamNameInput.addEventListener('input', checkTeamStatus);
-            }
-
-            const registrationForm = document.getElementById('playerRegistrationForm');
-            if (registrationForm) {
-                registrationForm.addEventListener('submit', handlePlayerRegistration);
-            }
-
-            const submitPaymentBtn = document.getElementById('submit-payment');
-            if (submitPaymentBtn) {
-                submitPaymentBtn.addEventListener('click', completePlayerRegistration);
-            }
-        }
-
-        // Main navigation functions
+        // Simple functions that work
         function showExistingTeam() {
-            currentRegistrationType = 'existing';
             document.getElementById('existing-team-search').style.display = 'block';
             document.getElementById('new-team-form').style.display = 'none';
             document.getElementById('payment-section').style.display = 'none';
-            updateButtonStates('existing');
+            
+            // Update button states
+            document.querySelectorAll('.registration-options button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.registration-options button')[0].classList.add('active');
         }
 
         function showNewTeam() {
-            currentRegistrationType = 'new';
             document.getElementById('existing-team-search').style.display = 'none';
             document.getElementById('new-team-form').style.display = 'block';
             document.getElementById('payment-section').style.display = 'none';
-            updateButtonStates('new');
-            resetForm();
-        }
-
-        function updateButtonStates(activeType) {
-            const buttons = document.querySelectorAll('.registration-options button');
-            buttons.forEach(btn => btn.classList.remove('active'));
             
-            if (activeType === 'existing') {
-                buttons[0].classList.add('active');
-            } else {
-                buttons[1].classList.add('active');
-            }
+            // Update button states
+            document.querySelectorAll('.registration-options button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.registration-options button')[1].classList.add('active');
         }
 
-        function resetForm() {
-            document.getElementById('form-title').textContent = '⚡ Player Registration';
-            document.getElementById('form-description').textContent = "Register as an individual player. If your team doesn't exist, you'll create it!";
-            document.getElementById('teamName').readOnly = false;
-            document.getElementById('isTeamCaptain').disabled = false;
-            document.getElementById('teamNameStatus').innerHTML = '';
-            sessionStorage.removeItem('joiningTeamId');
-            
-            if (document.getElementById('playerRegistrationForm')) {
-                document.getElementById('playerRegistrationForm').reset();
-            }
-            updateIndividualTotal();
-        }
-
-        // Team search functionality
         function searchTeam() {
             const searchTerm = document.getElementById('teamSearch').value.toLowerCase().trim();
             const results = document.getElementById('teamSearchResults');
@@ -314,8 +266,6 @@
             
             document.getElementById('form-title').textContent = `👥 Join Team: ${teamName}`;
             document.getElementById('form-description').textContent = `You're joining the existing team "${teamName}". Fill out your information below.`;
-            
-            sessionStorage.setItem('joiningTeamId', teamId);
         }
 
         function createTeamWithName(teamName) {
@@ -326,47 +276,84 @@
             document.getElementById('form-description').textContent = `Creating team "${teamName}". You'll be the team captain!`;
         }
 
-        // Team status checking
-        function checkTeamStatus() {
-            const teamName = document.getElementById('teamName').value.trim();
-            const statusDiv = document.getElementById('teamNameStatus');
-            const captainCheckbox = document.getElementById('isTeamCaptain');
-            
-            if (teamName.length === 0) {
-                statusDiv.innerHTML = '';
-                return;
-            }
-
-            if (document.getElementById('teamName').readOnly) {
-                return;
-            }
-
-            const registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
-            const existingTeam = registeredTeams.find(team =>
-                team.name.toLowerCase() === teamName.toLowerCase()
-            );
-
-            if (existingTeam) {
-                const playerCount = existingTeam.players ? existingTeam.players.length : 0;
-                const spotsLeft = 4 - playerCount;
-                
-                if (spotsLeft > 0) {
-                    statusDiv.innerHTML = `<div class="status-existing">✅ Team exists (${spotsLeft} spots available)</div>`;
-                    captainCheckbox.checked = false;
-                    captainCheckbox.disabled = true;
-                } else {
-                    statusDiv.innerHTML = `<div class="status-full">❌ Team is full (4/4 players)</div>`;
-                    captainCheckbox.disabled = true;
-                }
-            } else {
-                statusDiv.innerHTML = `<div class="status-new">🆕 New team - you'll be the captain!</div>`;
-                captainCheckbox.checked = true;
-                captainCheckbox.disabled = false;
-            }
-        }
-
-        // Total calculation
         function updateIndividualTotal() {
             let total = 85;
             
-            const mulliganChecked = document.getElementById('personalMulligan') && document.getElementByI
+            if (document.getElementById('personalMulligan').checked) {
+                total += 10;
+                document.getElementById('mulligan-line').style.display = 'flex';
+            } else {
+                document.getElementById('mulligan-line').style.display = 'none';
+            }
+            
+            if (document.getElementById('personalPuttingString').checked) {
+                total += 5;
+                document.getElementById('string-line').style.display = 'flex';
+            } else {
+                document.getElementById('string-line').style.display = 'none';
+            }
+            
+            document.getElementById('individualTotal').textContent = total;
+            document.getElementById('button-total').textContent = total;
+        }
+
+        function goBackToForm() {
+            document.getElementById('payment-section').style.display = 'none';
+            document.getElementById('new-team-form').style.display = 'block';
+        }
+
+        // Form submission handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('playerRegistrationForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Collect player data
+                    const playerData = {
+                        id: 'player_' + Date.now(),
+                        name: document.getElementById('playerName').value.trim(),
+                        email: document.getElementById('playerEmail').value.trim(),
+                        phone: document.getElementById('playerPhone').value.trim(),
+                        teamName: document.getElementById('teamName').value.trim(),
+                        isCaptain: document.getElementById('isTeamCaptain').checked,
+                        addOns: {
+                            mulligan: document.getElementById('personalMulligan').checked,
+                            puttingString: document.getElementById('personalPuttingString').checked
+                        },
+                        total: parseInt(document.getElementById('individualTotal').textContent),
+                        registrationDate: new Date().toISOString()
+                    };
+
+                    // Store for payment
+                    sessionStorage.setItem('pendingPlayerRegistration', JSON.stringify(playerData));
+                    
+                    // Show payment summary
+                    document.getElementById('payment-summary').innerHTML = `
+                        <h3>Registration Summary</h3>
+                        <p><strong>Player:</strong> ${playerData.name}</p>
+                        <p><strong>Email:</strong> ${playerData.email}</p>
+                        <p><strong>Team:</strong> ${playerData.teamName}</p>
+                        <p><strong>Role:</strong> ${playerData.isCaptain ? 'Team Captain' : 'Team Member'}</p>
+                        <p><strong>Total:</strong> $${playerData.total}</p>
+                    `;
+                    
+                    // Show payment section
+                    document.getElementById('new-team-form').style.display = 'none';
+                    document.getElementById('payment-section').style.display = 'block';
+                });
+            }
+
+            // Payment completion
+            const paymentBtn = document.getElementById('submit-payment');
+            if (paymentBtn) {
+                paymentBtn.addEventListener('click', function() {
+                    const playerData = JSON.parse(sessionStorage.getItem('pendingPlayerRegistration'));
+                    
+                    if (!playerData) {
+                        alert('Registration data not found. Please try again.');
+                        return;
+                    }
+
+                    // Get existing teams
+                    let registeredTeams = JSON.
