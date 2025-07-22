@@ -94,7 +94,6 @@
                         <div class="checkbox-container">
                             <label class="checkbox-label">
                                 <input type="checkbox" id="isTeamCaptain">
-                                <span class="checkmark"></span>
                                 I am the team captain
                             </label>
                             <small class="help-text">Check this if you're organizing this team</small>
@@ -184,10 +183,32 @@
     </footer>
 
     <script>
-        // Global variables
+        // Individual Player Registration System
         let currentRegistrationType = 'new';
 
-        // Main functions
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeRegistration();
+        });
+
+        function initializeRegistration() {
+            const teamNameInput = document.getElementById('teamName');
+            if (teamNameInput) {
+                teamNameInput.addEventListener('input', checkTeamStatus);
+            }
+
+            const registrationForm = document.getElementById('playerRegistrationForm');
+            if (registrationForm) {
+                registrationForm.addEventListener('submit', handlePlayerRegistration);
+            }
+
+            const submitPaymentBtn = document.getElementById('submit-payment');
+            if (submitPaymentBtn) {
+                submitPaymentBtn.addEventListener('click', completePlayerRegistration);
+            }
+        }
+
+        // Main navigation functions
         function showExistingTeam() {
             currentRegistrationType = 'existing';
             document.getElementById('existing-team-search').style.display = 'block';
@@ -223,8 +244,14 @@
             document.getElementById('isTeamCaptain').disabled = false;
             document.getElementById('teamNameStatus').innerHTML = '';
             sessionStorage.removeItem('joiningTeamId');
+            
+            if (document.getElementById('playerRegistrationForm')) {
+                document.getElementById('playerRegistrationForm').reset();
+            }
+            updateIndividualTotal();
         }
 
+        // Team search functionality
         function searchTeam() {
             const searchTerm = document.getElementById('teamSearch').value.toLowerCase().trim();
             const results = document.getElementById('teamSearchResults');
@@ -299,6 +326,7 @@
             document.getElementById('form-description').textContent = `Creating team "${teamName}". You'll be the team captain!`;
         }
 
+        // Team status checking
         function checkTeamStatus() {
             const teamName = document.getElementById('teamName').value.trim();
             const statusDiv = document.getElementById('teamNameStatus');
@@ -310,7 +338,7 @@
             }
 
             if (document.getElementById('teamName').readOnly) {
-                return; // Don't check if we're joining an existing team
+                return;
             }
 
             const registeredTeams = JSON.parse(localStorage.getItem('registeredTeams')) || [];
@@ -337,34 +365,8 @@
             }
         }
 
+        // Total calculation
         function updateIndividualTotal() {
-            let total = 85; // Base registration fee
+            let total = 85;
             
-            const mulliganChecked = document.getElementById('personalMulligan').checked;
-            const stringChecked = document.getElementById('personalPuttingString').checked;
-            
-            if (mulliganChecked) {
-                total += 10;
-                document.getElementById('mulligan-line').style.display = 'flex';
-            } else {
-                document.getElementById('mulligan-line').style.display = 'none';
-            }
-            
-            if (stringChecked) {
-                total += 5;
-                document.getElementById('string-line').style.display = 'flex';
-            } else {
-                document.getElementById('string-line').style.display = 'none';
-            }
-            
-            document.getElementById('individualTotal').textContent = total;
-            document.getElementById('button-total').textContent = total;
-            
-            return total;
-        }
-
-        function handlePlayerRegistration(e) {
-            e.preventDefault();
-            
-            const playerData = {
-                id: 'player_' + Date.now() +
+            const mulliganChecked = document.getElementById('personalMulligan') && document.getElementByI
