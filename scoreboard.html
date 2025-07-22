@@ -4,133 +4,168 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cauldron Cup Live Scoreboard</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap">
-  <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: #121212;
-      color: #f5f5f5;
-      margin: 0;
-      padding: 1rem;
-    }
-    h1 {
-      text-align: center;
-      color: #ffa500;
-    }
-    form {
-      max-width: 500px;
-      margin: auto;
-      background: #1e1e1e;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(255, 165, 0, 0.5);
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 0.75rem;
-      margin-top: 0.5rem;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-    button {
-      background-color: #ff6600;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 1.5rem;
-    }
-    button:hover {
-      background-color: #e65c00;
-    }
-    #scoreboard {
-      margin-top: 3rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .score-entry {
-      background: #262626;
-      padding: 1rem;
-      margin-bottom: 0.5rem;
-      border-radius: 8px;
-    }
-    .success {
-      color: #00ff99;
-      margin-top: 1rem;
-      text-align: center;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>🧙‍♂️ Cauldron Cup Live Scoreboard</h1>
-  <form id="score-form">
-    <label for="team">Team Name</label>
-    <input type="text" id="team" required />
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>🎃 Cauldron Cup 2025 🦇</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="sponsors.html">Sponsors</a></li>
+        <li><a href="scoreboard.html">Scoreboard</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <label for="hole">Hole Number</label>
-    <select id="hole">
-      <option value="">Select Hole</option>
-      <!-- Add holes 1-18 -->
-      ${[...Array(18).keys()].map(i => `<option value="${i+1}">${i+1}</option>`).join('')}
-    </select>
+  <main>
+    <div class="container">
+      <!-- Mobile Toggle Buttons -->
+      <div class="mobile-toggle">
+        <button class="toggle-btn active" onclick="showSection('leaderboard')">
+          📊 Leaderboard
+        </button>
+        <button class="toggle-btn" onclick="showSection('submit')">
+          ⛳ Submit Score
+        </button>
+      </div>
 
-    <label for="score">Score</label>
-    <input type="number" id="score" min="1" max="12" required />
+      <!-- Leaderboard Section -->
+      <div id="leaderboard-section" class="scoreboard-section active">
+        <h2>🏆 Live Leaderboard</h2>
+        
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="total-teams">0</div>
+            <div class="stat-label">Teams Playing</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="scores-submitted">0</div>
+            <div class="stat-label">Scores Submitted</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="current-leader">--</div>
+            <div class="stat-label">Current Leader</div>
+          </div>
+        </div>
 
-    <button type="submit" id="submitBtn">Submit Score</button>
-    <div class="success" id="message"></div>
-  </form>
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+          <button class="filter-btn active" onclick="filterLeaderboard('overall')">Overall</button>
+          <button class="filter-btn" onclick="filterLeaderboard('front9')">Front 9</button>
+          <button class="filter-btn" onclick="filterLeaderboard('back9')">Back 9</button>
+        </div>
 
-  <div id="scoreboard">
-    <h2>📋 Scores Submitted</h2>
-    <div id="entries"></div>
-  </div>
+        <!-- Leaderboard Table -->
+        <div class="leaderboard-container">
+          <div class="leaderboard-header">
+            <div class="rank-col">Rank</div>
+            <div class="team-col">Team</div>
+            <div class="score-col">Score</div>
+            <div class="holes-col">Holes</div>
+          </div>
+          <div id="leaderboard-body" class="leaderboard-body">
+            <!-- Leaderboard entries will be populated here -->
+          </div>
+        </div>
 
-  <script>
-    const form = document.getElementById('score-form');
-    const entriesDiv = document.getElementById('entries');
-    const message = document.getElementById('message');
-    const submitBtn = document.getElementById('submitBtn');
+        <!-- Refresh Button -->
+        <div class="refresh-section">
+          <button class="btn btn-secondary" onclick="refreshLeaderboard()">
+            🔄 Refresh Scores
+          </button>
+          <span class="last-updated">Last updated: <span id="last-update-time">--</span></span>
+        </div>
+      </div>
 
-    const scores = JSON.parse(localStorage.getItem('cauldronScores')) || [];
-    scores.forEach(displayScore);
+      <!-- Score Submission Section -->
+      <div id="submit-section" class="scoreboard-section">
+        <h2>⛳ Submit Team Score</h2>
+        
+        <!-- Team Login Form -->
+        <div id="team-login" class="form-section">
+          <h3>Team Authentication</h3>
+          <form id="team-auth-form">
+            <div class="form-group">
+              <label for="auth-team-name">Team Name</label>
+              <input type="text" id="auth-team-name" required placeholder="Enter your team name">
+            </div>
+            <div class="form-group">
+              <label for="auth-captain-email">Captain Email</label>
+              <input type="email" id="auth-captain-email" required placeholder="Enter captain's email">
+            </div>
+            <button type="submit" class="btn btn-primary full-width">Login to Submit Scores</button>
+          </form>
+          <div id="auth-message" class="message"></div>
+        </div>
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const team = document.getElementById('team').value.trim();
-      const hole = document.getElementById('hole').value;
-      const score = document.getElementById('score').value;
+        <!-- Score Submission Form (Hidden until authenticated) -->
+        <div id="score-submission" class="form-section" style="display: none;">
+          <div class="team-info">
+            <h3 id="logged-team-name">Team Name</h3>
+            <button class="btn-logout" onclick="logoutTeam()">Logout</button>
+          </div>
+          
+          <form id="score-form">
+            <div class="hole-score-grid">
+              <div class="form-group">
+                <label for="hole-select">Select Hole</label>
+                <select id="hole-select" required>
+                  <option value="">Choose hole...</option>
+                  <option value="1">Hole 1</option>
+                  <option value="2">Hole 2</option>
+                  <option value="3">Hole 3</option>
+                  <option value="4">Hole 4</option>
+                  <option value="5">Hole 5</option>
+                  <option value="6">Hole 6</option>
+                  <option value="7">Hole 7</option>
+                  <option value="8">Hole 8</option>
+                  <option value="9">Hole 9</option>
+                  <option value="10">Hole 10</option>
+                  <option value="11">Hole 11</option>
+                  <option value="12">Hole 12</option>
+                  <option value="13">Hole 13</option>
+                  <option value="14">Hole 14</option>
+                  <option value="15">Hole 15</option>
+                  <option value="16">Hole 16</option>
+                  <option value="17">Hole 17</option>
+                  <option value="18">Hole 18</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="team-score">Team Score</label>
+                <input type="number" id="team-score" min="1" max="15" required placeholder="Enter score">
+              </div>
+            </div>
 
-      if (!team || !hole || !score) {
-        message.textContent = 'Please fill in all fields.';
-        return;
-      }
+            <!-- Current Scorecard Preview -->
+            <div class="scorecard-preview">
+              <h4>Your Current Scorecard</h4>
+              <div id="team-scorecard" class="mini-scorecard">
+                <!-- Will be populated with team's current scores -->
+              </div>
+            </div>
 
-      submitBtn.disabled = true;
+            <button type="submit" class="btn btn-primary full-width">Submit Score</button>
+          </form>
+          
+          <div id="submission-message" class="message"></div>
+        </div>
+      </div>
+    </div>
+  </main>
 
-      const entry = { team, hole, score, timestamp: new Date().toLocaleString() };
-      scores.push(entry);
-      localStorage.setItem('cauldronScores', JSON.stringify(scores));
-      displayScore(entry);
-      form.reset();
-      message.textContent = '✅ Score submitted!';
-      setTimeout(() => {
-        message.textContent = '';
-        submitBtn.disabled = false;
-      }, 2000);
-    });
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Defender's Association</p>
+    </div>
+  </footer>
 
-    function displayScore(entry) {
-      const div = document.createElement('div');
-      div.className = 'score-entry';
-      div.innerHTML = `<strong>${entry.team}</strong> - Hole ${entry.hole} → ${entry.score} strokes <br><small>${entry.timestamp}</small>`;
-      entriesDiv.prepend(div);
-    }
-  </script>
+  <script src="scoreboard.js"></script>
 </body>
 </html>
