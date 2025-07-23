@@ -7,6 +7,62 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Define the functions FIRST, before anything tries to use them -->
+    <script>
+        function showExistingTeam() {
+            console.log('showExistingTeam called');
+            document.getElementById('existing-team-search').style.display = 'block';
+            document.getElementById('new-team-form').style.display = 'none';
+            document.getElementById('payment-section').style.display = 'none';
+            
+            // Update button states
+            const buttons = document.querySelectorAll('.registration-options button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons[0].classList.add('active');
+        }
+
+        function showNewTeam() {
+            console.log('showNewTeam called');
+            document.getElementById('existing-team-search').style.display = 'none';
+            document.getElementById('new-team-form').style.display = 'block';
+            document.getElementById('payment-section').style.display = 'none';
+            
+            // Update button states
+            const buttons = document.querySelectorAll('.registration-options button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons[1].classList.add('active');
+        }
+
+        function searchTeam() {
+            const searchTerm = document.getElementById('teamSearch').value;
+            const results = document.getElementById('teamSearchResults');
+            results.innerHTML = '<p>Searching for: ' + searchTerm + '</p>';
+        }
+
+        function updateIndividualTotal() {
+            let total = 85;
+            if (document.getElementById('personalMulligan').checked) {
+                total += 10;
+                document.getElementById('mulligan-line').style.display = 'flex';
+            } else {
+                document.getElementById('mulligan-line').style.display = 'none';
+            }
+            if (document.getElementById('personalPuttingString').checked) {
+                total += 5;
+                document.getElementById('string-line').style.display = 'flex';
+            } else {
+                document.getElementById('string-line').style.display = 'none';
+            }
+            document.getElementById('individualTotal').textContent = total;
+            document.getElementById('button-total').textContent = total;
+        }
+
+        function goBackToForm() {
+            document.getElementById('payment-section').style.display = 'none';
+            document.getElementById('new-team-form').style.display = 'block';
+        }
+    </script>
+
     <header>
         <nav>
             <div class="logo">
@@ -33,11 +89,11 @@
             </div>
 
             <div class="registration-options">
-                <button class="btn btn-primary" onclick="tournamentManager.showExistingTeam()">
+                <button class="btn btn-primary" onclick="showExistingTeam()">
                     <span class="btn-icon">👥</span>
                     Join Existing Team
                 </button>
-                <button class="btn btn-secondary" onclick="tournamentManager.showNewTeam()">
+                <button class="btn btn-secondary" onclick="showNewTeam()">
                     <span class="btn-icon">⭐</span>
                     Create New Team
                 </button>
@@ -49,7 +105,7 @@
                 <div class="search-container">
                     <div class="form-group">
                         <input type="text" id="teamSearch" placeholder="Enter team name to search...">
-                        <button onclick="tournamentManager.searchTeam()" class="btn btn-primary">Search Teams</button>
+                        <button onclick="searchTeam()" class="btn btn-primary">Search Teams</button>
                     </div>
                 </div>
                 <div id="teamSearchResults" class="search-results"></div>
@@ -111,7 +167,7 @@
                     <div class="addon-grid">
                         <div class="addon-card">
                             <label class="addon-label">
-                                <input type="checkbox" id="personalMulligan" onchange="tournamentManager.updateIndividualTotal()">
+                                <input type="checkbox" id="personalMulligan" onchange="updateIndividualTotal()">
                                 <div class="addon-content">
                                     <div class="addon-title">Mulligan Bag</div>
                                     <div class="addon-price">$10</div>
@@ -122,7 +178,7 @@
                         
                         <div class="addon-card">
                             <label class="addon-label">
-                                <input type="checkbox" id="personalPuttingString" onchange="tournamentManager.updateIndividualTotal()">
+                                <input type="checkbox" id="personalPuttingString" onchange="updateIndividualTotal()">
                                 <div class="addon-content">
                                     <div class="addon-title">12" Putting String</div>
                                     <div class="addon-price">$5</div>
@@ -162,7 +218,19 @@
 
             <!-- Payment Section -->
             <div id="payment-section" class="form-section" style="display: none;">
-                <!-- Will be populated by JavaScript -->
+                <h2>💳 Complete Your Registration</h2>
+                <div id="payment-summary" class="payment-summary"></div>
+                
+                <div class="payment-demo">
+                    <h3>Demo Payment Mode</h3>
+                    <p>This is a demonstration. No actual payment will be processed.</p>
+                    <button id="submit-payment" class="btn btn-primary btn-large">
+                        ✅ Complete Registration (Demo)
+                    </button>
+                </div>
+                
+                <button onclick="goBackToForm()" class="btn btn-outline">← Back to Registration Form</button>
+                <div id="payment-messages" class="message-container"></div>
             </div>
         </div>
     </main>
@@ -173,43 +241,24 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
     <script>
-        // Initialize tournament manager when page loads
+        // Form handling
         document.addEventListener('DOMContentLoaded', function() {
-            window.tournamentManager = new TournamentManager();
+            const form = document.getElementById('playerRegistrationForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Form submitted! (Demo mode)');
+                });
+            }
+
+            const paymentBtn = document.getElementById('submit-payment');
+            if (paymentBtn) {
+                paymentBtn.addEventListener('click', function() {
+                    alert('Payment completed! (Demo mode)');
+                });
+            }
         });
-        
-        // Global functions for onclick handlers
-        function showExistingTeam() {
-            if (window.tournamentManager) {
-                window.tournamentManager.showExistingTeam();
-            }
-        }
-        
-        function showNewTeam() {
-            if (window.tournamentManager) {
-                window.tournamentManager.showNewTeam();
-            }
-        }
-        
-        function searchTeam() {
-            if (window.tournamentManager) {
-                window.tournamentManager.searchTeam();
-            }
-        }
-        
-        function updateIndividualTotal() {
-            if (window.tournamentManager) {
-                window.tournamentManager.updateIndividualTotal();
-            }
-        }
-        
-        function goBackToForm() {
-            if (window.tournamentManager) {
-                window.tournamentManager.goBackToForm();
-            }
-        }
     </script>
 </body>
 </html>
