@@ -1,6 +1,4 @@
-/* styles.css - Clean, User-Friendly Design */
-
-/* Import clean, readable fonts */
+/* styles.css - Enhanced with Starting Tee functionality */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Creepster&display=swap');
 
 /* Modern CSS Variables */
@@ -12,22 +10,19 @@
     --success-green: #00b894;
     --error-red: #e74c3c;
     --warning-yellow: #fdcb6e;
-    
+    --info-blue: #0984e3;
     --text-dark: #2d3436;
     --text-light: #636e72;
     --text-white: #ffffff;
-    
     --bg-white: #ffffff;
     --bg-light: #f8f9fa;
     --bg-card: #ffffff;
     --bg-dark: #2d3436;
-    
     --border-light: #ddd;
     --border-medium: #bbb;
     --shadow-light: 0 2px 10px rgba(0,0,0,0.1);
     --shadow-medium: 0 4px 20px rgba(0,0,0,0.15);
     --shadow-heavy: 0 8px 30px rgba(0,0,0,0.2);
-    
     --border-radius: 12px;
     --border-radius-small: 8px;
     --transition: all 0.3s ease;
@@ -157,6 +152,11 @@ nav {
     border: 2px solid var(--primary-orange);
 }
 
+.btn-small {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
 .btn:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-medium);
@@ -168,6 +168,14 @@ nav {
 
 .btn.full-width {
     width: 100%;
+}
+
+.btn-large {
+    padding: 1.2rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 100%;
+    margin-top: 1rem;
 }
 
 /* Hero Section */
@@ -256,6 +264,11 @@ nav {
     color: var(--text-light);
 }
 
+.info-card.featured {
+    border: 2px solid var(--primary-orange);
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(108, 92, 231, 0.05));
+}
+
 /* Quick Links */
 .quick-links {
     padding: 4rem 2rem;
@@ -336,198 +349,17 @@ nav {
     box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
 }
 
-/* Mobile Scoreboard Styles */
-.mobile-toggle {
-    display: flex;
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: 0.5rem;
-    margin: 2rem 0;
-    gap: 0.5rem;
-    box-shadow: var(--shadow-light);
-    border: 1px solid var(--border-light);
-}
-
-.toggle-btn {
-    flex: 1;
-    padding: 1rem;
-    background: transparent;
-    color: var(--text-light);
-    border: none;
-    border-radius: var(--border-radius-small);
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    font-family: inherit;
-}
-
-.toggle-btn.active {
-    background: var(--primary-orange);
-    color: var(--text-white);
-    box-shadow: var(--shadow-light);
-}
-
-.scoreboard-section {
-    display: none;
-}
-
-.scoreboard-section.active {
-    display: block;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin: 2rem 0;
-}
-
-.stat-card {
-    background: var(--bg-card);
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    text-align: center;
-    border: 1px solid var(--border-light);
-    box-shadow: var(--shadow-light);
-}
-
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary-orange);
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    font-weight: 500;
-}
-
-/* Filter Buttons */
-.filter-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin: 2rem 0;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: 0.75rem 1.5rem;
-    background: var(--bg-card);
-    color: var(--text-dark);
-    border: 2px solid var(--border-light);
-    border-radius: var(--border-radius-small);
-    cursor: pointer;
-    transition: var(--transition);
-    font-weight: 500;
-    font-family: inherit;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-    background: var(--primary-orange);
-    color: var(--text-white);
-    border-color: var(--primary-orange);
-}
-
-/* Leaderboard */
-.leaderboard-container {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    margin: 2rem 0;
-    box-shadow: var(--shadow-light);
-    border: 1px solid var(--border-light);
-}
-
-.leaderboard-header {
-    display: grid;
-    grid-template-columns: 80px 1fr 100px 80px;
-    background: var(--primary-orange);
-    color: var(--text-white);
-    font-weight: 600;
-    padding: 1rem;
-}
-
-.leaderboard-body {
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.leaderboard-row {
-    display: grid;
-    grid-template-columns: 80px 1fr 100px 80px;
-    padding: 1rem;
-    border-bottom: 1px solid var(--border-light);
-    transition: var(--transition);
-}
-
-.leaderboard-row:hover {
-    background: rgba(255, 107, 53, 0.05);
-}
-
-.leaderboard-row.leader {
-    background: rgba(255, 107, 53, 0.1);
-    border-left: 4px solid var(--primary-orange);
-}
-
-.team-name {
-    font-weight: 600;
-    color: var(--text-dark);
-    font-size: 1.1rem;
-}
-
-.team-captain {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    margin-top: 0.2rem;
-}
-
-.total-score {
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: var(--text-dark);
-}
-
-.to-par {
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-/* Team Authentication */
-.team-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: rgba(255, 107, 53, 0.1);
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 107, 53, 0.2);
-}
-
-.team-info h3 {
-    margin: 0;
-    color: var(--primary-orange);
-}
-
-.btn-logout {
-    background: var(--error-red);
-/* Add these styles to your existing styles.css */
-
-/* Tee Times Styles */
-.teetimes-header {
-    text-align: center;
-    padding: 2rem 0;
+/* Starting Tee Specific Styles */
+.starting-tee-header {
     background: linear-gradient(135deg, var(--primary-orange), var(--accent-purple));
     color: var(--text-white);
+    padding: 3rem 2rem;
+    text-align: center;
     border-radius: var(--border-radius);
     margin-bottom: 3rem;
 }
 
-.teetimes-header h1 {
+.starting-tee-header h1 {
     color: var(--text-white);
     margin-bottom: 0.5rem;
 }
@@ -561,8 +393,54 @@ nav {
     opacity: 0.8;
 }
 
-/* Course Layout */
-.course-layout {
+/* Auto-Assignment Info */
+.auto-assignment-info {
+    margin-bottom: 3rem;
+}
+
+.assignment-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 100px;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.step-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.flow-arrow {
+    font-size: 1.5rem;
+    color: var(--primary-orange);
+    font-weight: bold;
+}
+
+/* Starting Tee Section */
+.starting-tee-section {
     background: var(--bg-card);
     border-radius: var(--border-radius);
     padding: 2rem;
@@ -570,414 +448,72 @@ nav {
     box-shadow: var(--shadow-light);
 }
 
-.course-header {
+.section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 2px solid var(--border-light);
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-.course-info {
+.legend {
     display: flex;
     gap: 2rem;
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-/* Tee Times Grid */
-.tee-times-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-}
-
-.hole-section {
-    background: var(--bg-light);
-    border-radius: var(--border-radius);
-    padding: 1rem;
-    border: 2px solid var(--border-light);
-}
-
-.hole-section.front-
-/* Individual Registration Styles */
-.registration-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.registration-subtitle {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin-top: 0.5rem;
-}
-
-.registration-options {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin: 2rem 0;
     flex-wrap: wrap;
 }
 
-.registration-options .btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    min-width: 200px;
+.legend-item {
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
-.registration-options .btn.active {
-    background: var(--success-green);
-    transform: scale(1.05);
-}
-
-.btn-icon {
-    font-size: 1.2rem;
-}
-
-/* Form Sections */
-.form-section {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    margin: 2rem 0;
-    box-shadow: var(--shadow-light);
-    border: 1px solid var(--border-light);
-}
-
-.section-header {
-    margin: 2rem 0 1rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-light);
-}
-
-.section-header h3 {
-    margin: 0;
-    color: var(--primary-orange);
-    font-size: 1.3rem;
-}
-
-.form-row {
+/* Course Layout */
+.course-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.form-description {
-    background: rgba(255, 107, 53, 0.1);
-    padding: 1rem;
-    border-radius: var(--border-radius-small);
-    border-left: 4px solid var(--primary-orange);
-    margin-bottom: 2rem;
-    font-style: italic;
-}
-
-/* Search Results */
-.search-container {
-    margin-bottom: 2rem;
-}
-
-.search-results {
-    margin-top: 1rem;
-}
-
-.team-result-card {
-    background: var(--bg-light);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-light);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.team-result-card h4 {
-    margin: 0 0 0.5rem 0;
-    color: var(--primary-orange);
-}
-
-.team-result-card p {
-    margin: 0.2rem 0;
-    font-size: 0.9rem;
-}
-
-.team-actions {
-    flex-shrink: 0;
-}
-
-.team-full-badge {
-    background: var(--error-red);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-small);
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.no-results-card {
-    text-align: center;
-    background: var(--bg-light);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    border: 2px dashed var(--border-medium);
-}
-
-/* Team Status Messages */
-.team-status-message {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.status-existing {
-    color: var(--success-green);
-}
-
-.status-new {
-    color: var(--primary-orange);
-}
-
-.status-full {
-    color: var(--error-red);
-}
-
-/* Checkbox Styling */
-.checkbox-container {
-    margin: 1rem 0;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.checkbox-label input[type="checkbox"] {
-    width: auto;
-    margin-right: 0.5rem;
-    transform: scale(1.2);
-}
-
-.help-text {
-    display: block;
-    margin-top: 0.5rem;
-    color: var(--text-light);
-    font-size: 0.9rem;
-}
-
-/* Add-on Grid */
-.addon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin: 1rem 0;
-}
-
-.addon-card {
-    border: 2px solid var(--border-light);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    transition: var(--transition);
-}
-
-.addon-card:hover {
-    border-color: var(--primary-orange);
-    box-shadow: var(--shadow-light);
-}
-
-.addon-label {
-    display: block;
-    cursor: pointer;
-    padding: 1.5rem;
-    background: var(--bg-white);
-    transition: var(--transition);
-}
-
-.addon-label:hover {
-    background: rgba(255, 107, 53, 0.05);
-}
-
-.addon-label input[type="checkbox"] {
-    width: auto;
-    margin: 0 0 1rem 0;
-    transform: scale(1.3);
-}
-
-.addon-content {
-    pointer-events: none;
-}
-
-.addon-title {
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 0.5rem;
-}
-
-.addon-price {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--primary-orange);
-    margin-bottom: 0.5rem;
-}
-
-.addon-description {
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-/* Total Card */
-.total-card {
-    background: linear-gradient(135deg, var(--primary-orange), var(--accent-purple));
-    color: white;
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin: 2rem 0;
-}
-
-.total-breakdown {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.total-line {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-}
-
-.addon-line {
-    opacity: 0.8;
-    font-size: 0.9rem;
-}
-
-.total-final {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.total-amount {
-    font-size: 1.5rem;
-}
-
-/* Large Buttons */
-.btn-large {
-    padding: 1.2rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    width: 100%;
-    margin-top: 1rem;
-}
-
-/* Payment Section */
-.payment-summary {
-    background: var(--bg-light);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    border: 1px solid var(--border-light);
-}
-
-.payment-demo {
-    background: rgba(40, 167, 69, 0.1);
-    border: 2px solid var(--success-green);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    text-align: center;
-    margin: 2rem 0;
-}
-
-.payment-demo h3 {
-    color: var(--success-green);
-    margin-bottom: 1rem;
-}
-
-.message-container {
-    margin-top: 1rem;
-    min-height: 2rem;
-}
-
-/* Success Styles */
-.registration-success {
-    text-align: center;
-    background: rgba(40, 167, 69, 0.1);
-    border: 2px solid var(--success-green);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-}
-
-.registration-success h2 {
-    color: var(--success-green);
-    margin-bottom: 1.5rem;
-}
-
-.success-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
+    gap: 2rem;
     margin-top: 2rem;
-    flex-wrap: wrap;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .registration-options {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .registration-options .btn {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .team-result-card {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .addon-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .success-actions {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .success-actions .btn {
-        width: 100%;
-        max-width: 250px;
-    }
+.course-side h3 {
+    text-align: center;
+    color: var(--primary-orange);
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: var(--border-radius-small);
 }
 
-@media (max-width: 480px) {
-    .form-section {
-        padding: 1rem;
-    }
-    
-    .total-card {
-        padding: 1rem;
-    }
-    
-    .registration-options .btn {
-        padding: 1rem;
-        font-size: 0.9rem;
-    }
+.holes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
 }
+
+/* Hole Cards */
+.hole-card {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-light);
+    border: 2px solid var(--border-light);
+    transition: var(--transition);
+}
+
+.hole-card.available {
+    border-color: var(--success-green);
+    background: rgba(0, 184, 148, 0.05);
+}
+
+.hole-card.assigned {
+    border-color: var(--info-blue);
+    background: rgba(9, 132, 227, 0.05);
+}
+
+.hole-card.next-available {
+    border-color: var(--warning-yellow);
+    background: rgba(253, 203, 110, 0.15);
+    box-shadow: 0 0 15px rgba(253, 203,
