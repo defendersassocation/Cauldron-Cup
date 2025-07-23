@@ -1,12 +1,22 @@
-/* styles.css - Enhanced with Starting Tee functionality */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Creepster&display=swap');
+/* Enhanced Halloween-themed styles.css - Complete File */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Creepster&family=Nosifer&display=swap');
 
-/* Modern CSS Variables */
+/* Enhanced CSS Variables with Halloween Theme */
 :root {
+    /* Halloween Color Palette */
     --primary-orange: #ff6b35;
-    --primary-dark: #2d3436;
-    --primary-light: #f8f9fa;
+    --halloween-orange: #ff8c00;
+    --deep-orange: #ff4500;
+    --pumpkin-glow: #ffaa44;
+    --halloween-purple: #4b0082;
     --accent-purple: #6c5ce7;
+    --witch-purple: #663399;
+    --spooky-black: #1a1a1a;
+    --midnight-black: #0d1117;
+    --ghost-white: #f8f8ff;
+    --blood-red: #8b0000;
+    
+    /* Standard Colors */
     --success-green: #00b894;
     --error-red: #e74c3c;
     --warning-yellow: #fdcb6e;
@@ -19,13 +29,63 @@
     --bg-card: #ffffff;
     --bg-dark: #2d3436;
     --border-light: #ddd;
-    --border-medium: #bbb;
+    --border-orange: #ff8c00;
+    
+    /* Halloween Gradients */
+    --halloween-gradient: linear-gradient(135deg, #ff8c00, #4b0082, #ff4500);
+    --pumpkin-gradient: linear-gradient(135deg, #ff8c00, #ffaa44);
+    --night-gradient: linear-gradient(135deg, #1a1a1a, #4b0082);
+    --witch-gradient: linear-gradient(135deg, #663399, #4b0082);
+    
+    /* Enhanced Shadows */
     --shadow-light: 0 2px 10px rgba(0,0,0,0.1);
     --shadow-medium: 0 4px 20px rgba(0,0,0,0.15);
     --shadow-heavy: 0 8px 30px rgba(0,0,0,0.2);
+    --shadow-orange: 0 4px 20px rgba(255, 140, 0, 0.4);
+    --shadow-purple: 0 4px 20px rgba(75, 0, 130, 0.4);
+    --shadow-spooky: 0 8px 30px rgba(26, 26, 26, 0.5);
+    
+    /* Border Radius */
     --border-radius: 12px;
     --border-radius-small: 8px;
     --transition: all 0.3s ease;
+}
+
+/* Halloween Animations */
+@keyframes spookyGlow {
+    from { 
+        filter: drop-shadow(0 0 5px rgba(255, 140, 0, 0.5));
+        text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+    }
+    to { 
+        filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.9));
+        text-shadow: 0 0 25px rgba(255, 140, 0, 0.9);
+    }
+}
+
+@keyframes floatAcross {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100vw); }
+}
+
+@keyframes pumpkinBounce {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-8px); }
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+    50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+}
+
+@keyframes coinSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes ghostFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
 }
 
 /* Reset and Base Styles */
@@ -37,27 +97,64 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #f8f8ff 0%, #e6e6fa 30%, #ffd4a3 70%, #ffb347 100%);
+    background-attachment: fixed;
     color: var(--text-dark);
     line-height: 1.6;
     min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* Typography */
+/* Halloween Background Effects */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 15% 85%, rgba(255, 140, 0, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 85% 15%, rgba(75, 0, 130, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 69, 0, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* Typography with Halloween Flair */
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-dark);
     margin-bottom: 1rem;
     font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
+h1 { 
+    font-size: 2.5rem;
+    background: var(--halloween-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+h2 { 
+    font-size: 2rem;
+    color: var(--halloween-orange);
+}
+
+h3 { 
+    font-size: 1.5rem;
+    color: var(--witch-purple);
+}
 
 .halloween-title {
     font-family: 'Creepster', cursive;
-    color: var(--primary-orange);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    background: var(--halloween-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: spookyGlow 3s ease-in-out infinite alternate;
 }
 
 p {
@@ -72,15 +169,26 @@ p {
     margin: 0 auto;
     padding: 0 20px;
 }
-
-/* Header and Navigation */
+/* Enhanced Header and Navigation */
 header {
-    background: var(--bg-white);
-    box-shadow: var(--shadow-light);
+    background: var(--night-gradient);
+    box-shadow: var(--shadow-spooky);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 3px solid var(--primary-orange);
+    border-bottom: 4px solid var(--halloween-orange);
+    position: relative;
+}
+
+header::before {
+    content: '🦇';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    opacity: 0.3;
+    animation: ghostFloat 3s ease-in-out infinite;
 }
 
 nav {
@@ -96,7 +204,12 @@ nav {
     font-family: 'Creepster', cursive;
     font-size: 1.8rem;
     margin: 0;
-    color: var(--primary-orange);
+    background: var(--pumpkin-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 15px rgba(255, 170, 68, 0.6));
+    animation: spookyGlow 4s ease-in-out infinite alternate;
 }
 
 .nav-links {
@@ -106,21 +219,40 @@ nav {
 }
 
 .nav-links a {
-    color: var(--text-dark);
+    color: var(--ghost-white);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1.2rem;
     border-radius: var(--border-radius-small);
     transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--pumpkin-gradient);
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.nav-links a:hover::before {
+    left: 0;
 }
 
 .nav-links a:hover {
-    background: var(--primary-orange);
-    color: var(--text-white);
-    transform: translateY(-2px);
+    color: var(--spooky-black);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-orange);
 }
 
-/* Buttons */
+/* Enhanced Buttons with Halloween Effects */
 .btn {
     display: inline-block;
     padding: 14px 28px;
@@ -134,32 +266,67 @@ nav {
     text-align: center;
     box-shadow: var(--shadow-light);
     font-family: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: all 0.6s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn-primary {
-    background: var(--primary-orange);
+    background: var(--pumpkin-gradient);
     color: var(--text-white);
+    border: 2px solid var(--deep-orange);
+    box-shadow: var(--shadow-orange);
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.5);
+    filter: brightness(1.1);
 }
 
 .btn-secondary {
-    background: var(--accent-purple);
+    background: var(--witch-gradient);
     color: var(--text-white);
+    border: 2px solid var(--accent-purple);
+    box-shadow: var(--shadow-purple);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(75, 0, 130, 0.5);
+    filter: brightness(1.2);
 }
 
 .btn-outline {
     background: transparent;
-    color: var(--primary-orange);
-    border: 2px solid var(--primary-orange);
+    color: var(--halloween-orange);
+    border: 2px solid var(--halloween-orange);
+}
+
+.btn-outline:hover {
+    background: var(--halloween-orange);
+    color: var(--text-white);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-orange);
 }
 
 .btn-small {
     padding: 8px 16px;
     font-size: 0.9rem;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-medium);
 }
 
 .btn:active {
@@ -178,13 +345,27 @@ nav {
     margin-top: 1rem;
 }
 
-/* Hero Section */
+/* Enhanced Hero Section */
 .hero {
-    background: linear-gradient(135deg, var(--primary-orange), var(--accent-purple));
+    background: var(--halloween-gradient);
     color: var(--text-white);
     padding: 4rem 2rem;
     text-align: center;
     margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '🎃 👻 🦇 🕷️ 🧙‍♀️ 🎭 🕸️ 🦴 🎃 👻 🦇 🕷️ 🧙‍♀️ 🎭 🕸️ 🦴';
+    position: absolute;
+    top: 30px;
+    left: -100%;
+    width: 200%;
+    font-size: 2rem;
+    opacity: 0.2;
+    animation: floatAcross 30s linear infinite;
+    white-space: nowrap;
 }
 
 .hero-content h1 {
@@ -192,6 +373,8 @@ nav {
     margin-bottom: 0.5rem;
     color: var(--text-white);
     font-family: 'Creepster', cursive;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+    animation: pumpkinBounce 2s ease-in-out infinite alternate;
 }
 
 .hero-content h2 {
@@ -208,7 +391,8 @@ nav {
     border-radius: var(--border-radius);
     margin: 2rem auto;
     max-width: 600px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 140, 0, 0.3);
+    box-shadow: inset 0 0 20px rgba(255, 170, 68, 0.2);
 }
 
 .event-details p {
@@ -244,18 +428,36 @@ nav {
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-light);
-    border: 1px solid var(--border-light);
+    border: 2px solid var(--border-light);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 140, 0, 0.05) 0%, transparent 70%);
+    opacity: 0;
     transition: var(--transition);
 }
 
+.info-card:hover::before {
+    opacity: 1;
+}
+
 .info-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-    border-color: var(--primary-orange);
+    transform: translateY(-5px) rotateZ(0.5deg);
+    box-shadow: var(--shadow-orange);
+    border-color: var(--halloween-orange);
 }
 
 .info-card h3 {
-    color: var(--primary-orange);
+    color: var(--halloween-orange);
     font-size: 1.3rem;
     margin-bottom: 1rem;
 }
@@ -265,8 +467,9 @@ nav {
 }
 
 .info-card.featured {
-    border: 2px solid var(--primary-orange);
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(108, 92, 231, 0.05));
+    border: 3px solid var(--halloween-orange);
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.05), rgba(75, 0, 130, 0.05));
+    box-shadow: var(--shadow-orange);
 }
 
 /* Quick Links */
@@ -290,19 +493,36 @@ nav {
     color: var(--text-dark);
     box-shadow: var(--shadow-light);
     transition: var(--transition);
-    border: 1px solid var(--border-light);
+    border: 2px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.link-card::after {
+    content: '✨';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.link-card:hover::after {
+    opacity: 1;
+    animation: sparkle 1s ease-in-out infinite;
 }
 
 .link-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-    border-color: var(--primary-orange);
+    box-shadow: var(--shadow-orange);
+    border-color: var(--halloween-orange);
     text-decoration: none;
     color: var(--text-dark);
 }
 
 .link-card h3 {
-    color: var(--primary-orange);
+    color: var(--halloween-orange);
     margin-bottom: 1rem;
 }
 
@@ -313,7 +533,17 @@ nav {
     border-radius: var(--border-radius);
     margin: 2rem 0;
     box-shadow: var(--shadow-light);
-    border: 1px solid var(--border-light);
+    border: 2px solid var(--border-light);
+    position: relative;
+}
+
+.form-section::before {
+    content: '🕸️';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    opacity: 0.3;
 }
 
 .form-group {
@@ -345,13 +575,559 @@ nav {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary-orange);
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+    border-color: var(--halloween-orange);
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.02), rgba(255, 255, 255, 1));
+}
+/* Mobile Scoreboard Styles */
+.mobile-toggle {
+    display: flex;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    margin: 2rem 0;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-light);
+    border: 2px solid var(--border-light);
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 1rem;
+    background: transparent;
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius-small);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.toggle-btn.active {
+    background: var(--pumpkin-gradient);
+    color: var(--text-white);
+    box-shadow: var(--shadow-orange);
+}
+
+.scoreboard-section {
+    display: none;
+}
+
+.scoreboard-section.active {
+    display: block;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    border: 2px solid var(--border-light);
+    box-shadow: var(--shadow-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '⭐';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    opacity: 0.3;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--halloween-orange);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-card);
+    color: var(--text-dark);
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    font-family: inherit;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--halloween-orange);
+    color: var(--text-white);
+    border-color: var(--halloween-orange);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-orange);
+}
+
+/* Leaderboard */
+.leaderboard-container {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-light);
+    border: 2px solid var(--border-light);
+}
+
+.leaderboard-header {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px 80px;
+    background: var(--halloween-gradient);
+    color: var(--text-white);
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.leaderboard-body {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px 80px;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-light);
+    transition: var(--transition);
+}
+
+.leaderboard-row:hover {
+    background: rgba(255, 140, 0, 0.05);
+}
+
+.leaderboard-row.leader {
+    background: rgba(255, 140, 0, 0.1);
+    border-left: 4px solid var(--halloween-orange);
+}
+
+.team-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+}
+
+.team-captain {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 0.2rem;
+}
+
+.total-score {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--text-dark);
+}
+
+.to-par {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* Individual Registration Styles */
+.registration-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.registration-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+}
+
+.auto-assignment-notice {
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(75, 0, 130, 0.1));
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+    border: 2px solid var(--halloween-orange);
+}
+
+.registration-options {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.registration-options .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    min-width: 200px;
+}
+
+.registration-options .btn.active {
+    background: var(--success-green);
+    transform: scale(1.05);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* Form Sections */
+.section-header {
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.section-header h3 {
+    margin: 0;
+    color: var(--halloween-orange);
+    font-size: 1.3rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-description {
+    background: rgba(255, 140, 0, 0.1);
+    padding: 1rem;
+    border-radius: var(--border-radius-small);
+    border-left: 4px solid var(--halloween-orange);
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+/* Search Results */
+.search-container {
+    margin-bottom: 2rem;
+}
+
+.search-results {
+    margin-top: 1rem;
+}
+
+.team-result-card {
+    background: var(--bg-light);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 2px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    transition: var(--transition);
+}
+
+.team-result-card:hover {
+    border-color: var(--halloween-orange);
+    box-shadow: var(--shadow-orange);
+}
+
+.team-result-card h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--halloween-orange);
+}
+
+.team-result-card p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+}
+
+.team-actions {
+    flex-shrink: 0;
+}
+
+.team-full-badge {
+    background: var(--error-red);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-small);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.no-results-card {
+    text-align: center;
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    border: 2px dashed var(--border-light);
+}
+
+/* Team Status Messages */
+.team-status-message {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.status-existing {
+    color: var(--success-green);
+}
+
+.status-new {
+    color: var(--halloween-orange);
+}
+
+.status-full {
+    color: var(--error-red);
+}
+
+/* Checkbox Styling */
+.checkbox-container {
+    margin: 1rem 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+    transform: scale(1.2);
+}
+
+.help-text {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Add-on Grid */
+.addon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.addon-card {
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+}
+
+.addon-card::before {
+    content: '✨';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.addon-card:hover::before {
+    opacity: 1;
+    animation: sparkle 1s ease-in-out infinite;
+}
+
+.addon-card:hover {
+    border-color: var(--halloween-orange);
+    box-shadow: var(--shadow-orange);
+    transform: scale(1.02);
+}
+
+.addon-label {
+    display: block;
+    cursor: pointer;
+    padding: 1.5rem;
+    background: var(--bg-white);
+    transition: var(--transition);
+}
+
+.addon-label:hover {
+    background: rgba(255, 140, 0, 0.05);
+}
+
+.addon-label input[type="checkbox"] {
+    width: auto;
+    margin: 0 0 1rem 0;
+    transform: scale(1.3);
+}
+
+.addon-content {
+    pointer-events: none;
+}
+
+.addon-title {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.addon-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--halloween-orange);
+    margin-bottom: 0.5rem;
+}
+
+.addon-description {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* Total Card */
+.total-card {
+    background: var(--halloween-gradient);
+    color: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.total-card::before {
+    content: '💰';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    opacity: 0.3;
+    animation: coinSpin 3s linear infinite;
+}
+
+.total-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.total-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+
+.addon-line {
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.total-final {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.total-amount {
+    font-size: 1.5rem;
+}
+
+/* Payment Section */
+.payment-summary {
+    background: var(--bg-light);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 2px solid var(--border-light);
+}
+
+.payment-demo {
+    background: rgba(0, 184, 148, 0.1);
+    border: 2px solid var(--success-green);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.payment-demo h3 {
+    color: var(--success-green);
+    margin-bottom: 1rem;
+}
+
+.message-container {
+    margin-top: 1rem;
+    min-height: 2rem;
+}
+
+.message {
+    padding: 1rem;
+    border-radius: var(--border-radius-small);
+    margin: 0.5rem 0;
+}
+
+.success-message {
+    background: rgba(0, 184, 148, 0.1);
+    color: var(--success-green);
+    border: 1px solid var(--success-green);
+}
+
+.error-message {
+    background: rgba(231, 76, 60, 0.1);
+    color: var(--error-red);
+    border: 1px solid var(--error-red);
+}
+
+/* Success Styles */
+.registration-success {
+    text-align: center;
+    background: rgba(0, 184, 148, 0.1);
+    border: 2px solid var(--success-green);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+}
+
+.registration-success h2 {
+    color: var(--success-green);
+    margin-bottom: 1.5rem;
+}
+
+.success-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
 }
 
 /* Starting Tee Specific Styles */
 .starting-tee-header {
-    background: linear-gradient(135deg, var(--primary-orange), var(--accent-purple));
+    background: var(--halloween-gradient);
     color: var(--text-white);
     padding: 3rem 2rem;
     text-align: center;
@@ -359,6 +1135,10 @@ nav {
     margin-bottom: 3rem;
 }
 
+.starting-tee-header h1 {
+    color: var(--text-white);
+    margin-bottom: 0.
+    /* Starting Tee Specific Styles - CONTINUED */
 .starting-tee-header h1 {
     color: var(--text-white);
     margin-bottom: 0.5rem;
@@ -418,7 +1198,7 @@ nav {
 .step-number {
     width: 40px;
     height: 40px;
-    background: var(--primary-orange);
+    background: var(--halloween-orange);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -435,7 +1215,7 @@ nav {
 
 .flow-arrow {
     font-size: 1.5rem;
-    color: var(--primary-orange);
+    color: var(--halloween-orange);
     font-weight: bold;
 }
 
@@ -480,7 +1260,7 @@ nav {
 
 .course-side h3 {
     text-align: center;
-    color: var(--primary-orange);
+    color: var(--halloween-orange);
     margin-bottom: 1.5rem;
     padding: 1rem;
     background: var(--bg-light);
@@ -514,315 +1294,204 @@ nav {
 }
 
 .hole-card.next-available {
-    border-color: var(--warning-yellow);
-    background: rgba(253, 203, 110, 0.15);
-    box-shadow: 0 0 15px rgba(253, 203,
-/* ===========================================
-   HALLOWEEN ENHANCEMENTS - ADD TO END OF FILE
-   =========================================== */
-
-/* Halloween animations */
-@keyframes spookyGlow {
-    from { filter: drop-shadow(0 0 5px rgba(255, 140, 0, 0.5)); }
-    to { filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.8)); }
+    border-color: var(--pumpkin-glow);
+    background: rgba(255, 170, 68, 0.15);
+    box-shadow: 0 0 15px rgba(255, 170, 68, 0.3);
+    animation: spookyGlow 2s ease-in-out infinite alternate;
 }
 
-@keyframes floatAcross {
-    from { left: -100%; }
-    to { left: 100%; }
+/* Team Formation Cards */
+.forming-teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
 }
 
-@keyframes pumpkinBounce {
-    from { transform: translateY(0px); }
-    to { transform: translateY(-10px); }
+.forming-team-card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    border: 2px solid var(--warning-yellow);
+    box-shadow: var(--shadow-light);
+    position: relative;
 }
 
-@keyframes sparkle {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.2) rotate(180deg); }
+.forming-team-card::before {
+    content: '⏳';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    opacity: 0.5;
 }
 
-@keyframes coinSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+.team-progress-badge {
+    background: var(--warning-yellow);
+    color: var(--spooky-black);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.9rem;
 }
 
-/* Enhanced Halloween colors */
-:root {
-    --halloween-orange: #ff8c00;
-    --deep-orange: #ff4500;
-    --halloween-purple: #4b0082;
-    --witch-purple: #663399;
-    --spooky-black: #1a1a1a;
-    --pumpkin-glow: #ffaa44;
-    --halloween-gradient: linear-gradient(135deg, #ff8c00, #4b0082, #ff4500);
-    --pumpkin-gradient: linear-gradient(135deg, #ff8c00, #ffaa44);
-    --shadow-orange: 0 4px 20px rgba(255, 140, 0, 0.3);
-    --shadow-purple: 0 4px 20px rgba(75, 0, 130, 0.3);
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1rem 0;
 }
 
-/* Halloween background effect */
-body::before {
-    content: '';
+.progress-fill {
+    height: 100%;
+    background: var(--halloween-gradient);
+    transition: var(--transition);
+}
+
+.player-chip {
+    display: inline-block;
+    background: var(--bg-light);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    margin: 0.2rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-light);
+}
+
+.player-chip.empty {
+    background: transparent;
+    border: 1px dashed var(--border-light);
+    color: var(--text-light);
+}
+
+/* Notifications */
+.hole-assignment-notification {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle at 20% 80%, rgba(255, 140, 0, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(75, 0, 130, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(255, 69, 0, 0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Enhanced header with Halloween gradient */
-header {
-    background: linear-gradient(135deg, #1a1a1a, #4b0082) !important;
-    border-bottom: 3px solid #ff8c00 !important;
-}
-
-/* Enhanced logo with glow */
-.logo h1 {
-    background: var(--pumpkin-gradient) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-    filter: drop-shadow(0 0 10px rgba(255, 170, 68, 0.5)) !important;
-}
-
-/* Enhanced nav links */
-.nav-links a {
-    color: #f8f8ff !important;
-    position: relative;
-    overflow: hidden;
-}
-
-.nav-links a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--pumpkin-gradient);
-    transition: all 0.3s ease;
-    z-index: -1;
-}
-
-.nav-links a:hover::before {
-    left: 0;
-}
-
-.nav-links a:hover {
-    color: #1a1a1a !important;
-    box-shadow: var(--shadow-orange) !important;
-}
-
-/* Glowing title animation */
-.halloween-title {
-    animation: spookyGlow 3s ease-in-out infinite alternate;
-}
-
-/* Hero floating icons */
-.hero {
-    position: relative;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '🎃 👻 🦇 🕷️ 🎃 👻 🦇 🕷️ 🎃 👻 🦇 🕷️';
-    position: absolute;
     top: 20px;
-    left: -100%;
-    width: 200%;
-    font-size: 2rem;
-    opacity: 0.15;
-    animation: floatAcross 25s linear infinite;
-    white-space: nowrap;
+    right: 20px;
+    background: var(--halloween-gradient);
+    color: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-orange);
+    z-index: 1000;
+    animation: pumpkinBounce 0.5s ease-out;
+    max-width: 350px;
 }
 
-/* Bouncing hero title */
-.hero-content h1 {
-    animation: pumpkinBounce 2s ease-in-out infinite alternate;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.5) !important;
-}
-
-/* Enhanced event details */
-.event-details {
-    border: 2px solid rgba(255, 140, 0, 0.3) !important;
-    box-shadow: inset 0 0 20px rgba(255, 170, 68, 0.2) !important;
-}
-
-/* Form spider web decoration */
-.form-section {
-    position: relative;
-}
-
-.form-section::before {
-    content: '🕸️';
+.notification-close {
     position: absolute;
     top: 10px;
     right: 15px;
+    background: none;
+    border: none;
+    color: white;
     font-size: 1.5rem;
-    opacity: 0.3;
+    cursor: pointer;
 }
 
-/* Enhanced form inputs */
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: var(--halloween-orange) !important;
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2) !important;
+/* Sponsor Page Enhancements */
+.sponsors-header {
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
-/* Button shine effect */
-.btn {
-    position: relative;
-    overflow: hidden;
+.sponsor-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
 }
 
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: all 0.6s ease;
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
 }
 
-.btn:hover::before {
-    left: 100%;
-}
-
-/* Enhanced primary buttons */
-.btn-primary {
-    background: var(--pumpkin-gradient) !important;
-    border: 2px solid var(--deep-orange) !important;
-}
-
-.btn-primary:hover {
-    box-shadow: var(--shadow-orange) !important;
-    filter: brightness(1.1);
-}
-
-/* Enhanced secondary buttons */
-.btn-secondary {
-    background: linear-gradient(135deg, var(--witch-purple), var(--halloween-purple)) !important;
-}
-
-.btn-secondary:hover {
-    box-shadow: var(--shadow-purple) !important;
-    filter: brightness(1.2);
-}
-
-/* Enhanced cards */
-.info-card {
-    position: relative;
-    overflow: hidden;
-}
-
-.info-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 140, 0, 0.05) 0%, transparent 70%);
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.info-card:hover::before {
-    opacity: 1;
-}
-
-.info-card:hover {
-    transform: translateY(-5px) rotateZ(0.5deg) !important;
-    box-shadow: var(--shadow-orange) !important;
-    border-color: var(--halloween-orange) !important;
-}
-
-/* Enhanced addon cards */
-.addon-card {
-    position: relative;
-}
-
-.addon-card::before {
-    content: '✨';
-    position: absolute;
-    top: 10px;
-    right: 10px;
+.benefit-icon {
     font-size: 1.2rem;
-    opacity: 0;
-    transition: all 0.3s ease;
 }
 
-.addon-card:hover::before {
-    opacity: 1;
-    animation: sparkle 1s ease-in-out infinite;
+.sponsor-package {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-light);
+    border: 2px solid var(--border-light);
+    transition: var(--transition);
 }
 
-.addon-card:hover {
-    border-color: var(--halloween-orange) !important;
-    box-shadow: var(--shadow-orange) !important;
-    transform: scale(1.02);
+.sponsor-package.featured {
+    border-color: var(--halloween-orange);
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.05), rgba(75, 0, 130, 0.05));
 }
 
-/* Enhanced total card */
-.total-card {
-    background: var(--halloween-gradient) !important;
-    position: relative;
-    overflow: hidden;
+.package-header {
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-.total-card::before {
-    content: '💰';
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2rem;
-    opacity: 0.3;
-    animation: coinSpin 3s linear infinite;
+.package-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
 }
 
-/* Enhanced leaderboard */
-.leaderboard-row.leader {
-    background: rgba(255, 140, 0, 0.1) !important;
-    border-left: 4px solid var(--halloween-orange) !important;
+.sponsor-contact {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin: 3rem 0;
+    text-align: center;
+    border: 2px solid var(--halloween-orange);
 }
 
-/* Starting tee enhancements */
-.starting-tee-header {
-    background: var(--halloween-gradient) !important;
-}
-
-.hole-card.next-available {
-    border-color: var(--pumpkin-glow) !important;
-    background: rgba(255, 170, 68, 0.15) !important;
-    box-shadow: 0 0 15px rgba(255, 170, 68, 0.3) !important;
-}
-
-.hole-card.assigned {
-    border-color: var(--halloween-purple) !important;
-    background: rgba(75, 0, 130, 0.05) !important;
-}
-
-/* Enhanced notifications */
-.hole-assignment-notification {
-    background: var(--halloween-gradient) !important;
-    color: white !important;
-    border-radius: 15px !important;
-    box-shadow: var(--shadow-orange) !important;
-    animation: pumpkinBounce 0.5s ease-out;
-}
-
-/* Mobile enhancements */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .registration-options {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .registration-options .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .team-result-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .addon-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .success-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .success-actions .btn {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .course-layout {
+        grid-template-columns: 1fr;
+    }
+    
     .hero::before {
         font-size: 1.5rem;
         animation: floatAcross 20s linear infinite;
@@ -830,5 +1499,94 @@ header {
     
     .hero-content h1 {
         font-size: 2.5rem;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .tournament-stats {
+        gap: 2rem;
+    }
+    
+    .stat-box .stat-number {
+        font-size: 2rem;
+    }
+    
+    .assignment-flow {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .sponsor-benefits {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .leaderboard-header,
+    .leaderboard-row {
+        grid-template-columns: 60px 1fr 80px 60px;
+        font-size: 0.9rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-section {
+        padding: 1rem;
+    }
+    
+    .total-card {
+        padding: 1rem;
+    }
+    
+    .registration-options .btn {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .hero {
+        padding: 2rem 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .hero::before,
+    .form-section::before,
+    .addon-card::before,
+    .total-card::before {
+        display: none;
+    }
+    
+    .btn {
+        background: #333 !important;
+        color: white !important;
     }
 }
