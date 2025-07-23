@@ -17,11 +17,10 @@
         <li><a href="register.html">Register</a></li>
         <li><a href="sponsors.html">Sponsors</a></li>
         <li><a href="scoreboard.html">Scoreboard</a></li>
-        <li><a href="teetimes.html">Tee Times</a></li>
+        <li><a href="starting-tee.html">Starting Tee</a></li>
       </ul>
     </nav>
   </header>
-
   <main>
     <div class="container">
       <!-- Mobile Toggle Buttons -->
@@ -33,11 +32,9 @@
           ⛳ Submit Score
         </button>
       </div>
-
       <!-- Leaderboard Section -->
       <div id="leaderboard-section" class="scoreboard-section active">
         <h2>🏆 Live Leaderboard</h2>
-        
         <!-- Quick Stats -->
         <div class="stats-grid">
           <div class="stat-card">
@@ -53,120 +50,8 @@
             <div class="stat-label">Current Leader</div>
           </div>
         </div>
-
         <!-- Filter Buttons -->
         <div class="filter-buttons">
           <button class="filter-btn active" onclick="filterLeaderboard('overall')">Overall</button>
           <button class="filter-btn" onclick="filterLeaderboard('front9')">Front 9</button>
           <button class="filter-btn" onclick="filterLeaderboard('back9')">Back 9</button>
-        </div>
-
-        <!-- Leaderboard Table -->
-        <div class="leaderboard-container">
-          <div class="leaderboard-header">
-            <div class="rank-col">Rank</div>
-            <div class="team-col">Team</div>
-            <div class="score-col">Score</div>
-            <div class="holes-col">Holes</div>
-          </div>
-          <div id="leaderboard-body" class="leaderboard-body">
-            <!-- Leaderboard entries will be populated here -->
-          </div>
-        </div>
-
-        <!-- Refresh Button -->
-        <div class="refresh-section">
-          <button class="btn btn-secondary" onclick="refreshLeaderboard()">
-            🔄 Refresh Scores
-          </button>
-          <span class="last-updated">Last updated: <span id="last-update-time">--</span></span>
-        </div>
-      </div>
-
-      <!-- Score Submission Section -->
-      <div id="submit-section" class="scoreboard-section">
-        <h2>⛳ Submit Team Score</h2>
-        
-        <!-- Team Login Form -->
-        <div id="team-login" class="form-section">
-          <h3>Team Authentication</h3>
-          <form id="team-auth-form">
-            <div class="form-group">
-              <label for="auth-team-name">Team Name</label>
-              <input type="text" id="auth-team-name" required placeholder="Enter your team name">
-            </div>
-            <div class="form-group">
-              <label for="auth-captain-email">Captain Email</label>
-              <input type="email" id="auth-captain-email" required placeholder="Enter captain's email">
-            </div>
-            <button type="submit" class="btn btn-primary full-width">Login to Submit Scores</button>
-          </form>
-          <div id="auth-message" class="message"></div>
-        </div>
-
-        <!-- Score Submission Form (Hidden until authenticated) -->
-        <div id="score-submission" class="form-section" style="display: none;">
-          <div class="team-info">
-            <h3 id="logged-team-name">Team Name</h3>
-            <button class="btn-logout" onclick="logoutTeam()">Logout</button>
-          </div>
-          
-          <form id="score-form">
-            <div class="hole-score-grid">
-              <div class="form-group">
-                <label for="hole-select">Select Hole</label>
-                <select id="hole-select" required>
-                  <option value="">Choose hole...</option>
-                  <option value="1">Hole 1</option>
-                  <option value="2">Hole 2</option>
-                  <option value="3">Hole 3</option>
-                  <option value="4">Hole 4</option>
-                  <option value="5">Hole 5</option>
-                  <option value="6">Hole 6</option>
-                  <option value="7">Hole 7</option>
-                  <option value="8">Hole 8</option>
-                  <option value="9">Hole 9</option>
-                  <option value="10">Hole 10</option>
-                  <option value="11">Hole 11</option>
-                  <option value="12">Hole 12</option>
-                  <option value="13">Hole 13</option>
-                  <option value="14">Hole 14</option>
-                  <option value="15">Hole 15</option>
-                  <option value="16">Hole 16</option>
-                  <option value="17">Hole 17</option>
-                  <option value="18">Hole 18</option>
-                </select>
-              </div>
-              
-              <div class="form-group">
-                <label for="team-score">Team Score</label>
-                <input type="number" id="team-score" min="1" max="15" required placeholder="Enter score">
-              </div>
-            </div>
-
-            <!-- Current Scorecard Preview -->
-            <div class="scorecard-preview">
-              <h4>Your Current Scorecard</h4>
-              <div id="team-scorecard" class="mini-scorecard">
-                <!-- Will be populated with team's current scores -->
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary full-width">Submit Score</button>
-          </form>
-          
-          <div id="submission-message" class="message"></div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Defender's Association</p>
-    </div>
-  </footer>
-
-  <script src="scoreboard.js"></script>
-</body>
-</html>
