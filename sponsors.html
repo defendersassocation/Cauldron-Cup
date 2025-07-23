@@ -7,6 +7,33 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Define the email function FIRST -->
+    <script>
+        function emailSponsors(packageType) {
+            console.log('Email function called for:', packageType);
+            
+            const subject = encodeURIComponent(`Cauldron Cup 2025 - ${packageType} Inquiry`);
+            const body = encodeURIComponent(`Hello,
+
+I am interested in learning more about the ${packageType} for the Cauldron Cup 2025 golf tournament.
+
+Please provide me with more details about this sponsorship opportunity, including:
+- Available dates and deadlines
+- Customization options
+- Payment terms
+- Additional benefits
+
+Thank you for your time, and I look forward to hearing from you.
+
+Best regards,`);
+            
+            const mailtoLink = `mailto:Monique.Nelson@edwardjones.com,christopher.sanford.2@spaceforce.mil,charnetta.mcdonald.1@spaceforce.mil?subject=${subject}&body=${body}`;
+            
+            console.log('Opening email client with:', mailtoLink);
+            window.location.href = mailtoLink;
+        }
+    </script>
+
     <header>
         <nav>
             <div class="logo">
@@ -25,7 +52,7 @@
     <main>
         <div class="container">
             <div class="sponsors-header">
-                <h1>Sponsorship Opportunities</h1>
+                <h1 class="halloween-title">Sponsorship Opportunities</h1>
                 <p class="intro-text">Defender's Association and gain valuable exposure for your business!</p>
                 <div class="sponsor-benefits">
                     <div class="benefit-item">
@@ -75,7 +102,7 @@
                     </div>
                     
                     <button class="btn btn-primary" onclick="emailSponsors('Starting Tee Sponsor Package')">
-                        Inquire About Starting Tee Sponsorship
+                        🎃 Inquire About Starting Tee Sponsorship
                     </button>
                 </div>
 
@@ -109,7 +136,7 @@
                     </div>
                     
                     <button class="btn btn-primary" onclick="emailSponsors('Hole Sponsor Package')">
-                        Inquire About Hole Sponsorship
+                        👻 Inquire About Hole Sponsorship
                     </button>
                 </div>
 
@@ -160,7 +187,7 @@
                     </div>
                     
                     <button class="btn btn-primary" onclick="emailSponsors('Swag Bag Sponsor Package')">
-                        Inquire About Swag Bag Sponsorship
+                        🦇 Inquire About Swag Bag Sponsorship
                     </button>
                 </div>
 
@@ -216,7 +243,7 @@
                     </div>
                     
                     <button class="btn btn-primary" onclick="emailSponsors('Prize Sponsor Package')">
-                        Inquire About Prize Sponsorship
+                        🕷️ Inquire About Prize Sponsorship
                     </button>
                 </div>
 
@@ -247,7 +274,7 @@
                     </div>
                     
                     <button class="btn btn-primary" onclick="emailSponsors('Digital Sponsor Package')">
-                        Inquire About Digital Sponsorship
+                        🎃 Inquire About Digital Sponsorship
                     </button>
                 </div>
             </div>
@@ -255,7 +282,7 @@
             <!-- Contact Information -->
             <div class="sponsor-contact">
                 <div class="contact-card">
-                    <h2>Ready to Sponsor?</h2>
+                    <h2>🧙‍♀️ Ready to Sponsor?</h2>
                     <p>Contact our sponsorship team to discuss opportunities and customize a package that works for your business.</p>
                     
                     <div class="contact-methods">
@@ -294,29 +321,5 @@
             <p>&copy; 2025 Defender's Association</p>
         </div>
     </footer>
-    
-    <script src="script.js"></script>
-    <script>
-        // Global function for sponsor emails
-        function emailSponsors(packageType) {
-            const subject = encodeURIComponent(`Cauldron Cup 2025 - ${packageType} Inquiry`);
-            const body = encodeURIComponent(`Hello,
-
-I am interested in learning more about the ${packageType} for the Cauldron Cup 2025 golf tournament.
-
-Please provide me with more details about this sponsorship opportunity, including:
-- Available dates and deadlines
-- Customization options
-- Payment terms
-- Additional benefits
-
-Thank you for your time, and I look forward to hearing from you.
-
-Best regards,`);
-            
-            const mailtoLink = `mailto:Monique.Nelson@edwardjones.com,christopher.sanford.2@spaceforce.mil,charnetta.mcdonald.1@spaceforce.mil?subject=${subject}&body=${body}`;
-            window.location.href = mailtoLink;
-        }
-    </script>
 </body>
 </html>
