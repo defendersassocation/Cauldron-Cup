@@ -1,112 +1,190 @@
-/* Enhanced Halloween-themed styles.css - Complete File */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Creepster&family=Nosifer&display=swap');
+/* SPOOKY HALLOWEEN THEME - Enhanced CSS */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Creepster&family=Chiller&family=Eater&display=swap');
 
-/* Enhanced CSS Variables with Halloween Theme */
+/* ENHANCED HALLOWEEN VARIABLES */
 :root {
-    /* Halloween Color Palette */
-    --primary-orange: #ff6b35;
-    --halloween-orange: #ff8c00;
-    --deep-orange: #ff4500;
-    --pumpkin-glow: #ffaa44;
-    --halloween-purple: #4b0082;
-    --accent-purple: #6c5ce7;
-    --witch-purple: #663399;
-    --spooky-black: #1a1a1a;
-    --midnight-black: #0d1117;
+    /* Spooky Halloween Colors */
+    --pumpkin-orange: #ff6600;
+    --deep-pumpkin: #cc4400;
+    --witch-hat-black: #0a0a0a;
+    --midnight-purple: #2d1b3d;
+    --vampire-purple: #4a0e4e;
     --ghost-white: #f8f8ff;
-    --blood-red: #8b0000;
+    --blood-red: #660000;
+    --poison-green: #39ff14;
+    --cauldron-smoke: #666666;
+    --spider-web-gray: #cccccc;
+    --moon-yellow: #ffeb3b;
+    --bat-wing-black: #1a1a1a;
     
-    /* Standard Colors */
-    --success-green: #00b894;
-    --error-red: #e74c3c;
-    --warning-yellow: #fdcb6e;
-    --info-blue: #0984e3;
-    --text-dark: #2d3436;
-    --text-light: #636e72;
-    --text-white: #ffffff;
-    --bg-white: #ffffff;
-    --bg-light: #f8f9fa;
-    --bg-card: #ffffff;
-    --bg-dark: #2d3436;
-    --border-light: #ddd;
-    --border-orange: #ff8c00;
+    /* Glowing Effects */
+    --jack-o-lantern-glow: #ff9500;
+    --spirit-glow: #9c27b0;
+    --witch-fire: #4caf50;
+    --haunted-mist: rgba(255, 149, 0, 0.3);
     
-    /* Halloween Gradients */
-    --halloween-gradient: linear-gradient(135deg, #ff8c00, #4b0082, #ff4500);
-    --pumpkin-gradient: linear-gradient(135deg, #ff8c00, #ffaa44);
-    --night-gradient: linear-gradient(135deg, #1a1a1a, #4b0082);
-    --witch-gradient: linear-gradient(135deg, #663399, #4b0082);
+    /* Enhanced Gradients */
+    --haunted-mansion: linear-gradient(135deg, #0a0a0a 0%, #2d1b3d 50%, #4a0e4e 100%);
+    --pumpkin-patch: linear-gradient(135deg, #ff6600 0%, #ff9500 50%, #ffeb3b 100%);
+    --witch-brew: linear-gradient(135deg, #4a0e4e 0%, #2d1b3d 50%, #39ff14 100%);
+    --ghost-trail: linear-gradient(135deg, rgba(248, 248, 255, 0.9) 0%, rgba(156, 39, 176, 0.1) 100%);
+    --midnight-sky: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d1b3d 100%);
     
-    /* Enhanced Shadows */
-    --shadow-light: 0 2px 10px rgba(0,0,0,0.1);
-    --shadow-medium: 0 4px 20px rgba(0,0,0,0.15);
-    --shadow-heavy: 0 8px 30px rgba(0,0,0,0.2);
-    --shadow-orange: 0 4px 20px rgba(255, 140, 0, 0.4);
-    --shadow-purple: 0 4px 20px rgba(75, 0, 130, 0.4);
-    --shadow-spooky: 0 8px 30px rgba(26, 26, 26, 0.5);
+    /* Spooky Shadows */
+    --shadow-haunted: 0 8px 32px rgba(255, 102, 0, 0.4);
+    --shadow-cursed: 0 4px 20px rgba(74, 14, 78, 0.6);
+    --shadow-spectral: 0 0 30px rgba(57, 255, 20, 0.5);
+    --shadow-graveyard: 0 10px 40px rgba(10, 10, 10, 0.8);
+    --shadow-cauldron: inset 0 0 20px rgba(255, 149, 0, 0.3);
     
-    /* Border Radius */
-    --border-radius: 12px;
+    /* Standard Properties */
+    --border-radius: 15px;
     --border-radius-small: 8px;
-    --transition: all 0.3s ease;
+    --transition-spooky: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-fast: all 0.2s ease;
 }
 
-/* Halloween Animations */
-@keyframes spookyGlow {
-    from { 
-        filter: drop-shadow(0 0 5px rgba(255, 140, 0, 0.5));
-        text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+/* ENHANCED HALLOWEEN ANIMATIONS */
+@keyframes hauntedGlow {
+    0% { 
+        box-shadow: 0 0 5px var(--jack-o-lantern-glow);
+        filter: brightness(1);
     }
-    to { 
-        filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.9));
-        text-shadow: 0 0 25px rgba(255, 140, 0, 0.9);
+    50% { 
+        box-shadow: 0 0 25px var(--jack-o-lantern-glow), 0 0 35px var(--spirit-glow);
+        filter: brightness(1.2);
+    }
+    100% { 
+        box-shadow: 0 0 5px var(--jack-o-lantern-glow);
+        filter: brightness(1);
     }
 }
 
-@keyframes floatAcross {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(100vw); }
+@keyframes ghostlyFloat {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.8;
+    }
+    25% { 
+        transform: translateY(-8px) rotate(1deg);
+        opacity: 1;
+    }
+    75% { 
+        transform: translateY(-12px) rotate(-1deg);
+        opacity: 0.9;
+    }
 }
 
-@keyframes pumpkinBounce {
-    from { transform: translateY(0px); }
-    to { transform: translateY(-8px); }
+@keyframes witchFly {
+    0% { 
+        transform: translateX(-100px) translateY(20px) rotate(-5deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% { 
+        transform: translateX(calc(100vw + 100px)) translateY(-20px) rotate(5deg);
+        opacity: 0;
+    }
 }
 
-@keyframes sparkle {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
-    50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+@keyframes spiderCrawl {
+    0% { transform: translateX(-50px) rotate(0deg); }
+    25% { transform: translateX(25px) rotate(90deg); }
+    50% { transform: translateX(50px) rotate(180deg); }
+    75% { transform: translateX(25px) rotate(270deg); }
+    100% { transform: translateX(-50px) rotate(360deg); }
 }
 
-@keyframes coinSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+@keyframes cauldronBubble {
+    0%, 100% { 
+        transform: scale(1) translateY(0px);
+        filter: hue-rotate(0deg);
+    }
+    25% { 
+        transform: scale(1.05) translateY(-3px);
+        filter: hue-rotate(90deg);
+    }
+    50% { 
+        transform: scale(1.1) translateY(-5px);
+        filter: hue-rotate(180deg);
+    }
+    75% { 
+        transform: scale(1.05) translateY(-3px);
+        filter: hue-rotate(270deg);
+    }
 }
 
-@keyframes ghostFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
+@keyframes phantomShimmer {
+    0% { 
+        background-position: -200% 0;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% { 
+        background-position: 200% 0;
+        opacity: 0;
+    }
 }
 
-/* Reset and Base Styles */
+@keyframes skeltonDance {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-5deg) scale(1.1); }
+    50% { transform: rotate(0deg) scale(1.2); }
+    75% { transform: rotate(5deg) scale(1.1); }
+}
+
+@keyframes bloodDrip {
+    0% { 
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(100px);
+        opacity: 0;
+    }
+}
+
+@keyframes thunderFlash {
+    0%, 90%, 100% { opacity: 0; }
+    5%, 85% { opacity: 1; }
+}
+
+/* ENHANCED BODY & BACKGROUND */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f8f8ff 0%, #e6e6fa 30%, #ffd4a3 70%, #ffb347 100%);
+    background: var(--midnight-sky);
     background-attachment: fixed;
-    color: var(--text-dark);
+    color: var(--ghost-white);
     line-height: 1.6;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
 }
 
-/* Halloween Background Effects */
+/* LAYERED SPOOKY BACKGROUND EFFECTS */
 body::before {
     content: '';
     position: fixed;
@@ -115,121 +193,380 @@ body::before {
     width: 100%;
     height: 100%;
     background-image: 
-        radial-gradient(circle at 15% 85%, rgba(255, 140, 0, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 85% 15%, rgba(75, 0, 130, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 69, 0, 0.08) 0%, transparent 70%);
+        /* Floating spirits */
+        radial-gradient(circle at 15% 25%, var(--haunted-mist) 0%, transparent 25%),
+        radial-gradient(circle at 85% 75%, rgba(74, 14, 78, 0.2) 0%, transparent 30%),
+        radial-gradient(circle at 45% 10%, rgba(57, 255, 20, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 75% 40%, rgba(255, 235, 59, 0.15) 0%, transparent 35%),
+        /* Misty atmosphere */
+        linear-gradient(135deg, rgba(10, 10, 10, 0.3) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(45, 27, 61, 0.2) 0%, transparent 70%);
     pointer-events: none;
-    z-index: -2;
+    z-index: -3;
+    animation: ghostlyFloat 8s ease-in-out infinite;
 }
 
-/* Typography with Halloween Flair */
+body::after {
+    content: '🕸️';
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    font-size: 4rem;
+    opacity: 0.15;
+    z-index: -2;
+    animation: spiderCrawl 15s linear infinite;
+    filter: drop-shadow(0 0 10px var(--jack-o-lantern-glow));
+}
+
+/* FLOATING HALLOWEEN ELEMENTS */
+.floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-elements::before {
+    content: '🦇 👻 🕷️ 🧙‍♀️ 🦇 👻 🕷️ 🧙‍♀️';
+    position: absolute;
+    top: 10%;
+    left: -200px;
+    font-size: 2.5rem;
+    opacity: 0.2;
+    animation: witchFly 25s linear infinite;
+    color: var(--jack-o-lantern-glow);
+    text-shadow: 0 0 20px currentColor;
+}
+
+.floating-elements::after {
+    content: '🎃 💀 ⚡ 🌙 🎃 💀 ⚡ 🌙';
+    position: absolute;
+    bottom: 15%;
+    right: -200px;
+    font-size: 2rem;
+    opacity: 0.25;
+    animation: witchFly 30s linear infinite reverse;
+    color: var(--spirit-glow);
+    text-shadow: 0 0 15px currentColor;
+}
+
+/* ENHANCED TYPOGRAPHY WITH SPOOKY EFFECTS */
 h1, h2, h3, h4, h5, h6 {
-    color: var(--text-dark);
+    color: var(--ghost-white);
     margin-bottom: 1rem;
     font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 4px var(--witch-hat-black);
+    position: relative;
 }
 
 h1 { 
-    font-size: 2.5rem;
-    background: var(--halloween-gradient);
+    font-size: 3rem;
+    background: var(--pumpkin-patch);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(3px 3px 6px var(--witch-hat-black));
+    position: relative;
+}
+
+h1::after {
+    content: '✨';
+    position: absolute;
+    right: -40px;
+    top: 0;
+    font-size: 0.7em;
+    animation: skeltonDance 2s ease-in-out infinite;
+    -webkit-text-fill-color: var(--moon-yellow);
 }
 
 h2 { 
-    font-size: 2rem;
-    color: var(--halloween-orange);
+    font-size: 2.2rem;
+    color: var(--jack-o-lantern-glow);
+    text-shadow: 
+        0 0 10px var(--jack-o-lantern-glow),
+        2px 2px 4px var(--witch-hat-black);
+    position: relative;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--pumpkin-patch);
+    border-radius: 2px;
+    animation: hauntedGlow 3s ease-in-out infinite;
 }
 
 h3 { 
-    font-size: 1.5rem;
-    color: var(--witch-purple);
+    font-size: 1.6rem;
+    color: var(--spirit-glow);
+    text-shadow: 
+        0 0 8px var(--spirit-glow),
+        1px 1px 3px var(--witch-hat-black);
 }
 
+/* SPECIAL HALLOWEEN TYPOGRAPHY CLASSES */
 .halloween-title {
     font-family: 'Creepster', cursive;
-    background: var(--halloween-gradient);
+    background: var(--pumpkin-patch);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: spookyGlow 3s ease-in-out infinite alternate;
+    animation: hauntedGlow 4s ease-in-out infinite;
+    position: relative;
+    display: inline-block;
 }
 
+.halloween-title::before {
+    content: '👑';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5em;
+    animation: ghostlyFloat 3s ease-in-out infinite;
+    -webkit-text-fill-color: var(--moon-yellow);
+}
+
+.spooky-text {
+    font-family: 'Chiller', cursive;
+    color: var(--blood-red);
+    text-shadow: 
+        0 0 10px var(--blood-red),
+        2px 2px 4px var(--witch-hat-black);
+    position: relative;
+}
+
+.spooky-text::after {
+    content: '💀';
+    position: absolute;
+    right: -30px;
+    top: 0;
+    animation: skeltonDance 1.5s ease-in-out infinite;
+}
+
+.witch-text {
+    font-family: 'Eater', cursive;
+    background: var(--witch-brew);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px var(--witch-fire);
+}
+
+.glowing-text {
+    color: var(--ghost-white);
+    text-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 15px currentColor;
+    animation: hauntedGlow 2s ease-in-out infinite alternate;
+}
+
+/* ENHANCED PARAGRAPH STYLES */
 p {
     margin-bottom: 1rem;
-    color: var(--text-light);
+    color: var(--spider-web-gray);
     font-size: 1rem;
+    line-height: 1.7;
+    text-shadow: 1px 1px 2px var(--witch-hat-black);
 }
 
-/* Container */
+.intro-text {
+    font-size: 1.2rem;
+    color: var(--ghost-white);
+    font-weight: 500;
+    text-align: center;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: rgba(255, 102, 0, 0.1);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--jack-o-lantern-glow);
+    position: relative;
+}
+
+.intro-text::before {
+    content: '🎃';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    animation: cauldronBubble 3s ease-in-out infinite;
+}
+
+.intro-text::after {
+    content: '🎃';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    animation: cauldronBubble 3s ease-in-out infinite reverse;
+}
+
+/* CONTAINER WITH SPOOKY EFFECTS */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-}
-/* Enhanced Header and Navigation */
-header {
-    background: var(--night-gradient);
-    box-shadow: var(--shadow-spooky);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 4px solid var(--halloween-orange);
     position: relative;
 }
 
-header::before {
-    content: '🦇';
+.container::before {
+    content: '';
     position: absolute;
-    left: 10px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(255, 102, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(156, 39, 176, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: var(--border-radius);
+    z-index: -1;
+}
+/* ENHANCED SPOOKY HEADER & NAVIGATION */
+header {
+    background: var(--haunted-mansion);
+    box-shadow: var(--shadow-graveyard);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 5px solid var(--jack-o-lantern-glow);
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, transparent 0%, rgba(255, 102, 0, 0.1) 50%, transparent 100%);
+    animation: phantomShimmer 4s ease-in-out infinite;
+}
+
+header::after {
+    content: '🕯️ 🦇 🕯️';
+    position: absolute;
     top: 50%;
+    left: 10px;
     transform: translateY(-50%);
-    font-size: 1.5rem;
-    opacity: 0.3;
-    animation: ghostFloat 3s ease-in-out infinite;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    animation: ghostlyFloat 4s ease-in-out infinite;
+    z-index: 1;
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* ENHANCED SPOOKY LOGO */
+.logo {
+    position: relative;
+    z-index: 3;
 }
 
 .logo h1 {
     font-family: 'Creepster', cursive;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     margin: 0;
-    background: var(--pumpkin-gradient);
+    background: var(--pumpkin-patch);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 15px rgba(255, 170, 68, 0.6));
-    animation: spookyGlow 4s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 20px var(--jack-o-lantern-glow));
+    animation: hauntedGlow 5s ease-in-out infinite;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition-spooky);
 }
 
+.logo h1::before {
+    content: '👑';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6em;
+    animation: skeltonDance 2s ease-in-out infinite;
+    -webkit-text-fill-color: var(--moon-yellow);
+}
+
+.logo h1::after {
+    content: '⚡';
+    position: absolute;
+    bottom: -15px;
+    right: -20px;
+    font-size: 0.8em;
+    animation: thunderFlash 3s ease-in-out infinite;
+    -webkit-text-fill-color: var(--poison-green);
+}
+
+.logo h1:hover {
+    transform: scale(1.05) rotate(1deg);
+    filter: drop-shadow(0 0 30px var(--jack-o-lantern-glow));
+}
+
+/* ENHANCED NAVIGATION LINKS */
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 1rem;
+    position: relative;
+}
+
+.nav-links::before {
+    content: '🕸️';
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    font-size: 2rem;
+    opacity: 0.3;
+    animation: spiderCrawl 10s linear infinite;
+}
+
+.nav-links li {
+    position: relative;
 }
 
 .nav-links a {
     color: var(--ghost-white);
     text-decoration: none;
-    font-weight: 500;
-    padding: 0.7rem 1.2rem;
-    border-radius: var(--border-radius-small);
-    transition: var(--transition);
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition-spooky);
     position: relative;
     overflow: hidden;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
 }
 
+/* MAGICAL HOVER EFFECTS FOR NAV LINKS */
 .nav-links a::before {
     content: '';
     position: absolute;
@@ -237,39 +574,152 @@ nav {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: var(--pumpkin-gradient);
-    transition: var(--transition);
-    z-index: -1;
+    background: var(--pumpkin-patch);
+    transition: var(--transition-spooky);
+    z-index: -2;
+}
+
+.nav-links a::after {
+    content: '✨';
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: var(--transition-spooky);
+    animation: skeltonDance 1s ease-in-out infinite;
+    z-index: 1;
 }
 
 .nav-links a:hover::before {
     left: 0;
 }
 
-.nav-links a:hover {
-    color: var(--spooky-black);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-orange);
+.nav-links a:hover::after {
+    opacity: 1;
 }
 
-/* Enhanced Buttons with Halloween Effects */
+.nav-links a:hover {
+    color: var(--witch-hat-black);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: var(--shadow-haunted);
+    border-color: var(--deep-pumpkin);
+    text-shadow: none;
+}
+
+/* SPECIAL ACTIVE STATE */
+.nav-links a.active,
+.nav-links a[href*="starting-tee"] {
+    background: var(--witch-brew);
+    color: var(--ghost-white);
+    border-color: var(--poison-green);
+    box-shadow: var(--shadow-spectral);
+}
+
+.nav-links a.active::after,
+.nav-links a[href*="starting-tee"]::after {
+    content: '🎃';
+    opacity: 1;
+    animation: cauldronBubble 2s ease-in-out infinite;
+}
+
+/* SPOOKY MOBILE MENU STYLES */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.8rem;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+    
+    .nav-links a {
+        text-align: center;
+        padding: 0.8rem 1rem;
+        width: 100%;
+    }
+    
+    header::after {
+        display: none;
+    }
+}
+
+/* FLOATING NAVIGATION DECORATIONS */
+.nav-decoration {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.nav-decoration::before {
+    content: '🌙';
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    font-size: 1.5rem;
+    opacity: 0.4;
+    animation: ghostlyFloat 6s ease-in-out infinite;
+}
+
+.nav-decoration::after {
+    content: '⭐';
+    position: absolute;
+    bottom: 10px;
+    left: 100px;
+    font-size: 1rem;
+    opacity: 0.5;
+    animation: skeltonDance 4s ease-in-out infinite;
+}
+
+/* MYSTICAL BORDER EFFECTS */
+header {
+    border-image: linear-gradient(90deg, 
+        var(--jack-o-lantern-glow) 0%, 
+        var(--spirit-glow) 50%, 
+        var(--jack-o-lantern-glow) 100%) 1;
+    border-image-slice: 1;
+}
+
+/* SPOOKY SCROLLING INDICATOR */
+.scroll-indicator {
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    height: 3px;
+    background: var(--pumpkin-patch);
+    transition: width 0.3s ease;
+    z-index: 2;
+}
+/* ENCHANTED BUTTONS & INTERACTIVE SPELLS */
 .btn {
     display: inline-block;
-    padding: 14px 28px;
+    padding: 1rem 2rem;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     border-radius: var(--border-radius);
-    transition: var(--transition);
+    transition: var(--transition-spooky);
     cursor: pointer;
     border: none;
     font-size: 1rem;
     text-align: center;
-    box-shadow: var(--shadow-light);
-    font-family: inherit;
+    font-family: 'Poppins', sans-serif;
     position: relative;
     overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
 }
 
+/* MAGICAL SHIMMER EFFECT FOR ALL BUTTONS */
 .btn::before {
     content: '';
     position: absolute;
@@ -277,161 +727,543 @@ nav {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    transition: all 0.6s ease;
+    background: linear-gradient(
+        90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.4) 30%, 
+        rgba(255, 255, 255, 0.6) 50%, 
+        rgba(255, 255, 255, 0.4) 70%, 
+        transparent 100%
+    );
+    transition: left 0.8s ease;
+    z-index: 2;
 }
 
 .btn:hover::before {
     left: 100%;
 }
 
+/* FLOATING SPARKLES EFFECT */
+.btn::after {
+    content: '✨';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: var(--transition-spooky);
+    animation: skeltonDance 1.5s ease-in-out infinite;
+    z-index: 3;
+}
+
+.btn:hover::after {
+    opacity: 1;
+    transform: scale(1.3) rotate(180deg);
+}
+
+/* PUMPKIN KING PRIMARY BUTTONS */
 .btn-primary {
-    background: var(--pumpkin-gradient);
-    color: var(--text-white);
-    border: 2px solid var(--deep-orange);
-    box-shadow: var(--shadow-orange);
+    background: var(--pumpkin-patch);
+    color: var(--witch-hat-black);
+    border: 3px solid var(--deep-pumpkin);
+    box-shadow: 
+        var(--shadow-haunted),
+        inset 0 0 20px rgba(255, 149, 0, 0.3);
+    font-weight: 800;
+    position: relative;
+}
+
+.btn-primary::before {
+    background: linear-gradient(
+        90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.6) 50%, 
+        transparent 100%
+    );
 }
 
 .btn-primary:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.5);
-    filter: brightness(1.1);
+    transform: translateY(-8px) scale(1.05) rotateX(10deg);
+    box-shadow: 
+        0 15px 40px rgba(255, 102, 0, 0.6),
+        0 0 30px var(--jack-o-lantern-glow),
+        inset 0 0 30px rgba(255, 149, 0, 0.5);
+    filter: brightness(1.2) saturate(1.3);
+    border-color: var(--moon-yellow);
 }
 
+.btn-primary:active {
+    transform: translateY(-3px) scale(1.02);
+    animation: cauldronBubble 0.3s ease;
+}
+
+/* WITCH'S BREW SECONDARY BUTTONS */
 .btn-secondary {
-    background: var(--witch-gradient);
-    color: var(--text-white);
-    border: 2px solid var(--accent-purple);
-    box-shadow: var(--shadow-purple);
+    background: var(--witch-brew);
+    color: var(--ghost-white);
+    border: 3px solid var(--vampire-purple);
+    box-shadow: 
+        var(--shadow-cursed),
+        inset 0 0 20px rgba(74, 14, 78, 0.4);
+    position: relative;
+}
+
+.btn-secondary::after {
+    content: '🔮';
 }
 
 .btn-secondary:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(75, 0, 130, 0.5);
-    filter: brightness(1.2);
+    transform: translateY(-8px) scale(1.05) rotateX(-10deg);
+    box-shadow: 
+        0 15px 40px rgba(74, 14, 78, 0.7),
+        0 0 25px var(--spirit-glow),
+        inset 0 0 30px rgba(156, 39, 176, 0.5);
+    filter: brightness(1.3) hue-rotate(20deg);
+    border-color: var(--poison-green);
 }
 
+/* GHOST OUTLINE BUTTONS */
 .btn-outline {
-    background: transparent;
-    color: var(--halloween-orange);
-    border: 2px solid var(--halloween-orange);
+    background: rgba(248, 248, 255, 0.1);
+    color: var(--jack-o-lantern-glow);
+    border: 3px solid var(--jack-o-lantern-glow);
+    backdrop-filter: blur(15px);
+    position: relative;
+}
+
+.btn-outline::after {
+    content: '👻';
 }
 
 .btn-outline:hover {
-    background: var(--halloween-orange);
-    color: var(--text-white);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-orange);
+    background: var(--jack-o-lantern-glow);
+    color: var(--witch-hat-black);
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 
+        0 12px 35px rgba(255, 102, 0, 0.5),
+        inset 0 0 20px rgba(255, 149, 0, 0.3);
+    border-color: var(--deep-pumpkin);
 }
 
+/* SPECTRAL SMALL BUTTONS */
 .btn-small {
-    padding: 8px 16px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.btn-small::after {
+    content: '⚡';
     font-size: 0.9rem;
+    top: -3px;
+    right: -3px;
 }
 
-.btn:active {
-    transform: translateY(-1px);
+/* CAULDRON LARGE BUTTONS */
+.btn-large {
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    width: 100%;
+    margin-top: 1.5rem;
+    letter-spacing: 2px;
+    position: relative;
 }
 
+.btn-large::before {
+    background: linear-gradient(
+        45deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.3) 25%, 
+        rgba(255, 255, 255, 0.7) 50%, 
+        rgba(255, 255, 255, 0.3) 75%, 
+        transparent 100%
+    );
+}
+
+.btn-large::after {
+    content: '🎃';
+    font-size: 1.5rem;
+    top: -8px;
+    right: -8px;
+}
+
+.btn-large:hover {
+    animation: cauldronBubble 0.5s ease-in-out;
+}
+
+/* FULL WIDTH MYSTICAL BUTTONS */
 .btn.full-width {
     width: 100%;
+    justify-self: stretch;
 }
 
-.btn-large {
-    padding: 1.2rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    width: 100%;
-    margin-top: 1rem;
+/* BUTTON ACTIVE STATES */
+.btn:active {
+    transform: translateY(-2px) scale(0.98);
 }
 
-/* Enhanced Hero Section */
-.hero {
-    background: var(--halloween-gradient);
-    color: var(--text-white);
-    padding: 4rem 2rem;
-    text-align: center;
-    margin-bottom: 3rem;
-    position: relative;
-    overflow: hidden;
+.btn.active {
+    background: var(--poison-green);
+    color: var(--witch-hat-black);
+    box-shadow: var(--shadow-spectral);
+    border-color: var(--witch-fire);
 }
 
-.hero::before {
-    content: '🎃 👻 🦇 🕷️ 🧙‍♀️ 🎭 🕸️ 🦴 🎃 👻 🦇 🕷️ 🧙‍♀️ 🎭 🕸️ 🦴';
-    position: absolute;
-    top: 30px;
-    left: -100%;
-    width: 200%;
-    font-size: 2rem;
-    opacity: 0.2;
-    animation: floatAcross 30s linear infinite;
-    white-space: nowrap;
+.btn.active::after {
+    content: '🌟';
+    opacity: 1;
+    animation: skeltonDance 1s ease-in-out infinite;
 }
 
-.hero-content h1 {
-    font-size: 3.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-white);
-    font-family: 'Creepster', cursive;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-    animation: pumpkinBounce 2s ease-in-out infinite alternate;
+/* DISABLED CURSED BUTTONS */
+.btn:disabled,
+.btn.disabled {
+    background: var(--cauldron-smoke);
+    color: var(--spider-web-gray);
+    border-color: var(--spider-web-gray);
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+    box-shadow: none;
 }
 
-.hero-content h2 {
-    font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 2rem;
-    font-weight: 400;
+.btn:disabled::after,
+.btn.disabled::after {
+    content: '💀';
+    opacity: 0.5;
+    animation: none;
 }
 
-.event-details {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    margin: 2rem auto;
-    max-width: 600px;
-    border: 2px solid rgba(255, 140, 0, 0.3);
-    box-shadow: inset 0 0 20px rgba(255, 170, 68, 0.2);
+.btn:disabled:hover,
+.btn.disabled:hover {
+    transform: none;
+    box-shadow: none;
 }
 
-.event-details p {
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    color: var(--text-white);
+/* SPECIAL HALLOWEEN BUTTON VARIANTS */
+.btn-spooky {
+    background: var(--blood-red);
+    color: var(--ghost-white);
+    border: 3px solid var(--blood-red);
+    text-shadow: 0 0 10px var(--blood-red);
 }
 
-.cta-buttons {
-    margin-top: 2rem;
+.btn-spooky::after {
+    content: '🩸';
+}
+
+.btn-spooky:hover {
+    animation: bloodDrip 0.8s ease-in-out;
+    box-shadow: 0 0 30px var(--blood-red);
+}
+
+.btn-witch {
+    background: var(--midnight-purple);
+    color: var(--poison-green);
+    border: 3px solid var(--poison-green);
+    text-shadow: 0 0 8px var(--poison-green);
+}
+
+.btn-witch::after {
+    content: '🧙‍♀️';
+}
+
+.btn-witch:hover {
+    transform: translateY(-10px) rotateY(15deg);
+    box-shadow: 0 0 25px var(--poison-green);
+}
+
+/* BUTTON GROUPS */
+.btn-group {
     display: flex;
     gap: 1rem;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
+    margin: 2rem 0;
 }
 
-/* Cards and Grids */
-.tournament-info {
-    padding: 4rem 2rem;
-    background: var(--bg-white);
-    margin-bottom: 3rem;
+.btn-group .btn {
+    flex: 1;
+    min-width: 150px;
 }
 
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+/* FLOATING ACTION BUTTON */
+.btn-floating {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--pumpkin-patch);
+    color: var(--witch-hat-black);
+    border: 3px solid var(--deep-pumpkin);
+    box-shadow: var(--shadow-haunted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 999;
+    animation: ghostlyFloat 3s ease-in-out infinite;
 }
 
-.info-card {
-    background: var(--bg-card);
-    padding: 2rem;
+.btn-floating::after {
+    content: '🦇';
+    position: relative;
+    top: 0;
+    right: 0;
+    animation: skeltonDance 2s ease-in-out infinite;
+}
+
+.btn-floating:hover {
+    transform: scale(1.2) rotate(360deg);
+    animation: cauldronBubble 0.5s ease-in-out;
+}
+
+/* MOBILE BUTTON ENHANCEMENTS */
+@media (max-width: 768px) {
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+    
+    .btn-large {
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .btn-group .btn {
+        min-width: auto;
+    }
+    
+    .btn-floating {
+        bottom: 1rem;
+        right: 1rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+/* ENCHANTED FORMS & MYSTICAL CARDS */
+
+/* SPOOKY FORM SECTIONS */
+.form-section {
+    background: linear-gradient(135deg, 
+        rgba(10, 10, 10, 0.9) 0%, 
+        rgba(45, 27, 61, 0.8) 50%, 
+        rgba(74, 14, 78, 0.9) 100%);
+    backdrop-filter: blur(15px);
+    padding: 2.5rem;
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
-    border: 2px solid var(--border-light);
-    transition: var(--transition);
+    margin: 2rem 0;
+    box-shadow: 
+        var(--shadow-graveyard),
+        inset 0 0 30px rgba(255, 102, 0, 0.1);
+    border: 2px solid var(--jack-o-lantern-glow);
     position: relative;
     overflow: hidden;
+}
+
+.form-section::before {
+    content: '🕸️';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    opacity: 0.4;
+    animation: spiderCrawl 12s linear infinite;
+    filter: drop-shadow(0 0 10px var(--jack-o-lantern-glow));
+}
+
+.form-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 102, 0, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(156, 39, 176, 0.1) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* SECTION HEADERS WITH MYSTICAL EFFECTS */
+.section-header {
+    margin: 2.5rem 0 1.5rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--jack-o-lantern-glow);
+    position: relative;
+    z-index: 1;
+}
+
+.section-header::before {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--pumpkin-patch);
+    animation: phantomShimmer 3s ease-in-out infinite;
+}
+
+.section-header h3 {
+    margin: 0;
+    color: var(--jack-o-lantern-glow);
+    font-size: 1.5rem;
+    text-shadow: 
+        0 0 15px var(--jack-o-lantern-glow),
+        2px 2px 4px var(--witch-hat-black);
+    position: relative;
+    display: inline-block;
+}
+
+.section-header h3::after {
+    content: '✨';
+    position: absolute;
+    right: -30px;
+    top: 0;
+    animation: skeltonDance 2s ease-in-out infinite;
+    color: var(--moon-yellow);
+}
+
+/* ENCHANTED FORM GROUPS */
+.form-group {
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    color: var(--ghost-white);
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 3px var(--witch-hat-black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.form-group label::before {
+    content: '🔮';
+    margin-right: 8px;
+    font-size: 0.9rem;
+    animation: cauldronBubble 3s ease-in-out infinite;
+}
+
+/* MAGICAL INPUT FIELDS */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    border: 2px solid var(--spider-web-gray);
+    border-radius: var(--border-radius);
+    background: rgba(10, 10, 10, 0.7);
+    color: var(--ghost-white);
+    font-size: 1rem;
+    transition: var(--transition-spooky);
+    font-family: 'Poppins', sans-serif;
+    backdrop-filter: blur(10px);
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--spider-web-gray);
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* SPELLBOUND FOCUS EFFECTS */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--jack-o-lantern-glow);
+    box-shadow: 
+        0 0 0 4px rgba(255, 102, 0, 0.3),
+        0 0 20px var(--jack-o-lantern-glow),
+        inset 0 0 20px rgba(255, 102, 0, 0.1);
+    background: rgba(255, 102, 0, 0.05);
+    transform: scale(1.02);
+    color: var(--ghost-white);
+}
+
+.form-group input:focus::placeholder {
+    color: var(--jack-o-lantern-glow);
+    opacity: 0.8;
+}
+
+/* FORM ROW LAYOUTS */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* MYSTICAL DESCRIPTIONS */
+.form-description {
+    background: linear-gradient(135deg, 
+        rgba(255, 102, 0, 0.15) 0%, 
+        rgba(156, 39, 176, 0.15) 100%);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border-left: 5px solid var(--jack-o-lantern-glow);
+    margin-bottom: 2rem;
+    font-style: italic;
+    color: var(--ghost-white);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.form-description::before {
+    content: '📜';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 1.5rem;
+    opacity: 0.7;
+    animation: ghostlyFloat 4s ease-in-out infinite;
+}
+
+.form-description::after {
+    content: '🖋️';
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    animation: skeltonDance 3s ease-in-out infinite;
+}
+
+/* HAUNTED CARDS */
+.info-card {
+    background: linear-gradient(135deg, 
+        rgba(10, 10, 10, 0.9) 0%, 
+        rgba(45, 27, 61, 0.8) 50%, 
+        rgba(74, 14, 78, 0.9) 100%);
+    backdrop-filter: blur(15px);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-graveyard);
+    border: 2px solid var(--spider-web-gray);
+    transition: var(--transition-spooky);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
 }
 
 .info-card::before {
@@ -441,43 +1273,165 @@ nav {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255, 140, 0, 0.05) 0%, transparent 70%);
+    background: 
+        radial-gradient(circle, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
     opacity: 0;
-    transition: var(--transition);
+    transition: var(--transition-spooky);
+    animation: ghostlyFloat 6s ease-in-out infinite;
+}
+
+.info-card::after {
+    content: '⚡';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: var(--transition-spooky);
+    animation: thunderFlash 4s ease-in-out infinite;
 }
 
 .info-card:hover::before {
     opacity: 1;
 }
 
+.info-card:hover::after {
+    opacity: 0.8;
+    animation: skeltonDance 1s ease-in-out infinite;
+}
+
 .info-card:hover {
-    transform: translateY(-5px) rotateZ(0.5deg);
-    box-shadow: var(--shadow-orange);
-    border-color: var(--halloween-orange);
+    transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+    box-shadow: 
+        var(--shadow-haunted),
+        0 20px 60px rgba(255, 102, 0, 0.3);
+    border-color: var(--jack-o-lantern-glow);
+    background: linear-gradient(135deg, 
+        rgba(255, 102, 0, 0.1) 0%, 
+        rgba(10, 10, 10, 0.9) 50%, 
+        rgba(156, 39, 176, 0.1) 100%);
 }
 
 .info-card h3 {
-    color: var(--halloween-orange);
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
+    color: var(--jack-o-lantern-glow);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px var(--jack-o-lantern-glow);
+    position: relative;
+}
+
+.info-card h3::before {
+    content: '🎃';
+    margin-right: 10px;
+    animation: cauldronBubble 3s ease-in-out infinite;
 }
 
 .info-card p {
-    color: var(--text-light);
+    color: var(--spider-web-gray);
+    line-height: 1.8;
+    font-size: 1rem;
 }
 
+/* FEATURED CARDS */
 .info-card.featured {
-    border: 3px solid var(--halloween-orange);
-    background: linear-gradient(135deg, rgba(255, 140, 0, 0.05), rgba(75, 0, 130, 0.05));
-    box-shadow: var(--shadow-orange);
+    border: 3px solid var(--jack-o-lantern-glow);
+    background: linear-gradient(135deg, 
+        rgba(255, 102, 0, 0.2) 0%, 
+        rgba(10, 10, 10, 0.9) 30%, 
+        rgba(156, 39, 176, 0.2) 100%);
+    box-shadow: 
+        var(--shadow-haunted),
+        inset 0 0 30px rgba(255, 102, 0, 0.2);
+    position: relative;
 }
 
-/* Quick Links */
-.quick-links {
-    padding: 4rem 2rem;
-    background: var(--bg-light);
+.info-card.featured::before {
+    content: '👑';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    animation: skeltonDance 2s ease-in-out infinite;
+    z-index: 2;
 }
 
+/* LINK CARDS */
+.link-card {
+    background: linear-gradient(135deg, 
+        rgba(10, 10, 10, 0.9) 0%, 
+        rgba(45, 27, 61, 0.8) 100%);
+    backdrop-filter: blur(15px);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--ghost-white);
+    box-shadow: var(--shadow-graveyard);
+    transition: var(--transition-spooky);
+    border: 2px solid var(--spider-web-gray);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.link-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--pumpkin-patch);
+    opacity: 0.1;
+    transition: var(--transition-spooky);
+    z-index: 0;
+}
+
+.link-card::after {
+    content: '🔗';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: var(--transition-spooky);
+    animation: ghostlyFloat 3s ease-in-out infinite;
+}
+
+.link-card:hover::before {
+    left: 0;
+}
+
+.link-card:hover::after {
+    opacity: 1;
+    animation: skeltonDance 1s ease-in-out infinite;
+}
+
+.link-card:hover {
+    transform: translateY(-8px) scale(1.02) rotateX(3deg);
+    box-shadow: 
+        var(--shadow-haunted),
+        0 15px 50px rgba(255, 102, 0, 0.4);
+    border-color: var(--jack-o-lantern-glow);
+    text-decoration: none;
+    color: var(--ghost-white);
+}
+
+.link-card h3 {
+    color: var(--jack-o-lantern-glow);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.link-card h3::before {
+    content: '⚡';
+    margin-right: 8px;
+    animation: thunderFlash 3s ease-in-out infinite;
+}
+
+/* CARD GRIDS */
+.info-grid,
 .links-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -485,1108 +1439,37 @@ nav {
     margin-top: 2rem;
 }
 
-.link-card {
-    background: var(--bg-card);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    color: var(--text-dark);
-    box-shadow: var(--shadow-light);
-    transition: var(--transition);
-    border: 2px solid var(--border-light);
-    position: relative;
-    overflow: hidden;
-}
-
-.link-card::after {
-    content: '✨';
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.5rem;
-    opacity: 0;
-    transition: var(--transition);
-}
-
-.link-card:hover::after {
-    opacity: 1;
-    animation: sparkle 1s ease-in-out infinite;
-}
-
-.link-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-orange);
-    border-color: var(--halloween-orange);
-    text-decoration: none;
-    color: var(--text-dark);
-}
-
-.link-card h3 {
-    color: var(--halloween-orange);
-    margin-bottom: 1rem;
-}
-
-/* Forms */
-.form-section {
-    background: var(--bg-card);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    margin: 2rem 0;
-    box-shadow: var(--shadow-light);
-    border: 2px solid var(--border-light);
-    position: relative;
-}
-
-.form-section::before {
-    content: '🕸️';
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
-    opacity: 0.3;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--text-dark);
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 14px;
-    border: 2px solid var(--border-light);
-    border-radius: var(--border-radius-small);
-    background: var(--bg-white);
-    color: var(--text-dark);
-    font-size: 1rem;
-    transition: var(--transition);
-    font-family: inherit;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--halloween-orange);
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
-    background: linear-gradient(135deg, rgba(255, 140, 0, 0.02), rgba(255, 255, 255, 1));
-}
-/* Mobile Scoreboard Styles */
-.mobile-toggle {
-    display: flex;
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: 0.5rem;
-    margin: 2rem 0;
-    gap: 0.5rem;
-    box-shadow: var(--shadow-light);
-    border: 2px solid var(--border-light);
-}
-
-.toggle-btn {
-    flex: 1;
-    padding: 1rem;
-    background: transparent;
-    color: var(--text-light);
-    border: none;
-    border-radius: var(--border-radius-small);
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    font-family: inherit;
-}
-
-.toggle-btn.active {
-    background: var(--pumpkin-gradient);
-    color: var(--text-white);
-    box-shadow: var(--shadow-orange);
-}
-
-.scoreboard-section {
-    display: none;
-}
-
-.scoreboard-section.active {
-    display: block;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin: 2rem 0;
-}
-
-.stat-card {
-    background: var(--bg-card);
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    text-align: center;
-    border: 2px solid var(--border-light);
-    box-shadow: var(--shadow-light);
-    position: relative;
-    overflow: hidden;
-}
-
-.stat-card::before {
-    content: '⭐';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2rem;
-    opacity: 0.3;
-}
-
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--halloween-orange);
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    font-weight: 500;
-}
-
-/* Filter Buttons */
-.filter-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin: 2rem 0;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: 0.75rem 1.5rem;
-    background: var(--bg-card);
-    color: var(--text-dark);
-    border: 2px solid var(--border-light);
-    border-radius: var(--border-radius-small);
-    cursor: pointer;
-    transition: var(--transition);
-    font-weight: 500;
-    font-family: inherit;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-    background: var(--halloween-orange);
-    color: var(--text-white);
-    border-color: var(--halloween-orange);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-orange);
-}
-
-/* Leaderboard */
-.leaderboard-container {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    margin: 2rem 0;
-    box-shadow: var(--shadow-light);
-    border: 2px solid var(--border-light);
-}
-
-.leaderboard-header {
-    display: grid;
-    grid-template-columns: 80px 1fr 100px 80px;
-    background: var(--halloween-gradient);
-    color: var(--text-white);
-    font-weight: 600;
-    padding: 1rem;
-}
-
-.leaderboard-body {
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.leaderboard-row {
-    display: grid;
-    grid-template-columns: 80px 1fr 100px 80px;
-    padding: 1rem;
-    border-bottom: 1px solid var(--border-light);
-    transition: var(--transition);
-}
-
-.leaderboard-row:hover {
-    background: rgba(255, 140, 0, 0.05);
-}
-
-.leaderboard-row.leader {
-    background: rgba(255, 140, 0, 0.1);
-    border-left: 4px solid var(--halloween-orange);
-}
-
-.team-name {
-    font-weight: 600;
-    color: var(--text-dark);
-    font-size: 1.1rem;
-}
-
-.team-captain {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    margin-top: 0.2rem;
-}
-
-.total-score {
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: var(--text-dark);
-}
-
-.to-par {
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-/* Individual Registration Styles */
-.registration-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.registration-subtitle {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin-top: 0.5rem;
-}
-
-.auto-assignment-notice {
-    background: linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(75, 0, 130, 0.1));
-    padding: 1rem;
-    border-radius: var(--border-radius);
-    margin-top: 1rem;
-    border: 2px solid var(--halloween-orange);
-}
-
-.registration-options {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin: 2rem 0;
-    flex-wrap: wrap;
-}
-
-.registration-options .btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    min-width: 200px;
-}
-
-.registration-options .btn.active {
-    background: var(--success-green);
-    transform: scale(1.05);
-}
-
-.btn-icon {
-    font-size: 1.2rem;
-}
-
-/* Form Sections */
-.section-header {
-    margin: 2rem 0 1rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-light);
-}
-
-.section-header h3 {
-    margin: 0;
-    color: var(--halloween-orange);
-    font-size: 1.3rem;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.form-description {
-    background: rgba(255, 140, 0, 0.1);
-    padding: 1rem;
-    border-radius: var(--border-radius-small);
-    border-left: 4px solid var(--halloween-orange);
-    margin-bottom: 2rem;
-    font-style: italic;
-}
-
-/* Search Results */
-.search-container {
-    margin-bottom: 2rem;
-}
-
-.search-results {
-    margin-top: 1rem;
-}
-
-.team-result-card {
-    background: var(--bg-light);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border: 2px solid var(--border-light);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    transition: var(--transition);
-}
-
-.team-result-card:hover {
-    border-color: var(--halloween-orange);
-    box-shadow: var(--shadow-orange);
-}
-
-.team-result-card h4 {
-    margin: 0 0 0.5rem 0;
-    color: var(--halloween-orange);
-}
-
-.team-result-card p {
-    margin: 0.2rem 0;
-    font-size: 0.9rem;
-}
-
-.team-actions {
-    flex-shrink: 0;
-}
-
-.team-full-badge {
-    background: var(--error-red);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-small);
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.no-results-card {
-    text-align: center;
-    background: var(--bg-light);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    border: 2px dashed var(--border-light);
-}
-
-/* Team Status Messages */
-.team-status-message {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.status-existing {
-    color: var(--success-green);
-}
-
-.status-new {
-    color: var(--halloween-orange);
-}
-
-.status-full {
-    color: var(--error-red);
-}
-
-/* Checkbox Styling */
-.checkbox-container {
-    margin: 1rem 0;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.checkbox-label input[type="checkbox"] {
-    width: auto;
-    margin-right: 0.5rem;
-    transform: scale(1.2);
-}
-
-.help-text {
-    display: block;
-    margin-top: 0.5rem;
-    color: var(--text-light);
-    font-size: 0.9rem;
-}
-
-/* Add-on Grid */
-.addon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin: 1rem 0;
-}
-
-.addon-card {
-    border: 2px solid var(--border-light);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    transition: var(--transition);
-    position: relative;
-}
-
-.addon-card::before {
-    content: '✨';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2rem;
-    opacity: 0;
-    transition: var(--transition);
-}
-
-.addon-card:hover::before {
-    opacity: 1;
-    animation: sparkle 1s ease-in-out infinite;
-}
-
-.addon-card:hover {
-    border-color: var(--halloween-orange);
-    box-shadow: var(--shadow-orange);
-    transform: scale(1.02);
-}
-
-.addon-label {
-    display: block;
-    cursor: pointer;
-    padding: 1.5rem;
-    background: var(--bg-white);
-    transition: var(--transition);
-}
-
-.addon-label:hover {
-    background: rgba(255, 140, 0, 0.05);
-}
-
-.addon-label input[type="checkbox"] {
-    width: auto;
-    margin: 0 0 1rem 0;
-    transform: scale(1.3);
-}
-
-.addon-content {
-    pointer-events: none;
-}
-
-.addon-title {
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 0.5rem;
-}
-
-.addon-price {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--halloween-orange);
-    margin-bottom: 0.5rem;
-}
-
-.addon-description {
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-/* Total Card */
-.total-card {
-    background: var(--halloween-gradient);
-    color: white;
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin: 2rem 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.total-card::before {
-    content: '💰';
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2rem;
-    opacity: 0.3;
-    animation: coinSpin 3s linear infinite;
-}
-
-.total-breakdown {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.total-line {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-}
-
-.addon-line {
-    opacity: 0.8;
-    font-size: 0.9rem;
-}
-
-.total-final {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.total-amount {
-    font-size: 1.5rem;
-}
-
-/* Payment Section */
-.payment-summary {
-    background: var(--bg-light);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    border: 2px solid var(--border-light);
-}
-
-.payment-demo {
-    background: rgba(0, 184, 148, 0.1);
-    border: 2px solid var(--success-green);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    text-align: center;
-    margin: 2rem 0;
-}
-
-.payment-demo h3 {
-    color: var(--success-green);
-    margin-bottom: 1rem;
-}
-
-.message-container {
-    margin-top: 1rem;
-    min-height: 2rem;
-}
-
-.message {
-    padding: 1rem;
-    border-radius: var(--border-radius-small);
-    margin: 0.5rem 0;
-}
-
-.success-message {
-    background: rgba(0, 184, 148, 0.1);
-    color: var(--success-green);
-    border: 1px solid var(--success-green);
-}
-
-.error-message {
-    background: rgba(231, 76, 60, 0.1);
-    color: var(--error-red);
-    border: 1px solid var(--error-red);
-}
-
-/* Success Styles */
-.registration-success {
-    text-align: center;
-    background: rgba(0, 184, 148, 0.1);
-    border: 2px solid var(--success-green);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-}
-
-.registration-success h2 {
-    color: var(--success-green);
-    margin-bottom: 1.5rem;
-}
-
-.success-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-}
-
-/* Starting Tee Specific Styles */
-.starting-tee-header {
-    background: var(--halloween-gradient);
-    color: var(--text-white);
-    padding: 3rem 2rem;
-    text-align: center;
-    border-radius: var(--border-radius);
-    margin-bottom: 3rem;
-}
-
-.starting-tee-header h1 {
-    color: var(--text-white);
-    margin-bottom: 0.
-    /* Starting Tee Specific Styles - CONTINUED */
-.starting-tee-header h1 {
-    color: var(--text-white);
-    margin-bottom: 0.5rem;
-}
-
-.subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.tournament-stats {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-}
-
-.stat-box {
-    text-align: center;
-}
-
-.stat-box .stat-number {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-white);
-}
-
-.stat-box .stat-label {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-/* Auto-Assignment Info */
-.auto-assignment-info {
-    margin-bottom: 3rem;
-}
-
-.assignment-flow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-}
-
-.flow-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    min-width: 100px;
-}
-
-.step-number {
-    width: 40px;
-    height: 40px;
-    background: var(--halloween-orange);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-.step-text {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.flow-arrow {
-    font-size: 1.5rem;
-    color: var(--halloween-orange);
-    font-weight: bold;
-}
-
-/* Starting Tee Section */
-.starting-tee-section {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    margin-bottom: 3rem;
-    box-shadow: var(--shadow-light);
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--border-light);
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.legend {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
-.legend-item {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-/* Course Layout */
-.course-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.course-side h3 {
-    text-align: center;
-    color: var(--halloween-orange);
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: var(--bg-light);
-    border-radius: var(--border-radius-small);
-}
-
-.holes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-/* Hole Cards */
-.hole-card {
-    background: var(--bg-white);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-light);
-    border: 2px solid var(--border-light);
-    transition: var(--transition);
-}
-
-.hole-card.available {
-    border-color: var(--success-green);
-    background: rgba(0, 184, 148, 0.05);
-}
-
-.hole-card.assigned {
-    border-color: var(--info-blue);
-    background: rgba(9, 132, 227, 0.05);
-}
-
-.hole-card.next-available {
-    border-color: var(--pumpkin-glow);
-    background: rgba(255, 170, 68, 0.15);
-    box-shadow: 0 0 15px rgba(255, 170, 68, 0.3);
-    animation: spookyGlow 2s ease-in-out infinite alternate;
-}
-
-/* Team Formation Cards */
-.forming-teams-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-}
-
-.forming-team-card {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    border: 2px solid var(--warning-yellow);
-    box-shadow: var(--shadow-light);
-    position: relative;
-}
-
-.forming-team-card::before {
-    content: '⏳';
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 1.5rem;
-    opacity: 0.5;
-}
-
-.team-progress-badge {
-    background: var(--warning-yellow);
-    color: var(--spooky-black);
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 8px;
-    background: var(--border-light);
-    border-radius: 4px;
-    overflow: hidden;
-    margin: 1rem 0;
-}
-
-.progress-fill {
-    height: 100%;
-    background: var(--halloween-gradient);
-    transition: var(--transition);
-}
-
-.player-chip {
-    display: inline-block;
-    background: var(--bg-light);
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    margin: 0.2rem;
-    font-size: 0.9rem;
-    border: 1px solid var(--border-light);
-}
-
-.player-chip.empty {
-    background: transparent;
-    border: 1px dashed var(--border-light);
-    color: var(--text-light);
-}
-
-/* Notifications */
-.hole-assignment-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--halloween-gradient);
-    color: white;
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-orange);
-    z-index: 1000;
-    animation: pumpkinBounce 0.5s ease-out;
-    max-width: 350px;
-}
-
-.notification-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-/* Sponsor Page Enhancements */
-.sponsors-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.sponsor-benefits {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 2rem 0;
-    flex-wrap: wrap;
-}
-
-.benefit-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 500;
-}
-
-.benefit-icon {
-    font-size: 1.2rem;
-}
-
-.sponsor-package {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    margin: 2rem 0;
-    box-shadow: var(--shadow-light);
-    border: 2px solid var(--border-light);
-    transition: var(--transition);
-}
-
-.sponsor-package.featured {
-    border-color: var(--halloween-orange);
-    background: linear-gradient(135deg, rgba(255, 140, 0, 0.05), rgba(75, 0, 130, 0.05));
-}
-
-.package-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.package-options-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-}
-
-.sponsor-contact {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    margin: 3rem 0;
-    text-align: center;
-    border: 2px solid var(--halloween-orange);
-}
-
-/* Mobile Responsiveness */
+/* MOBILE RESPONSIVE CARDS & FORMS */
 @media (max-width: 768px) {
+    .form-section {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+    
     .form-row {
         grid-template-columns: 1fr;
-    }
-    
-    .registration-options {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .registration-options .btn {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .team-result-card {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .addon-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .success-actions {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .success-actions .btn {
-        width: 100%;
-        max-width: 250px;
-    }
-    
-    .course-layout {
-        grid-template-columns: 1fr;
-    }
-    
-    .hero::before {
-        font-size: 1.5rem;
-        animation: floatAcross 20s linear infinite;
-    }
-    
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    
-    .nav-links {
         gap: 1rem;
     }
     
-    .nav-links a {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.9rem;
+    .info-card,
+    .link-card {
+        padding: 1.5rem;
     }
     
-    .tournament-stats {
-        gap: 2rem;
-    }
-    
-    .stat-box .stat-number {
-        font-size: 2rem;
-    }
-    
-    .assignment-flow {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .flow-arrow {
-        transform: rotate(90deg);
-    }
-    
-    .sponsor-benefits {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .leaderboard-header,
-    .leaderboard-row {
-        grid-template-columns: 60px 1fr 80px 60px;
-        font-size: 0.9rem;
-    }
-    
-    .stats-grid {
+    .info-grid,
+    .links-grid {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .form-section {
-        padding: 1rem;
-    }
-    
-    .total-card {
-        padding: 1rem;
-    }
-    
-    .registration-options .btn {
-        padding: 1rem;
-        font-size: 0.9rem;
-    }
-    
-    .hero {
-        padding: 2rem 1rem;
-    }
-    
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    
-    .nav-links {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    nav {
-        flex-direction: column;
         gap: 1rem;
     }
-}
-
-/* Print Styles */
-@media print {
-    .hero::before,
-    .form-section::before,
-    .addon-card::before,
-    .total-card::before {
-        display: none;
+    
+    .section-header h3 {
+        font-size: 1.2rem;
     }
     
-    .btn {
-        background: #333 !important;
-        color: white !important;
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 1rem;
+        font-size: 0.9rem;
     }
 }
