@@ -7,46 +7,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Define the functions FIRST, before anything tries to use them -->
-    <script>
-        function showExistingTeam() {
-            console.log('showExistingTeam called');
-            document.getElementById('existing-team-search').style.display = 'block';
-            document.getElementById('new-team-form').style.display = 'none';
-            document.getElementById('payment-section').style.display = 'none';
-        }
-
-        function showNewTeam() {
-            console.log('showNewTeam called');
-            document.getElementById('existing-team-search').style.display = 'none';
-            document.getElementById('new-team-form').style.display = 'block';
-            document.getElementById('payment-section').style.display = 'none';
-        }
-
-        function searchTeam() {
-            const searchTerm = document.getElementById('teamSearch').value;
-            const results = document.getElementById('teamSearchResults');
-            results.innerHTML = '<p>Searching for: ' + searchTerm + '</p>';
-        }
-
-        function updateIndividualTotal() {
-            let total = 85;
-            if (document.getElementById('personalMulligan').checked) {
-                total += 10;
-            }
-            if (document.getElementById('personalPuttingString').checked) {
-                total += 5;
-            }
-            document.getElementById('individualTotal').textContent = total;
-            document.getElementById('button-total').textContent = total;
-        }
-
-        function goBackToForm() {
-            document.getElementById('payment-section').style.display = 'none';
-            document.getElementById('new-team-form').style.display = 'block';
-        }
-    </script>
-
     <header>
         <nav>
             <div class="logo">
@@ -57,7 +17,7 @@
                 <li><a href="register.html">Register</a></li>
                 <li><a href="sponsors.html">Sponsors</a></li>
                 <li><a href="scoreboard.html">Scoreboard</a></li>
-                <li><a href="teetimes.html">Tee Times</a></li>
+                <li><a href="starting-tee.html">Starting Tee</a></li>
             </ul>
         </nav>
     </header>
@@ -222,24 +182,6 @@
         </div>
     </footer>
 
-    <script>
-        // Form handling
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('playerRegistrationForm');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Form submitted! (Demo mode)');
-                });
-            }
-
-            const paymentBtn = document.getElementById('submit-payment');
-            if (paymentBtn) {
-                paymentBtn.addEventListener('click', function() {
-                    alert('Payment completed! (Demo mode)');
-                });
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
