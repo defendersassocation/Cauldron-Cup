@@ -517,7 +517,9 @@ nav {
     border-color: var(--warning-yellow);
     background: rgba(253, 203, 110, 0.15);
     box-shadow: 0 0 15px rgba(253, 203,
-/* Halloween Enhancements - Add to existing styles.css */
+/* ===========================================
+   HALLOWEEN ENHANCEMENTS - ADD TO END OF FILE
+   =========================================== */
 
 /* Halloween animations */
 @keyframes spookyGlow {
@@ -535,6 +537,16 @@ nav {
     to { transform: translateY(-10px); }
 }
 
+@keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+}
+
+@keyframes coinSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 /* Enhanced Halloween colors */
 :root {
     --halloween-orange: #ff8c00;
@@ -545,6 +557,8 @@ nav {
     --pumpkin-glow: #ffaa44;
     --halloween-gradient: linear-gradient(135deg, #ff8c00, #4b0082, #ff4500);
     --pumpkin-gradient: linear-gradient(135deg, #ff8c00, #ffaa44);
+    --shadow-orange: 0 4px 20px rgba(255, 140, 0, 0.3);
+    --shadow-purple: 0 4px 20px rgba(75, 0, 130, 0.3);
 }
 
 /* Halloween background effect */
@@ -556,15 +570,54 @@ body::before {
     width: 100%;
     height: 100%;
     background-image: 
-        radial-gradient(circle at 20% 80%, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(75, 0, 130, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(255, 140, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(75, 0, 130, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 69, 0, 0.05) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
 }
 
-/* Enhanced header */
+/* Enhanced header with Halloween gradient */
 header {
     background: linear-gradient(135deg, #1a1a1a, #4b0082) !important;
+    border-bottom: 3px solid #ff8c00 !important;
+}
+
+/* Enhanced logo with glow */
+.logo h1 {
+    background: var(--pumpkin-gradient) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    filter: drop-shadow(0 0 10px rgba(255, 170, 68, 0.5)) !important;
+}
+
+/* Enhanced nav links */
+.nav-links a {
+    color: #f8f8ff !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--pumpkin-gradient);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.nav-links a:hover::before {
+    left: 0;
+}
+
+.nav-links a:hover {
+    color: #1a1a1a !important;
+    box-shadow: var(--shadow-orange) !important;
 }
 
 /* Glowing title animation */
@@ -573,23 +626,40 @@ header {
 }
 
 /* Hero floating icons */
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
 .hero::before {
-    content: '🎃 👻 🦇 🕷️ 🎃 👻 🦇 🕷️';
+    content: '🎃 👻 🦇 🕷️ 🎃 👻 🦇 🕷️ 🎃 👻 🦇 🕷️';
     position: absolute;
     top: 20px;
     left: -100%;
     width: 200%;
     font-size: 2rem;
-    opacity: 0.1;
-    animation: floatAcross 20s linear infinite;
+    opacity: 0.15;
+    animation: floatAcross 25s linear infinite;
+    white-space: nowrap;
 }
 
 /* Bouncing hero title */
 .hero-content h1 {
     animation: pumpkinBounce 2s ease-in-out infinite alternate;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5) !important;
+}
+
+/* Enhanced event details */
+.event-details {
+    border: 2px solid rgba(255, 140, 0, 0.3) !important;
+    box-shadow: inset 0 0 20px rgba(255, 170, 68, 0.2) !important;
 }
 
 /* Form spider web decoration */
+.form-section {
+    position: relative;
+}
+
 .form-section::before {
     content: '🕸️';
     position: absolute;
@@ -599,7 +669,20 @@ header {
     opacity: 0.3;
 }
 
+/* Enhanced form inputs */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--halloween-orange) !important;
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2) !important;
+}
+
 /* Button shine effect */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
 .btn::before {
     content: '';
     position: absolute;
@@ -608,9 +691,144 @@ header {
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: all 0.3s ease;
+    transition: all 0.6s ease;
 }
 
 .btn:hover::before {
     left: 100%;
+}
+
+/* Enhanced primary buttons */
+.btn-primary {
+    background: var(--pumpkin-gradient) !important;
+    border: 2px solid var(--deep-orange) !important;
+}
+
+.btn-primary:hover {
+    box-shadow: var(--shadow-orange) !important;
+    filter: brightness(1.1);
+}
+
+/* Enhanced secondary buttons */
+.btn-secondary {
+    background: linear-gradient(135deg, var(--witch-purple), var(--halloween-purple)) !important;
+}
+
+.btn-secondary:hover {
+    box-shadow: var(--shadow-purple) !important;
+    filter: brightness(1.2);
+}
+
+/* Enhanced cards */
+.info-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 140, 0, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover::before {
+    opacity: 1;
+}
+
+.info-card:hover {
+    transform: translateY(-5px) rotateZ(0.5deg) !important;
+    box-shadow: var(--shadow-orange) !important;
+    border-color: var(--halloween-orange) !important;
+}
+
+/* Enhanced addon cards */
+.addon-card {
+    position: relative;
+}
+
+.addon-card::before {
+    content: '✨';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.addon-card:hover::before {
+    opacity: 1;
+    animation: sparkle 1s ease-in-out infinite;
+}
+
+.addon-card:hover {
+    border-color: var(--halloween-orange) !important;
+    box-shadow: var(--shadow-orange) !important;
+    transform: scale(1.02);
+}
+
+/* Enhanced total card */
+.total-card {
+    background: var(--halloween-gradient) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.total-card::before {
+    content: '💰';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    opacity: 0.3;
+    animation: coinSpin 3s linear infinite;
+}
+
+/* Enhanced leaderboard */
+.leaderboard-row.leader {
+    background: rgba(255, 140, 0, 0.1) !important;
+    border-left: 4px solid var(--halloween-orange) !important;
+}
+
+/* Starting tee enhancements */
+.starting-tee-header {
+    background: var(--halloween-gradient) !important;
+}
+
+.hole-card.next-available {
+    border-color: var(--pumpkin-glow) !important;
+    background: rgba(255, 170, 68, 0.15) !important;
+    box-shadow: 0 0 15px rgba(255, 170, 68, 0.3) !important;
+}
+
+.hole-card.assigned {
+    border-color: var(--halloween-purple) !important;
+    background: rgba(75, 0, 130, 0.05) !important;
+}
+
+/* Enhanced notifications */
+.hole-assignment-notification {
+    background: var(--halloween-gradient) !important;
+    color: white !important;
+    border-radius: 15px !important;
+    box-shadow: var(--shadow-orange) !important;
+    animation: pumpkinBounce 0.5s ease-out;
+}
+
+/* Mobile enhancements */
+@media (max-width: 768px) {
+    .hero::before {
+        font-size: 1.5rem;
+        animation: floatAcross 20s linear infinite;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
 }
