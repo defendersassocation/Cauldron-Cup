@@ -27,14 +27,17 @@
             <div class="registration-header">
                 <h1>Individual Player Registration</h1>
                 <p class="registration-subtitle">Register as an individual player - $85 per person</p>
+                <div class="auto-assignment-notice">
+                    <p>🎯 <strong>Auto-Assignment:</strong> When your team reaches 4 players, you'll automatically be assigned a starting hole!</p>
+                </div>
             </div>
 
             <div class="registration-options">
-                <button class="btn btn-primary" onclick="showExistingTeam()">
+                <button class="btn btn-primary" onclick="tournamentManager.showExistingTeam()">
                     <span class="btn-icon">👥</span>
                     Join Existing Team
                 </button>
-                <button class="btn btn-secondary" onclick="showNewTeam()">
+                <button class="btn btn-secondary" onclick="tournamentManager.showNewTeam()">
                     <span class="btn-icon">⭐</span>
                     Create New Team
                 </button>
@@ -46,7 +49,7 @@
                 <div class="search-container">
                     <div class="form-group">
                         <input type="text" id="teamSearch" placeholder="Enter team name to search...">
-                        <button onclick="searchTeam()" class="btn btn-primary">Search Teams</button>
+                        <button onclick="tournamentManager.searchTeam()" class="btn btn-primary">Search Teams</button>
                     </div>
                 </div>
                 <div id="teamSearchResults" class="search-results"></div>
@@ -108,7 +111,7 @@
                     <div class="addon-grid">
                         <div class="addon-card">
                             <label class="addon-label">
-                                <input type="checkbox" id="personalMulligan" onchange="updateIndividualTotal()">
+                                <input type="checkbox" id="personalMulligan" onchange="tournamentManager.updateIndividualTotal()">
                                 <div class="addon-content">
                                     <div class="addon-title">Mulligan Bag</div>
                                     <div class="addon-price">$10</div>
@@ -119,7 +122,7 @@
                         
                         <div class="addon-card">
                             <label class="addon-label">
-                                <input type="checkbox" id="personalPuttingString" onchange="updateIndividualTotal()">
+                                <input type="checkbox" id="personalPuttingString" onchange="tournamentManager.updateIndividualTotal()">
                                 <div class="addon-content">
                                     <div class="addon-title">12" Putting String</div>
                                     <div class="addon-price">$5</div>
@@ -159,19 +162,7 @@
 
             <!-- Payment Section -->
             <div id="payment-section" class="form-section" style="display: none;">
-                <h2>💳 Complete Your Registration</h2>
-                <div id="payment-summary" class="payment-summary"></div>
-                
-                <div class="payment-demo">
-                    <h3>Demo Payment Mode</h3>
-                    <p>This is a demonstration. No actual payment will be processed.</p>
-                    <button id="submit-payment" class="btn btn-primary btn-large">
-                        ✅ Complete Registration (Demo)
-                    </button>
-                </div>
-                
-                <button onclick="goBackToForm()" class="btn btn-outline">← Back to Registration Form</button>
-                <div id="payment-messages" class="message-container"></div>
+                <!-- Will be populated by JavaScript -->
             </div>
         </div>
     </main>
@@ -183,5 +174,42 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Initialize tournament manager when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            window.tournamentManager = new TournamentManager();
+        });
+        
+        // Global functions for onclick handlers
+        function showExistingTeam() {
+            if (window.tournamentManager) {
+                window.tournamentManager.showExistingTeam();
+            }
+        }
+        
+        function showNewTeam() {
+            if (window.tournamentManager) {
+                window.tournamentManager.showNewTeam();
+            }
+        }
+        
+        function searchTeam() {
+            if (window.tournamentManager) {
+                window.tournamentManager.searchTeam();
+            }
+        }
+        
+        function updateIndividualTotal() {
+            if (window.tournamentManager) {
+                window.tournamentManager.updateIndividualTotal();
+            }
+        }
+        
+        function goBackToForm() {
+            if (window.tournamentManager) {
+                window.tournamentManager.goBackToForm();
+            }
+        }
+    </script>
 </body>
 </html>
