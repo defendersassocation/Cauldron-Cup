@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starting Tee Assignments - Cauldron Cup 2025</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>🎃 Cauldron Cup 2025 🦇</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="sponsors.html">Sponsors</a></li>
+                <li><a href="scoreboard.html">Scoreboard</a></li>
+                <li><a href="starting-tee.html">Starting Tee</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="container">
+            <!-- Header Section -->
+            <div class="starting-tee-header">
+                <h1 class="halloween-title">🏌️‍♂️ Starting Tee Assignments 🏌️‍♀️</h1>
+                <p class="subtitle">Tournament Day: October 10th, 2025 • Cocoa Beach Country Club</p>
+                <div class="tournament-stats">
+                    <div class="stat-box">
+                        <span class="stat-number" id="complete-teams">0</span>
+                        <span class="stat-label">Complete Teams</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number" id="total-players">0</span>
+                        <span class="stat-label">Total Players</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number" id="holes-assigned">0</span>
+                        <span class="stat-label">Holes Assigned</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Auto-Assignment Info -->
+            <div class="auto-assignment-info">
+                <div class="info-card featured">
+                    <h3>🎯 Auto-Assignment System</h3>
+                    <p>When your team reaches <strong>4 players</strong>, you'll automatically be assigned a starting hole!</p>
+                    <div class="assignment-flow">
+                        <div class="flow-step">
+                            <span class="step-number">1</span>
+                            <span class="step-text">Register Players</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <span class="step-number">2</span>
+                            <span class="step-text">Team Reaches 4</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <span class="step-number">3</span>
+                            <span class="step-text">Auto-Assigned Hole</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Starting Tee Grid -->
+            <div class="starting-tee-section">
+                <div class="section-header">
+                    <h2>🏌️ Hole Assignments</h2>
+                    <div class="legend">
+                        <span class="legend-item available">🟢 Available</span>
+                        <span class="legend-item assigned">🔵 Assigned</span>
+                        <span class="legend-item next">⭐ Next Available</span>
+                    </div>
+                </div>
+                
+                <!-- Course Layout -->
+                <div class="course-layout">
+                    <div class="course-side">
+                        <h3>Front 9</h3>
+                        <div class="holes-grid" id="front-nine">
+                            <!-- Holes 1-9 will be populated here -->
+                        </div>
+                    </div>
+                    <div class="course-side">
+                        <h3>Back 9</h3>
+                        <div class="holes-grid" id="back-nine">
+                            <!-- Holes 10-18 will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Teams Forming Section -->
+            <div class="teams-forming-section">
+                <h2>⏳ Teams Still Forming</h2>
+                <p class="section-description">These teams need more players to get their hole assignment:</p>
+                <div class="forming-teams-grid" id="forming-teams">
+                    <!-- Incomplete teams will be shown here -->
+                </div>
+            </div>
+            
+            <!-- Individual Player Registration CTA -->
+            <div class="registration-cta">
+                <div class="cta-content">
+                    <h3>🎯 Join a Team or Create Your Own!</h3>
+                    <p>Register as an individual player and join an existing team or create your own.</p>
+                    <p><strong>When your team reaches 4 players, you'll automatically be assigned a starting hole!</strong></p>
+                    <div class="cta-buttons">
+                        <a href="register.html" class="btn btn-primary btn-large">Register Now</a>
+                        <a href="scoreboard.html" class="btn btn-secondary">View Live Scores</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Assignment Notifications Container -->
+            <div id="notifications-container"></div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Defender's Association</p>
+        </div>
+    </footer>
+    
+    <script src="starting-tee.js"></script>
+    <script>
+        // Initialize the Starting Tee Manager when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            window.startingTeeManager = new StartingTeeManager();
+        });
+        
+        // Listen for team completion events from registration
+        window.addEventListener('teamComplete', function(event) {
+            if (window.startingTeeManager) {
+                window.startingTeeManager.handleTeamComplete(event.detail);
+            }
+        });
+        
+        // Listen for new player registrations
+        window.addEventListener('playerRegistered', function(event) {
+            if (window.startingTeeManager) {
+                window.startingTeeManager.handlePlayerRegistration(event.detail);
+            }
+        });
+        
+        // Refresh data when storage changes (other tabs/windows)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'tournament-teams' || e.key === 'registeredTeams') {
+                if (window.startingTeeManager) {
+                    window.startingTeeManager.refreshData();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
