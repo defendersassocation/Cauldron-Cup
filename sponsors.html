@@ -5,32 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sponsorship Opportunities - Cauldron Cup 2025</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Contact popup styles */
+        .contact-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .contact-popup-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.3);
+            border: 3px solid var(--halloween-orange);
+            position: relative;
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--halloween-orange);
+        }
+        
+        .popup-close:hover {
+            color: var(--deep-orange);
+        }
+        
+        .contact-emails {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--halloween-orange);
+        }
+        
+        .email-item {
+            margin: 1rem 0;
+            padding: 0.8rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+        }
+        
+        .email-label {
+            font-weight: bold;
+            color: var(--halloween-orange);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        
+        .email-address {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            word-break: break-all;
+        }
+        
+        .copy-btn {
+            background: var(--halloween-orange);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn:hover {
+            background: var(--deep-orange);
+        }
+        
+        .copy-success {
+            color: var(--success-green);
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Define the email function FIRST -->
     <script>
-        function emailSponsors(packageType) {
-            console.log('Email function called for:', packageType);
+        function showContactInfo(packageType) {
+            console.log('Showing contact info for:', packageType);
             
-            const subject = encodeURIComponent(`Cauldron Cup 2025 - ${packageType} Inquiry`);
-            const body = encodeURIComponent(`Hello,
-
-I am interested in learning more about the ${packageType} for the Cauldron Cup 2025 golf tournament.
-
-Please provide me with more details about this sponsorship opportunity, including:
-- Available dates and deadlines
-- Customization options
-- Payment terms
-- Additional benefits
-
-Thank you for your time, and I look forward to hearing from you.
-
-Best regards,`);
+            // Update popup title
+            document.getElementById('popup-package-type').textContent = packageType;
             
-            const mailtoLink = `mailto:Monique.Nelson@edwardjones.com,christopher.sanford.2@spaceforce.mil,charnetta.mcdonald.1@spaceforce.mil?subject=${subject}&body=${body}`;
+            // Show the popup
+            document.getElementById('contact-popup').style.display = 'flex';
+        }
+        
+        function closeContactPopup() {
+            document.getElementById('contact-popup').style.display = 'none';
+        }
+        
+        function copyEmail(email, buttonElement) {
+            // Copy email to clipboard
+            navigator.clipboard.writeText(email).then(function() {
+                // Show success message
+                const successMsg = buttonElement.nextElementSibling;
+                successMsg.style.display = 'inline';
+                successMsg.textContent = 'Copied! ✓';
+                
+                // Hide success message after 2 seconds
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 2000);
+            }).catch(function() {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const successMsg = buttonElement.nextElementSibling;
+                successMsg.style.display = 'inline';
+                successMsg.textContent = 'Copied! ✓';
+                
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 2000);
+            });
+        }
+        
+        function copyAllEmails() {
+            const allEmails = 'Monique.Nelson@edwardjones.com; christopher.sanford.2@spaceforce.mil; charnetta.mcdonald.1@spaceforce.mil';
             
-            console.log('Opening email client with:', mailtoLink);
-            window.location.href = mailtoLink;
+            navigator.clipboard.writeText(allEmails).then(function() {
+                const button = document.getElementById('copy-all-btn');
+                const originalText = button.textContent;
+                button.textContent = 'All Emails Copied! ✓';
+                button.style.background = var(--success-green);
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                }, 2000);
+            });
         }
     </script>
 
@@ -53,7 +181,7 @@ Best regards,`);
         <div class="container">
             <div class="sponsors-header">
                 <h1 class="halloween-title">Sponsorship Opportunities</h1>
-                <p class="intro-text">Defender's Association and gain valuable exposure for your business!</p>
+                <p class="intro-text">Support the 45th Security Forces Squadron Defender's Association and gain valuable exposure for your business!</p>
                 <div class="sponsor-benefits">
                     <div class="benefit-item">
                         <span class="benefit-icon">🎯</span>
@@ -101,8 +229,8 @@ Best regards,`);
                         </ul>
                     </div>
                     
-                    <button class="btn btn-primary" onclick="emailSponsors('Starting Tee Sponsor Package')">
-                        🎃 Inquire About Starting Tee Sponsorship
+                    <button class="btn btn-primary" onclick="showContactInfo('Starting Tee Sponsor Package')">
+                        🎃 Get Contact Information
                     </button>
                 </div>
 
@@ -116,7 +244,7 @@ Best regards,`);
                     <div class="package-option">
                         <h3>Basic Hole Sponsorship - $500</h3>
                         <ul>
-                            <li>Dedicated hole sponsorship with company sign/banner at designated hole</li>
+                            <li>Dedicated hole sponsorship with company sign/banner</li>
                             <li>Company name listed in event program</li>
                             <li>Company logo/name on event website</li>
                             <li>Social media mentions</li>
@@ -131,12 +259,11 @@ Best regards,`);
                             <li>Opportunity to set up table/tent at sponsored hole</li>
                             <li>Interact with golfers, offer samples, or run mini-contests</li>
                             <li>Product demonstration opportunities</li>
-                            <li>Subject to course rules and regulations</li>
                         </ul>
                     </div>
                     
-                    <button class="btn btn-primary" onclick="emailSponsors('Hole Sponsor Package')">
-                        👻 Inquire About Hole Sponsorship
+                    <button class="btn btn-primary" onclick="showContactInfo('Hole Sponsor Package')">
+                        👻 Get Contact Information
                     </button>
                 </div>
 
@@ -151,28 +278,26 @@ Best regards,`);
                         <div class="package-option">
                             <h3>Tournament Shirts - $2,500</h3>
                             <ul>
-                                <li>Each player receives a shirt with sponsor logo/name on sleeve</li>
-                                <li>18" x 24" sign at registration and raffle areas</li>
-                                <li>Logo on tournament website</li>
-                                <li>Social media recognition</li>
+                                <li>Each player receives a shirt with sponsor logo</li>
+                                <li>18" x 24" sign at registration area</li>
+                                <li>Website and social media recognition</li>
                             </ul>
                         </div>
                         
                         <div class="package-option">
                             <h3>Tournament Hats - $1,800</h3>
                             <ul>
-                                <li>Each player receives a hat with sponsor logo/name</li>
-                                <li>18" x 24" sign at registration and raffle areas</li>
-                                <li>Website and social media recognition</li>
+                                <li>Each player receives a hat with sponsor logo</li>
+                                <li>Registration area signage</li>
+                                <li>Digital recognition package</li>
                             </ul>
                         </div>
                         
                         <div class="package-option">
                             <h3>Golf Towels - $1,000</h3>
                             <ul>
-                                <li>Each player receives a towel with sponsor logo/name</li>
-                                <li>18" x 24" sign at registration and raffle areas</li>
-                                <li>Digital recognition package</li>
+                                <li>Each player receives a towel with sponsor logo</li>
+                                <li>Registration area recognition</li>
                             </ul>
                         </div>
                         
@@ -181,13 +306,12 @@ Best regards,`);
                             <ul>
                                 <li>Cups available for purchase by players</li>
                                 <li>Cup features sponsor logo/name</li>
-                                <li>Point-of-sale recognition</li>
                             </ul>
                         </div>
                     </div>
                     
-                    <button class="btn btn-primary" onclick="emailSponsors('Swag Bag Sponsor Package')">
-                        🦇 Inquire About Swag Bag Sponsorship
+                    <button class="btn btn-primary" onclick="showContactInfo('Swag Bag Sponsor Package')">
+                        🦇 Get Contact Information
                     </button>
                 </div>
 
@@ -215,14 +339,14 @@ Best regards,`);
                                 <li>1st Place Team</li>
                                 <li>2nd Place Team</li>
                                 <li>3rd Place Team</li>
-                                <li>Biggest Loser/Most Honest (Last place)</li>
+                                <li>Most Honest Team (Last place)</li>
                             </ul>
                         </div>
                         
                         <div class="prize-category">
                             <h3>🎭 Fun Prizes</h3>
                             <ul class="prize-list">
-                                <li>Best Dressed/Costume Contest</li>
+                                <li>Best Costume Contest</li>
                                 <li>Most Spirited Team</li>
                                 <li>Best Team Name</li>
                                 <li>Sportsmanship Award</li>
@@ -230,20 +354,8 @@ Best regards,`);
                         </div>
                     </div>
                     
-                    <div class="package-benefits">
-                        <h3>Prize Sponsorship Benefits Include:</h3>
-                        <ul>
-                            <li>Company logo on prize presentation materials</li>
-                            <li>Verbal recognition during awards ceremony</li>
-                            <li>Photo opportunities with winners</li>
-                            <li>Social media coverage and recognition</li>
-                            <li>Event program listing</li>
-                            <li>Website recognition</li>
-                        </ul>
-                    </div>
-                    
-                    <button class="btn btn-primary" onclick="emailSponsors('Prize Sponsor Package')">
-                        🕷️ Inquire About Prize Sponsorship
+                    <button class="btn btn-primary" onclick="showContactInfo('Prize Sponsor Package')">
+                        🕷️ Get Contact Information
                     </button>
                 </div>
 
@@ -260,7 +372,6 @@ Best regards,`);
                             <li>Logo prominently displayed on live scoreboard</li>
                             <li>Mentioned in scoreboard updates</li>
                             <li>Social media integration</li>
-                            <li>Mobile app recognition</li>
                         </ul>
                     </div>
                     
@@ -269,46 +380,26 @@ Best regards,`);
                         <ul>
                             <li>Logo on all starting tee assignment displays</li>
                             <li>Recognition in assignment notifications</li>
-                            <li>Website integration</li>
                         </ul>
                     </div>
                     
-                    <button class="btn btn-primary" onclick="emailSponsors('Digital Sponsor Package')">
-                        🎃 Inquire About Digital Sponsorship
+                    <button class="btn btn-primary" onclick="showContactInfo('Digital Sponsor Package')">
+                        🎃 Get Contact Information
                     </button>
                 </div>
             </div>
             
-            <!-- Contact Information -->
+            <!-- General Contact CTA -->
             <div class="sponsor-contact">
                 <div class="contact-card">
                     <h2>🧙‍♀️ Ready to Sponsor?</h2>
-                    <p>Contact our sponsorship team to discuss opportunities and customize a package that works for your business.</p>
-                    
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <strong>📧 Email:</strong>
-                            <p>
-                                <a href="mailto:Monique.Nelson@edwardjones.com">Monique.Nelson@edwardjones.com</a><br>
-                                <a href="mailto:christopher.sanford.2@spaceforce.mil">christopher.sanford.2@spaceforce.mil</a><br>
-                                <a href="mailto:charnetta.mcdonald.1@spaceforce.mil">charnetta.mcdonald.1@spaceforce.mil</a>
-                            </p>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <strong>📅 Event Date:</strong>
-                            <p>October 10th, 2025</p>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <strong>📍 Location:</strong>
-                            <p>Cocoa Beach Country Club<br>Cocoa Beach, FL</p>
-                        </div>
-                    </div>
+                    <p>Contact our sponsorship team to discuss opportunities and customize a package for your business.</p>
                     
                     <div class="sponsor-cta">
-                        <button class="btn btn-primary btn-large" onclick="emailSponsors('General Sponsorship Inquiry')">
-                            📧 Contact Sponsorship Team
+                        <button class="btn btn-primary btn-large" onclick="showContactInfo('General Sponsorship Inquiry')">
+                            📧 Get Contact Information
+                                                    <button class="btn btn-primary btn-large" onclick="showContactInfo('General Sponsorship Inquiry')">
+                            📧 Get Contact Information
                         </button>
                     </div>
                 </div>
@@ -321,5 +412,58 @@ Best regards,`);
             <p>&copy; 2025 Defender's Association</p>
         </div>
     </footer>
+
+    <!-- Contact Information Popup -->
+    <div id="contact-popup" class="contact-popup">
+        <div class="contact-popup-content">
+            <button class="popup-close" onclick="closeContactPopup()">&times;</button>
+            
+            <h2>📧 Contact Information</h2>
+            <p><strong>For: <span id="popup-package-type">Sponsorship Inquiry</span></strong></p>
+            
+            <div class="contact-emails">
+                <div class="email-item">
+                    <span class="email-label">Primary Contact:</span>
+                    <div class="email-address">Monique.Nelson@edwardjones.com</div>
+                    <button class="copy-btn" onclick="copyEmail('Monique.Nelson@edwardjones.com', this)">Copy Email</button>
+                    <span class="copy-success" style="display: none;"></span>
+                </div>
+                
+                <div class="email-item">
+                    <span class="email-label">Tournament Director:</span>
+                    <div class="email-address">christopher.sanford.2@spaceforce.mil</div>
+                    <button class="copy-btn" onclick="copyEmail('christopher.sanford.2@spaceforce.mil', this)">Copy Email</button>
+                    <span class="copy-success" style="display: none;"></span>
+                </div>
+                
+                <div class="email-item">
+                    <span class="email-label">Event Coordinator:</span>
+                    <div class="email-address">charnetta.mcdonald.1@spaceforce.mil</div>
+                    <button class="copy-btn" onclick="copyEmail('charnetta.mcdonald.1@spaceforce.mil', this)">Copy Email</button>
+                    <span class="copy-success" style="display: none;"></span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 1.5rem;">
+                <button id="copy-all-btn" class="btn btn-secondary" onclick="copyAllEmails()">
+                    📋 Copy All Emails
+                </button>
+            </div>
+            
+            <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                <p>📅 <strong>Event Date:</strong> October 10th, 2025</p>
+                <p>📍 <strong>Location:</strong> Cocoa Beach Country Club, FL</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Close popup when clicking outside -->
+    <script>
+        document.getElementById('contact-popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeContactPopup();
+            }
+        });
+    </script>
 </body>
 </html>
