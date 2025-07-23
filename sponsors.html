@@ -17,103 +17,306 @@
                 <li><a href="register.html">Register</a></li>
                 <li><a href="sponsors.html">Sponsors</a></li>
                 <li><a href="scoreboard.html">Scoreboard</a></li>
-                <li><a href="teetimes.html">Tee Times</a></li>
+                <li><a href="starting-tee.html">Starting Tee</a></li>
             </ul>
         </nav>
     </header>
-
+    
     <main>
         <div class="container">
-            <h1>Sponsorship Opportunities</h1>
-            <p class="intro-text">Support the 45th Security Forces Squadron Defender's Association and gain valuable exposure for your business!</p>
-
+            <div class="sponsors-header">
+                <h1>Sponsorship Opportunities</h1>
+                <p class="intro-text">Support the 45th Security Forces Squadron Defender's Association and gain valuable exposure for your business!</p>
+                <div class="sponsor-benefits">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🎯</span>
+                        <span>Targeted Military Audience</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">📱</span>
+                        <span>Digital & Social Media Exposure</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🤝</span>
+                        <span>Community Partnership</span>
+                    </div>
+                </div>
+            </div>
+            
             <div class="sponsor-packages">
+                <!-- Starting Tee Sponsor Package -->
+                <div class="sponsor-package featured">
+                    <div class="package-header">
+                        <h2>🏌️ Starting Tee Sponsor Package</h2>
+                        <p class="package-subtitle">Premium visibility at tournament start</p>
+                    </div>
+                    
+                    <div class="package-option highlight">
+                        <h3>Starting Tee Title Sponsor - $2,000</h3>
+                        <ul>
+                            <li>Exclusive naming rights: "Your Company Starting Tee"</li>
+                            <li>Large banner at first tee area</li>
+                            <li>Logo on all starting tee assignments</li>
+                            <li>Mentioned in all tournament announcements</li>
+                            <li>Premium placement on website and social media</li>
+                            <li>Recognition during opening ceremony</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="package-option">
+                        <h3>Individual Starting Tee Sponsorship - $750</h3>
+                        <ul>
+                            <li>Sponsor a specific starting hole (1-18)</li>
+                            <li>Company banner at designated starting tee</li>
+                            <li>Listed on starting tee assignment board</li>
+                            <li>Social media recognition</li>
+                            <li>Website listing</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="emailSponsors('Starting Tee Sponsor Package')">
+                        Inquire About Starting Tee Sponsorship
+                    </button>
+                </div>
+
                 <!-- Hole Sponsor Package -->
                 <div class="sponsor-package">
-                    <h2>Hole Sponsor Package</h2>
-                    <p class="package-subtitle">Perfect for local businesses or individuals</p>
+                    <div class="package-header">
+                        <h2>⛳ Hole Sponsor Package</h2>
+                        <p class="package-subtitle">Perfect for local businesses or individuals</p>
+                    </div>
                     
                     <div class="package-option">
                         <h3>Basic Hole Sponsorship - $500</h3>
                         <ul>
-                            <li>Dedicated hole sponsorship with company sign/banner at designated tee box</li>
+                            <li>Dedicated hole sponsorship with company sign/banner at designated hole</li>
                             <li>Company name listed in event program</li>
                             <li>Company logo/name on event website</li>
                             <li>Social media mentions</li>
+                            <li>Recognition in tournament materials</li>
                         </ul>
                     </div>
-
+                    
                     <div class="package-option">
                         <h3>Hole Activation (Optional Add-on) - $800</h3>
                         <ul>
                             <li>All Basic Hole Sponsorship benefits</li>
                             <li>Opportunity to set up table/tent at sponsored hole</li>
                             <li>Interact with golfers, offer samples, or run mini-contests</li>
-                            <li>Subject to course rules</li>
+                            <li>Product demonstration opportunities</li>
+                            <li>Subject to course rules and regulations</li>
                         </ul>
                     </div>
-
-                    <button class="btn btn-primary" onclick="emailSponsors('Hole Sponsor Package')">Inquire About Hole Sponsorship</button>
+                    
+                    <button class="btn btn-primary" onclick="emailSponsors('Hole Sponsor Package')">
+                        Inquire About Hole Sponsorship
+                    </button>
                 </div>
 
                 <!-- Swag Bag Sponsor Package -->
                 <div class="sponsor-package">
-                    <h2>Swag Bag Sponsor Package</h2>
-                    <p class="package-subtitle">Get your brand in every player's hands</p>
+                    <div class="package-header">
+                        <h2>🎁 Swag Bag Sponsor Package</h2>
+                        <p class="package-subtitle">Get your brand in every player's hands</p>
+                    </div>
                     
-                    <div class="package-option">
-                        <h3>Shirts - $2,500</h3>
-                        <ul>
-                            <li>Each player receives a shirt with sponsor logo/name on sleeve</li>
-                            <li>18" x 24" sign at registration and raffle areas</li>
-                        </ul>
+                    <div class="package-options-grid">
+                        <div class="package-option">
+                            <h3>Tournament Shirts - $2,500</h3>
+                            <ul>
+                                <li>Each player receives a shirt with sponsor logo/name on sleeve</li>
+                                <li>18" x 24" sign at registration and raffle areas</li>
+                                <li>Logo on tournament website</li>
+                                <li>Social media recognition</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="package-option">
+                            <h3>Tournament Hats - $1,800</h3>
+                            <ul>
+                                <li>Each player receives a hat with sponsor logo/name</li>
+                                <li>18" x 24" sign at registration and raffle areas</li>
+                                <li>Website and social media recognition</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="package-option">
+                            <h3>Golf Towels - $1,000</h3>
+                            <ul>
+                                <li>Each player receives a towel with sponsor logo/name</li>
+                                <li>18" x 24" sign at registration and raffle areas</li>
+                                <li>Digital recognition package</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="package-option">
+                            <h3>16oz Cups - Contact for Pricing</h3>
+                            <ul>
+                                <li>Cups available for purchase by players</li>
+                                <li>Cup features sponsor logo/name</li>
+                                <li>Point-of-sale recognition</li>
+                            </ul>
+                        </div>
                     </div>
-
-                    <div class="package-option">
-                        <h3>Hats - $1,800</h3>
-                        <ul>
-                            <li>Each player receives a hat with sponsor logo/name</li>
-                            <li>18" x 24" sign at registration and raffle areas</li>
-                        </ul>
-                    </div>
-
-                    <div class="package-option">
-                        <h3>Towels - $1,000</h3>
-                        <ul>
-                            <li>Each player receives a towel with sponsor logo/name</li>
-                            <li>18" x 24" sign at registration and raffle areas</li>
-                        </ul>
-                    </div>
-
-                    <div class="package-option">
-                        <h3>16oz Cups - Contact for Pricing</h3>
-                        <ul>
-                            <li>Cups available for purchase by players</li>
-                            <li>Cup features sponsor logo/name</li>
-                        </ul>
-                    </div>
-
-                    <button class="btn btn-primary" onclick="emailSponsors('Swag Bag Sponsor Package')">Inquire About Swag Bag Sponsorship</button>
+                    
+                    <button class="btn btn-primary" onclick="emailSponsors('Swag Bag Sponsor Package')">
+                        Inquire About Swag Bag Sponsorship
+                    </button>
                 </div>
 
                 <!-- Prize Sponsor Package -->
                 <div class="sponsor-package">
-                    <h2>Prize Sponsor Package</h2>
-                    <p class="package-subtitle">Sponsor exciting tournament competitions</p>
+                    <div class="package-header">
+                        <h2>🏆 Prize Sponsor Package</h2>
+                        <p class="package-subtitle">Sponsor exciting tournament competitions</p>
+                    </div>
                     
-                    <div class="prize-list">
-                        <h3>Available Prize Sponsorships:</h3>
+                    <div class="prize-categories">
+                        <div class="prize-category">
+                            <h3>🎯 Skill-Based Prizes</h3>
+                            <ul class="prize-list">
+                                <li>Hole-in-One Prize</li>
+                                <li>Longest Drive (Male & Female)</li>
+                                <li>Closest to the Pin</li>
+                                <li>Straightest Drive</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="prize-category">
+                            <h3>🏅 Team Prizes</h3>
+                            <ul class="prize-list">
+                                <li>1st Place Team</li>
+                                <li>2nd Place Team</li>
+                                <li>3rd Place Team</li>
+                                <li>Biggest Loser/Most Honest (Last place)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="prize-category">
+                            <h3>🎭 Fun Prizes</h3>
+                            <ul class="prize-list">
+                                <li>Best Dressed/Costume Contest</li>
+                                <li>Most Spirited Team</li>
+                                <li>Best Team Name</li>
+                                <li>Sportsmanship Award</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="package-benefits">
+                        <h3>Prize Sponsorship Benefits Include:</h3>
                         <ul>
-                            <li>Hole-in-One Prize</li>
-                            <li>Longest Drive (Male & Female)</li>
-                            <li>Closest to the Pin</li>
-                            <li>Biggest Loser/Most Honest (Last place team)</li>
-                            <li>Best Dressed or Costume Contest</li>
-                            <li>1st, 2nd, 3rd Place Teams</li>
+                            <li>Company logo on prize presentation materials</li>
+                            <li>Verbal recognition during awards ceremony</li>
+                            <li>Photo opportunities with winners</li>
+                            <li>Social media coverage and recognition</li>
+                            <li>Event program listing</li>
+                            <li>Website recognition</li>
                         </ul>
                     </div>
+                    
+                    <button class="btn btn-primary" onclick="emailSponsors('Prize Sponsor Package')">
+                        Inquire About Prize Sponsorship
+                    </button>
+                </div>
 
-                    <div class="package-benefits">
-                        <h3>Benefits Include:</h3>
+                <!-- Digital Sponsor Package -->
+                <div class="sponsor-package">
+                    <div class="package-header">
+                        <h2>📱 Digital Sponsor Package</h2>
+                        <p class="package-subtitle">Modern digital marketing opportunities</p>
+                    </div>
+                    
+                    <div class="package-option">
+                        <h3>Live Scoreboard Sponsor - $1,200</h3>
                         <ul>
-                            <li>Company
+                            <li>Logo prominently displayed on live scoreboard</li>
+                            <li>Mentioned in scoreboard updates</li>
+                            <li>Social media integration</li>
+                            <li>Mobile app recognition</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="package-option">
+                        <h3>Starting Tee Assignment Sponsor - $800</h3>
+                        <ul>
+                            <li>Logo on all starting tee assignment displays</li>
+                            <li>Recognition in assignment notifications</li>
+                            <li>Website integration</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="emailSponsors('Digital Sponsor Package')">
+                        Inquire About Digital Sponsorship
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="sponsor-contact">
+                <div class="contact-card">
+                    <h2>Ready to Sponsor?</h2>
+                    <p>Contact our sponsorship team to discuss opportunities and customize a package that works for your business.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <strong>📧 Email:</strong>
+                            <p>
+                                <a href="mailto:Monique.Nelson@edwardjones.com">Monique.Nelson@edwardjones.com</a><br>
+                                <a href="mailto:christopher.sanford.2@spaceforce.mil">christopher.sanford.2@spaceforce.mil</a><br>
+                                <a href="mailto:charnetta.mcdonald.1@spaceforce.mil">charnetta.mcdonald.1@spaceforce.mil</a>
+                            </p>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <strong>📅 Event Date:</strong>
+                            <p>October 10th, 2025</p>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <strong>📍 Location:</strong>
+                            <p>Cocoa Beach Country Club<br>Cocoa Beach, FL</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sponsor-cta">
+                        <button class="btn btn-primary btn-large" onclick="emailSponsors('General Sponsorship Inquiry')">
+                            📧 Contact Sponsorship Team
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Defender's Association</p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+    <script>
+        // Global function for sponsor emails
+        function emailSponsors(packageType) {
+            const subject = encodeURIComponent(`Cauldron Cup 2025 - ${packageType} Inquiry`);
+            const body = encodeURIComponent(`Hello,
+
+I am interested in learning more about the ${packageType} for the Cauldron Cup 2025 golf tournament.
+
+Please provide me with more details about this sponsorship opportunity, including:
+- Available dates and deadlines
+- Customization options
+- Payment terms
+- Additional benefits
+
+Thank you for your time, and I look forward to hearing from you.
+
+Best regards,`);
+            
+            const mailtoLink = `mailto:Monique.Nelson@edwardjones.com,christopher.sanford.2@spaceforce.mil,charnetta.mcdonald.1@spaceforce.mil?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+        }
+    </script>
+</body>
+</html>
